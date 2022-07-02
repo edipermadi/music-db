@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/edipermadi/music-db/pkg/theory"
+	"github.com/edipermadi/music-db/pkg/theory/scale"
 	"go.uber.org/zap"
 )
 
@@ -17,53 +17,29 @@ type scaleEntry struct {
 var scaleEntries []scaleEntry
 
 func buildScale(logger *zap.Logger, writer io.Writer) error {
-	allScales := []theory.ScaleType{
-		theory.Minoric,
-		theory.Thaptic,
-		theory.Lothic,
-		theory.Phratic,
-		theory.Aerathic,
-		theory.Epathic,
-		theory.Mynic,
-		theory.Rothic,
-		theory.Eporic,
-		theory.Zyphic,
-		theory.Epogic,
-		theory.Lanic,
-		theory.Pyrric,
-		theory.Aeoloric,
-		theory.Gonic,
-		theory.Dalic,
-		theory.Dygic,
-		theory.Daric,
-		theory.Lonic,
-		theory.Phradic,
-		theory.Bolic,
-		theory.Saric,
-		theory.Zoptic,
-		theory.Aeraphic,
-		theory.Byptic,
-		theory.Aeolic,
-		theory.Koptic,
-		theory.Mixolyric,
-		theory.Lydic,
-		theory.Stathic,
-		theory.Dadic,
-		theory.Phrynic,
-	}
+	allScales := scale.AllScales()
+	max := len(allScales)
 
 	_, _ = fmt.Fprintf(writer, "INSERT INTO scales (name, number)\nVALUES\n")
-
-	max := len(allScales)
 	for i, v := range allScales {
-		scaleEntries = append(scaleEntries, scaleEntry{int64(i + 1), v.String(), v.Number()})
+		scaleEntries = append(scaleEntries, scaleEntry{ID: int64(i + 1), Name: v.String(), Number: v.Number()})
 
 		if i < max-1 {
 			_, _ = fmt.Fprintf(writer, "\t('%s', %d),\n", v.String(), v.Number())
 		} else {
-			_, _ = fmt.Fprintf(writer, "\t('%s', %d);\n", v.String(), v.Number())
+			_, _ = fmt.Fprintf(writer, "\t('%s', %d);\n\n", v.String(), v.Number())
 		}
 	}
 
 	return nil
+}
+
+func scaleID(wanted scale.Type) int64 {
+	for _, entry := range scaleEntries {
+		if entry.Number == wanted.Number() {
+			return entry.ID
+		}
+	}
+
+	return 0
 }

@@ -1,7 +1,7 @@
-package theory
+package scale
 
 // String returns scale name
-func (s ScaleType) String() string {
+func (s Type) String() string {
 	return [...]string{
 		// invalid
 		"InvalidScale",

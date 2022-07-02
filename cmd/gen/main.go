@@ -20,13 +20,25 @@ func main() {
 	flag.StringVar(&outFile, "output", "seed.sql", "path to output file")
 	flag.Parse()
 
-	file, err := os.OpenFile(path.Clean(outFile), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0600)
+	file, err := os.OpenFile(path.Clean(outFile), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644) // #nosec
 	if err != nil {
 		logger.With(zap.String("file", outFile)).Fatal("failed to open output file")
 	}
 
 	defer func() { _ = file.Close() }()
+
+	// build pitch
+	if err := buildPitch(logger, file); err != nil {
+		logger.With(zap.String("file", outFile)).Fatal("failed to build pitch seed")
+	}
+
+	// build scale
 	if err := buildScale(logger, file); err != nil {
 		logger.With(zap.String("file", outFile)).Fatal("failed to build scale seed")
+	}
+
+	// build scale pitches
+	if err := buildScalePitches(logger, file); err != nil {
+		logger.With(zap.String("file", outFile)).Fatal("failed to build scale pitches seed")
 	}
 }

@@ -8,7 +8,11 @@ GOSEC		:= $(GOBIN)/gosec
 COVERAGE_FILE	:= coverage.out
 
 .PHONY: build
-build:  format lint vet sec coverage
+build:  clean format lint vet sec coverage seed.sql
+
+.PHONY: clean
+clean:
+	rm -f seed.sql
 
 .PHONY: sec-install
 sec-install:
