@@ -8,9 +8,11 @@ CREATE TABLE pitches
 
 CREATE TABLE scales
 (
-    id     BIGSERIAL PRIMARY KEY,
-    name   TEXT    NOT NULL,
-    number INTEGER NOT NULL
+    id           BIGSERIAL PRIMARY KEY,
+    name         TEXT    NOT NULL,
+    number       INTEGER NOT NULL,
+    perfection   INTEGER NOT NULL,
+    imperfection INTEGER NOT NULL
 );
 
 CREATE TABLE scale_pitches

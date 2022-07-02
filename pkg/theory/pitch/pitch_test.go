@@ -110,3 +110,18 @@ func TestType_Transpose(t *testing.T) {
 func TestAllPitches(t *testing.T) {
 	assert.NotEmpty(t, pitch.AllPitches())
 }
+
+func TestType_NextFifth(t *testing.T) {
+	assert.Equal(t, pitch.FNatural, pitch.CNatural.PreviousFifth())
+	assert.Equal(t, pitch.ASharp, pitch.FNatural.PreviousFifth())
+	assert.Equal(t, pitch.DSharp, pitch.ASharp.PreviousFifth())
+	assert.Equal(t, pitch.GSharp, pitch.DSharp.PreviousFifth())
+	assert.Equal(t, pitch.CSharp, pitch.GSharp.PreviousFifth())
+	assert.Equal(t, pitch.FSharp, pitch.CSharp.PreviousFifth())
+	assert.Equal(t, pitch.BNatural, pitch.FSharp.PreviousFifth())
+	assert.Equal(t, pitch.ENatural, pitch.BNatural.PreviousFifth())
+	assert.Equal(t, pitch.ANatural, pitch.ENatural.PreviousFifth())
+	assert.Equal(t, pitch.DNatural, pitch.ANatural.PreviousFifth())
+	assert.Equal(t, pitch.GNatural, pitch.DNatural.PreviousFifth())
+	assert.Equal(t, pitch.CNatural, pitch.GNatural.PreviousFifth())
+}
