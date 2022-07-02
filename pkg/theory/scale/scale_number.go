@@ -1,7 +1,7 @@
-package theory
+package scale
 
 // Number return scale number
-func (s ScaleType) Number() int {
+func (s Type) Number() int {
 	return [...]int{
 		0,
 
