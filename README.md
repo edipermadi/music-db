@@ -1,6 +1,6 @@
 # music-db
 
-Music Database is an attempt to make an encyclopedic database of scales based on [William Zeitler](reference https://allthescales.org) classification.
+Music Database is an attempt to make an encyclopedic database of scales based on [William Zeitler](https://allthescales.org) classification.
 
 ## Running test
 
