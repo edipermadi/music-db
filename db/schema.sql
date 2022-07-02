@@ -17,8 +17,9 @@ CREATE TABLE scales
 
 CREATE TABLE scale_pitches
 (
-    id       BIGSERIAL PRIMARY KEY,
-    scale_id BIGINT NOT NULL REFERENCES scales (id),
-    tonic_id BIGINT NOT NULL REFERENCES pitches (id),
-    pitch_id BIGINT NOT NULL REFERENCES pitches (id)
+    id         BIGSERIAL PRIMARY KEY,
+    scale_id   BIGINT  NOT NULL REFERENCES scales (id),
+    tonic_id   BIGINT  NOT NULL REFERENCES pitches (id),
+    pitch_id   BIGINT  NOT NULL REFERENCES pitches (id),
+    is_perfect BOOLEAN NOT NULL
 )
