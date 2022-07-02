@@ -34,6 +34,8 @@ func TestPitchType_Value(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.Name, func(t *testing.T) {
 			assert.Equal(t, tc.Name, tc.Pitch.String())
+			assert.Equal(t, tc.Number, tc.Pitch.Number())
+			assert.Equal(t, tc.Frequency, tc.Pitch.Frequency())
 		})
 	}
 }
@@ -103,4 +105,8 @@ func TestType_Transpose(t *testing.T) {
 			assert.Equal(t, tc.Expected, tc.Given.Transpose(tc.Amount))
 		})
 	}
+}
+
+func TestAllPitches(t *testing.T) {
+	assert.NotEmpty(t, pitch.AllPitches())
 }

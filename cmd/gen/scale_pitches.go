@@ -22,11 +22,12 @@ func buildScalePitches(logger *zap.Logger, writer io.Writer) error {
 	allScales := scale.AllScales()
 	allPitches := pitch.AllPitches()
 
+	logger.Info("generating scale_pitches seed")
+
 	var id int64 = 1
 	_, _ = fmt.Fprintf(writer, "INSERT INTO scale_pitches (scale_id, tonic_id, pitch_id)\nVALUES\n")
 	for i, v := range allScales {
 		for j, w := range allPitches {
-			logger.Info(fmt.Sprintf("%s - %s", v, w))
 			pitches := v.Pitches(w)
 			for k, x := range pitches {
 				v1, v2, v3 := scaleID(v), pitchID(w), pitchID(x)

@@ -20,6 +20,7 @@ func buildScale(logger *zap.Logger, writer io.Writer) error {
 	allScales := scale.AllScales()
 	max := len(allScales)
 
+	logger.Info("generating scale seed")
 	_, _ = fmt.Fprintf(writer, "INSERT INTO scales (name, number)\nVALUES\n")
 	for i, v := range allScales {
 		scaleEntries = append(scaleEntries, scaleEntry{ID: int64(i + 1), Name: v.String(), Number: v.Number()})
