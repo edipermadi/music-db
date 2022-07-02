@@ -5,10 +5,10 @@ func (s ScaleType) Number() int {
 	return [...]int{
 		0,
 
-		// 3 notes
+		// 3 notes, reference: reference https://allthescales.org/scales.php?n=3
 		2184,
 
-		// 4 notes
+		// 4 notes, reference: reference https://allthescales.org/scales.php?n=4
 		2193, 2328, 2244, 3144,
 		2196, 2376, 2628, 2322,
 		2185, 2200, 2440, 3140,

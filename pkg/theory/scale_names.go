@@ -5,10 +5,11 @@ func (s ScaleType) String() string {
 	return [...]string{
 		// invalid
 		"InvalidScale",
-		// 3 notes
+
+		// 3 notes, reference https://allthescales.org/scales.php?n=3
 		"Minoric",
 
-		// 4 notes
+		// 4 notes, reference https://allthescales.org/scales.php?n=4
 		"Thaptic", "Lothic", "Phratic", "Aerathic",
 		"Epathic", "Mynic", "Rothic", "Eporic",
 		"Zyphic", "Epogic", "Lanic", "Pyrric",
