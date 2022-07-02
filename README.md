@@ -26,8 +26,9 @@ SELECT
 FROM scale_pitches sp
     JOIN scales s   ON s.id  = sp.scale_id
     JOIN pitches p1 ON p1.id = sp.tonic_id
-    JOIN pitches p2 on p2.id = sp.pitch_id
-
-WHERE s.name='Minoric' and p1.name = 'C'
+    JOIN pitches p2 ON p2.id = sp.pitch_id
+WHERE
+    s.name='Minoric' AND
+    p1.name = 'C'
 ORDER BY sp.id;
 ```
