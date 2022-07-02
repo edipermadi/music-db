@@ -416,3 +416,30 @@ func (s Type) Pitches(tonic pitch.Type) []pitch.Type {
 
 	return pitches
 }
+
+// Perfection stores perfection profile
+type Perfection struct {
+	Perfection   int
+	Imperfection int
+}
+
+func (s Type) Perfection() Perfection {
+	pitchMap := make(map[pitch.Type]struct{})
+	pitches := s.Pitches(pitch.CNatural)
+
+	for _, v := range pitches {
+		pitchMap[v] = struct{}{}
+	}
+
+	var result Perfection
+	for _, v := range pitches {
+		_, found := pitchMap[v.NextFifth()]
+		if found {
+			result.Perfection++
+		} else {
+			result.Imperfection++
+		}
+	}
+
+	return result
+}

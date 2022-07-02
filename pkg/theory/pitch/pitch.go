@@ -127,3 +127,65 @@ func fromInt(v int) Type {
 		return Invalid
 	}
 }
+
+func (p Type) NextFifth() Type {
+	switch p {
+	case CNatural:
+		return GNatural
+	case CSharp:
+		return GSharp
+	case DNatural:
+		return ANatural
+	case DSharp:
+		return ASharp
+	case ENatural:
+		return BNatural
+	case FNatural:
+		return CNatural
+	case FSharp:
+		return CSharp
+	case GNatural:
+		return DNatural
+	case GSharp:
+		return DSharp
+	case ANatural:
+		return ENatural
+	case ASharp:
+		return FNatural
+	case BNatural:
+		return FSharp
+	default:
+		return Invalid
+	}
+}
+
+func (p Type) PreviousFifth() Type {
+	switch p {
+	case CNatural:
+		return FNatural
+	case CSharp:
+		return FSharp
+	case DNatural:
+		return GNatural
+	case DSharp:
+		return GSharp
+	case ENatural:
+		return ANatural
+	case FNatural:
+		return ASharp
+	case FSharp:
+		return BNatural
+	case GNatural:
+		return CNatural
+	case GSharp:
+		return CSharp
+	case ANatural:
+		return DNatural
+	case ASharp:
+		return DSharp
+	case BNatural:
+		return ENatural
+	default:
+		return Invalid
+	}
+}
