@@ -218,5 +218,26 @@ func (s Type) String() string {
 		"Racryllic", "Epicryllic", "Stygyllic", "Syryllic", "Stythyllic", "Aerothyllic", "Mixoryllic", "Thanyllic",
 		"Roryllic", "Epotyllic", "Epidyllic", "Kaptyllic",
 		"MajorDiminished", "MinorDiminished",
+
+		// 9 notes, reference https://allthescales.org/scales.php?n=9
+		"Aerycrygic", "Gadygic", "Solygic", "Zylygic", "Garygic", "Sorygic", "Godygic", "Epithygic", "Ionoptygic",
+		"Kalygic", "Ionodygic", "Bythygic", "Epygic", "Marygic", "Gaptygic", "Aeroptygic", "Mylygic", "Galygic",
+		"Mixolydygic", "Ionycrygic", "Zoptygic", "Phrygygic", "Locrygic", "Gonygic", "Aeracrygic", "Aerathygic", "Dorygic",
+		"Dycrygic", "Aeolygic", "Dydygic", "Tholygic", "Rynygic", "Bycrygic", "Zacrygic", "Panygic", "Dyrygic",
+		"Loptygic", "Katylygic", "Phradygic", "Mixodygic", "Katalygic", "Katorygic", "Dogygic", "Zodygic", "Madygic",
+		"Bagygic", "Mathygic", "Styptygic", "Zolygic", "Sydygic", "Katygic", "Zyphygic", "Aeralygic", "Ryptygic",
+		"Apinygic", "Katagygic", "Radygic", "Gothygic", "Lythygic", "Bacrygic", "Aerygic", "Dathygic", "Boptygic",
+		"Epyrygic", "Aeradygic", "Staptygic", "Danygic", "Goptygic", "Epocrygic", "Rocrygic", "Zyrygic", "Sadygic",
+		"Aeolorygic", "Thydygic", "Gycrygic", "Lyrygic", "Modygic", "Katodygic", "Moptygic", "Ionocrygic", "Gocrygic",
+		"Manygic", "Polygic", "Stanygic", "Thaptygic", "Eporygic", "Aerynygic", "Thyptygic", "Ionogygic", "Aeolarygic",
+		"Sathygic", "Ladygic", "Sarygic", "Thacrygic", "Aeolynygic", "Thadygic", "Lynygic", "Doptygic", "Ionilygic",
+		"Phrygic", "Aeranygic", "Dothygic", "Lydygic", "Stadygic", "Byptygic", "Stodygic", "Zynygic", "Lonygic",
+		"Zothygic", "Aeolathygic", "Aeolocrygic", "Phroptygic", "Kodygic", "Eparygic", "Ionygic", "Gyptygic", "Aerythygic",
+		"Aeolacrygic", "Raptygic", "Gythygic", "Pyrygic", "Rycrygic", "Phrathygic", "Badygic", "Phrocrygic", "Starygic",
+		"Kyrygic", "Sythygic", "Katycrygic", "Tharygic", "Sylygic", "Lothygic", "Darygic", "Monygic", "Styrygic",
+		"Porygic", "Mocrygic", "Aeolyrygic", "Barygic", "Katarygic", "Aerocrygic", "Zanygic", "Aeolonygic", "Aeolanygic",
+		"Kaptygic", "Sacrygic", "Padygic", "Epilygic", "Kynygic", "Stophygic", "Ionidygic", "Stonygic", "Stalygic",
+		"Koptygic", "Raphygic", "Zycrygic", "Mycrygic", "Laptygic", "Pylygic", "Rodygic", "Epolygic", "Epidygic",
+		"Phronygic", "Stynygic", "Zydygic",
 	}[s]
 }
