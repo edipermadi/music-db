@@ -531,6 +531,419 @@ const (
 	Aeolocrimic    Type = iota
 	Phrygimic      Type = iota
 	WholeTone      Type = iota
+	Lydian         Type = iota
+	Mixolydian     Type = iota
+	Aeolian        Type = iota
+	Locrian        Type = iota
+	Ionian         Type = iota
+	Dorian         Type = iota
+	Phrygian       Type = iota
+	Ionythian      Type = iota
+	Aeolyrian      Type = iota
+	Gorian         Type = iota
+	Aeolodian      Type = iota
+	Doptian        Type = iota
+	Aeraphian      Type = iota
+	Zacrian        Type = iota
+	Ionarian       Type = iota
+	Dynian         Type = iota
+	Zydian         Type = iota
+	Zathian        Type = iota
+	Radian         Type = iota
+	Stonian        Type = iota
+	Syptian        Type = iota
+	Aeolacrian     Type = iota
+	Zythian        Type = iota
+	Dyrian         Type = iota
+	Koptian        Type = iota
+	Thocrian       Type = iota
+	Aeolanian      Type = iota
+	Danian         Type = iota
+	Zogian         Type = iota
+	Epyrian        Type = iota
+	Lycrian        Type = iota
+	Daptian        Type = iota
+	Kygian         Type = iota
+	Mocrian        Type = iota
+	Zynian         Type = iota
+	Phrolian       Type = iota
+	Ionagian       Type = iota
+	Aeodian        Type = iota
+	Kycrian        Type = iota
+	Epygian        Type = iota
+	Zaptian        Type = iota
+	Kagian         Type = iota
+	Soptian        Type = iota
+	Ionyptian      Type = iota
+	Gyrian         Type = iota
+	Zalian         Type = iota
+	Stolian        Type = iota
+	Bylian         Type = iota
+	Zothian        Type = iota
+	Thonian        Type = iota
+	Phrorian       Type = iota
+	Stadian        Type = iota
+	Thodian        Type = iota
+	Dogian         Type = iota
+	Mixopyrian     Type = iota
+	Garian         Type = iota
+	Epathian       Type = iota
+	Mythian        Type = iota
+	Sogian         Type = iota
+	Gogian         Type = iota
+	Rothian        Type = iota
+	Katarian       Type = iota
+	Stylian        Type = iota
+	Stathian       Type = iota
+	Mixonyphian    Type = iota
+	Magian         Type = iota
+	Dadian         Type = iota
+	Aeolylian      Type = iota
+	Gycrian        Type = iota
+	Pyrian         Type = iota
+	Epogian        Type = iota
+	Lanian         Type = iota
+	Paptian        Type = iota
+	Ionacrian      Type = iota
+	Gathian        Type = iota
+	Ionyphian      Type = iota
+	Phrynian       Type = iota
+	Ionycrian      Type = iota
+	Phradian       Type = iota
+	Aeolorian      Type = iota
+	Gonian         Type = iota
+	Dalian         Type = iota
+	Dygian         Type = iota
+	Zolian         Type = iota
+	Aerathian      Type = iota
+	Sarian         Type = iota
+	Zoptian        Type = iota
+	Aeracrian      Type = iota
+	Byptian        Type = iota
+	Darian         Type = iota
+	Lonian         Type = iota
+	Aeopian        Type = iota
+	Rygian         Type = iota
+	Epynian        Type = iota
+	Ionogian       Type = iota
+	Kydian         Type = iota
+	Gaptian        Type = iota
+	Tharian        Type = iota
+	Epycrian       Type = iota
+	Gocrian        Type = iota
+	Katolian       Type = iota
+	Thoptian       Type = iota
+	Bagian         Type = iota
+	Kyrian         Type = iota
+	Sonian         Type = iota
+	Parian         Type = iota
+	Ionaptian      Type = iota
+	Thylian        Type = iota
+	Lolian         Type = iota
+	Thagian        Type = iota
+	Kolian         Type = iota
+	Dycrian        Type = iota
+	Stygian        Type = iota
+	Aeolygian      Type = iota
+	Aerogian       Type = iota
+	Dacrian        Type = iota
+	Baptian        Type = iota
+	Dagian         Type = iota
+	Aeolydian      Type = iota
+	Stythian       Type = iota
+	Kothian        Type = iota
+	Pygian         Type = iota
+	Rodian         Type = iota
+	Sorian         Type = iota
+	Monian         Type = iota
+	Thalian        Type = iota
+	Zorian         Type = iota
+	Aeragian       Type = iota
+	Epothian       Type = iota
+	Salian         Type = iota
+	Lyptian        Type = iota
+	Katonian       Type = iota
+	Gyphian        Type = iota
+	Thacrian       Type = iota
+	Dodian         Type = iota
+	Aeolyptian     Type = iota
+	Aeolonian      Type = iota
+	Aeradian       Type = iota
+	Aeolagian      Type = iota
+	Zyrian         Type = iota
+	Aeolathian     Type = iota
+	Bythian        Type = iota
+	Padian         Type = iota
+	Rolian         Type = iota
+	Pydian         Type = iota
+	Thygian        Type = iota
+	Katalian       Type = iota
+	Saptian        Type = iota
+	Aerodian       Type = iota
+	Macrian        Type = iota
+	Rogian         Type = iota
+	Boptian        Type = iota
+	Stogian        Type = iota
+	Thynian        Type = iota
+	Thycrian       Type = iota
+	Aeoladian      Type = iota
+	Dylian         Type = iota
+	Eponian        Type = iota
+	Katygian       Type = iota
+	Starian        Type = iota
+	Phrathian      Type = iota
+	Stalian        Type = iota
+	Stoptian       Type = iota
+	Zygian         Type = iota
+	Kataptian      Type = iota
+	Aeolaptian     Type = iota
+	Pothian        Type = iota
+	Bygian         Type = iota
+	Morian         Type = iota
+	Rycrian        Type = iota
+	Ronian         Type = iota
+	Stycrian       Type = iota
+	Katorian       Type = iota
+	Epythian       Type = iota
+	Kaptian        Type = iota
+	Phraptian      Type = iota
+	Bacrian        Type = iota
+	Katythian      Type = iota
+	Madian         Type = iota
+	Aerygian       Type = iota
+	Pylian         Type = iota
+	Ionathian      Type = iota
+	Katocrian      Type = iota
+	Phryptian      Type = iota
+	Katynian       Type = iota
+	Aerycrian      Type = iota
+	Ganian         Type = iota
+	Eparian        Type = iota
+	Lyrian         Type = iota
+	Ionopian       Type = iota
+	Aeologian      Type = iota
+	Zadian         Type = iota
+	Sygian         Type = iota
+	Phralian       Type = iota
+	Phrogian       Type = iota
+	Rathian        Type = iota
+	Rythian        Type = iota
+	Donian         Type = iota
+	Aeoloptian     Type = iota
+	Panian         Type = iota
+	Lodian         Type = iota
+	Solian         Type = iota
+	Ionolian       Type = iota
+	Laptian        Type = iota
+	Lygian         Type = iota
+	Logian         Type = iota
+	Lalian         Type = iota
+	Sothian        Type = iota
+	Phrocrian      Type = iota
+	Thogian        Type = iota
+	Katathian      Type = iota
+	Modian         Type = iota
+	Barian         Type = iota
+	Mixolocrian    Type = iota
+	Sagian         Type = iota
+	Aeolothian     Type = iota
+	Socrian        Type = iota
+	Tholian        Type = iota
+	Ralian         Type = iota
+	Syrian         Type = iota
+	Stodian        Type = iota
+	Ionocrian      Type = iota
+	Zycrian        Type = iota
+	Ionygian       Type = iota
+	Zarian         Type = iota
+	Phrythian      Type = iota
+	Rorian         Type = iota
+	Bolian         Type = iota
+	Bothian        Type = iota
+	Katadian       Type = iota
+	Kodian         Type = iota
+	Ranian         Type = iota
+	Ladian         Type = iota
+	Podian         Type = iota
+	Ionothian      Type = iota
+	Kanian         Type = iota
+	Zylian         Type = iota
+	Zodian         Type = iota
+	Golian         Type = iota
+	Dyptian        Type = iota
+	Ryphian        Type = iota
+	Gylian         Type = iota
+	Aeolycrian     Type = iota
+	Pynian         Type = iota
+	Zanian         Type = iota
+	Palian         Type = iota
+	Stothian       Type = iota
+	Aerorian       Type = iota
+	Katagian       Type = iota
+	Phronian       Type = iota
+	Banian         Type = iota
+	Aeronian       Type = iota
+	Loptian        Type = iota
+	Ionodian       Type = iota
+	Bogian         Type = iota
+	Mogian         Type = iota
+	Docrian        Type = iota
+	Epadian        Type = iota
+	Aerynian       Type = iota
+	Bycrian        Type = iota
+	Pathian        Type = iota
+	Mydian         Type = iota
+	Thyptian       Type = iota
+	Phrothian      Type = iota
+	Katycrian      Type = iota
+	Ionalian       Type = iota
+	Dolian         Type = iota
+	Porian         Type = iota
+	Aerylian       Type = iota
+	Zagian         Type = iota
+	Lagian         Type = iota
+	Tyrian         Type = iota
+	Mixonorian     Type = iota
+	Pagian         Type = iota
+	Aeolythian     Type = iota
+	Molian         Type = iota
+	Staptian       Type = iota
+	Mothian        Type = iota
+	Aeranian       Type = iota
+	Ragian         Type = iota
+	Larian         Type = iota
+	Lythian        Type = iota
+	Stydian        Type = iota
+	Lorian         Type = iota
+	Ionadian       Type = iota
+	Bocrian        Type = iota
+	Mixolythian    Type = iota
+	Thadian        Type = iota
+	Sanian         Type = iota
+	Ionydian       Type = iota
+	Epydian        Type = iota
+	Katydian       Type = iota
+	Mathian        Type = iota
+	Aeryptian      Type = iota
+	Pythian        Type = iota
+	Katylian       Type = iota
+	Bydian         Type = iota
+	Bynian         Type = iota
+	Galian         Type = iota
+	Zonian         Type = iota
+	Myrian         Type = iota
+	Katogian       Type = iota
+	Stacrian       Type = iota
+	Styrian        Type = iota
+	Ionyrian       Type = iota
+	Phrodian       Type = iota
+	Pycrian        Type = iota
+	Gyptian        Type = iota
+	Katacrian      Type = iota
+	Sodian         Type = iota
+	Bathian        Type = iota
+	Mylian         Type = iota
+	Godian         Type = iota
+	Thorian        Type = iota
+	Zocrian        Type = iota
+	Stanian        Type = iota
+	Epanian        Type = iota
+	Konian         Type = iota
+	Stocrian       Type = iota
+	Kalian         Type = iota
+	Phroptian      Type = iota
+	Dydian         Type = iota
+	Katyptian      Type = iota
+	Epodian        Type = iota
+	Mygian         Type = iota
+	Pacrian        Type = iota
+	Aerocrian      Type = iota
+	Aeolarian      Type = iota
+	Kythian        Type = iota
+	Bonian         Type = iota
+	Badian         Type = iota
+	Katodian       Type = iota
+	Sadian         Type = iota
+	Dothian        Type = iota
+	Moptian        Type = iota
+	Aeryrian       Type = iota
+	Epagian        Type = iota
+	Raptian        Type = iota
+	Epolian        Type = iota
+	Sythian        Type = iota
+	Sydian         Type = iota
+	Epocrian       Type = iota
+	Kylian         Type = iota
+	Gacrian        Type = iota
+	Borian         Type = iota
+	Sycrian        Type = iota
+	Gadian         Type = iota
+	Aeolocrian     Type = iota
+	Mixodorian     Type = iota
+	Dathian        Type = iota
+	Katoptian      Type = iota
+	Ponian         Type = iota
+	Kadian         Type = iota
+	Gynian         Type = iota
+	Thyphian       Type = iota
+	Polian         Type = iota
+	Thanian        Type = iota
+	Epacrian       Type = iota
+	Sathian        Type = iota
+	Lathian        Type = iota
+	Aeralian       Type = iota
+	Kynian         Type = iota
+	Stynian        Type = iota
+	Epyphian       Type = iota
+	Pogian         Type = iota
+	Aeraptian      Type = iota
+	Epylian        Type = iota
+	Gamian         Type = iota
+	Kathian        Type = iota
+	Lylian         Type = iota
+	Epalian        Type = iota
+	Eporian        Type = iota
+	Rylian         Type = iota
+	Epaptian       Type = iota
+	Byrian         Type = iota
+	Katanian       Type = iota
+	Katyrian       Type = iota
+	Rynian         Type = iota
+	Korian         Type = iota
+	Lynian         Type = iota
+	Malian         Type = iota
+	Synian         Type = iota
+	Phragian       Type = iota
+	Manian         Type = iota
+	Marian         Type = iota
+	Mycrian        Type = iota
+	Ionorian       Type = iota
+	Phrydian       Type = iota
+	Zyptian        Type = iota
+	Katothian      Type = iota
+	Phrylian       Type = iota
+	Kocrian        Type = iota
+	Ionanian       Type = iota
+	Aerothian      Type = iota
+	Stagian        Type = iota
+	Lothian        Type = iota
+	Phrycrian      Type = iota
+	Kyptian        Type = iota
+	Ionylian       Type = iota
+	Gydian         Type = iota
+	Kogian         Type = iota
+	Rarian         Type = iota
+	Aerolian       Type = iota
+	Karian         Type = iota
+	Myptian        Type = iota
+	Rydian         Type = iota
+	Aeolynian      Type = iota
+	Aeroptian      Type = iota
+	Phryrian       Type = iota
+	Gothian        Type = iota
+	Storian        Type = iota
+	Pyptian        Type = iota
+	Thydian        Type = iota
 )
 
 // AllScales return all scales
@@ -1066,6 +1479,421 @@ func AllScales() []Type {
 		Aeolocrimic,
 		Phrygimic,
 		WholeTone,
+
+		// 7 notes
+		Lydian,
+		Mixolydian,
+		Aeolian,
+		Locrian,
+		Ionian,
+		Dorian,
+		Phrygian,
+		Ionythian,
+		Aeolyrian,
+		Gorian,
+		Aeolodian,
+		Doptian,
+		Aeraphian,
+		Zacrian,
+		Ionarian,
+		Dynian,
+		Zydian,
+		Zathian,
+		Radian,
+		Stonian,
+		Syptian,
+		Aeolacrian,
+		Zythian,
+		Dyrian,
+		Koptian,
+		Thocrian,
+		Aeolanian,
+		Danian,
+		Zogian,
+		Epyrian,
+		Lycrian,
+		Daptian,
+		Kygian,
+		Mocrian,
+		Zynian,
+		Phrolian,
+		Ionagian,
+		Aeodian,
+		Kycrian,
+		Epygian,
+		Zaptian,
+		Kagian,
+		Soptian,
+		Ionyptian,
+		Gyrian,
+		Zalian,
+		Stolian,
+		Bylian,
+		Zothian,
+		Thonian,
+		Phrorian,
+		Stadian,
+		Thodian,
+		Dogian,
+		Mixopyrian,
+		Garian,
+		Epathian,
+		Mythian,
+		Sogian,
+		Gogian,
+		Rothian,
+		Katarian,
+		Stylian,
+		Stathian,
+		Mixonyphian,
+		Magian,
+		Dadian,
+		Aeolylian,
+		Gycrian,
+		Pyrian,
+		Epogian,
+		Lanian,
+		Paptian,
+		Ionacrian,
+		Gathian,
+		Ionyphian,
+		Phrynian,
+		Ionycrian,
+		Phradian,
+		Aeolorian,
+		Gonian,
+		Dalian,
+		Dygian,
+		Zolian,
+		Aerathian,
+		Sarian,
+		Zoptian,
+		Aeracrian,
+		Byptian,
+		Darian,
+		Lonian,
+		Aeopian,
+		Rygian,
+		Epynian,
+		Ionogian,
+		Kydian,
+		Gaptian,
+		Tharian,
+		Epycrian,
+		Gocrian,
+		Katolian,
+		Thoptian,
+		Bagian,
+		Kyrian,
+		Sonian,
+		Parian,
+		Ionaptian,
+		Thylian,
+		Lolian,
+		Thagian,
+		Kolian,
+		Dycrian,
+		Stygian,
+		Aeolygian,
+		Aerogian,
+		Dacrian,
+		Baptian,
+		Dagian,
+		Aeolydian,
+		Stythian,
+		Kothian,
+		Pygian,
+		Rodian,
+		Sorian,
+		Monian,
+		Thalian,
+		Zorian,
+		Aeragian,
+		Epothian,
+		Salian,
+		Lyptian,
+		Katonian,
+		Gyphian,
+		Thacrian,
+		Dodian,
+		Aeolyptian,
+		Aeolonian,
+		Aeradian,
+		Aeolagian,
+		Zyrian,
+		Aeolathian,
+		Bythian,
+		Padian,
+		Rolian,
+		Pydian,
+		Thygian,
+		Katalian,
+		Saptian,
+		Aerodian,
+		Macrian,
+		Rogian,
+		Boptian,
+		Stogian,
+		Thynian,
+		Thycrian,
+		Aeoladian,
+		Dylian,
+		Eponian,
+		Katygian,
+		Starian,
+		Phrathian,
+		Stalian,
+		Stoptian,
+		Zygian,
+		Kataptian,
+		Aeolaptian,
+		Pothian,
+		Bygian,
+		Morian,
+		Rycrian,
+		Ronian,
+		Stycrian,
+		Katorian,
+		Epythian,
+		Kaptian,
+		Phraptian,
+		Bacrian,
+		Katythian,
+		Madian,
+		Aerygian,
+		Pylian,
+		Ionathian,
+		Katocrian,
+		Phryptian,
+		Katynian,
+		Aerycrian,
+		Ganian,
+		Eparian,
+		Lyrian,
+		Ionopian,
+		Aeologian,
+		Zadian,
+		Sygian,
+		Phralian,
+		Phrogian,
+		Rathian,
+		Rythian,
+		Donian,
+		Aeoloptian,
+		Panian,
+		Lodian,
+		Solian,
+		Ionolian,
+		Laptian,
+		Lygian,
+		Logian,
+		Lalian,
+		Sothian,
+		Phrocrian,
+		Thogian,
+		Katathian,
+		Modian,
+		Barian,
+		Mixolocrian,
+		Sagian,
+		Aeolothian,
+		Socrian,
+		Tholian,
+		Ralian,
+		Syrian,
+		Stodian,
+		Ionocrian,
+		Zycrian,
+		Ionygian,
+		Zarian,
+		Phrythian,
+		Rorian,
+		Bolian,
+		Bothian,
+		Katadian,
+		Kodian,
+		Ranian,
+		Ladian,
+		Podian,
+		Ionothian,
+		Kanian,
+		Zylian,
+		Zodian,
+		Golian,
+		Dyptian,
+		Ryphian,
+		Gylian,
+		Aeolycrian,
+		Pynian,
+		Zanian,
+		Palian,
+		Stothian,
+		Aerorian,
+		Katagian,
+		Phronian,
+		Banian,
+		Aeronian,
+		Loptian,
+		Ionodian,
+		Bogian,
+		Mogian,
+		Docrian,
+		Epadian,
+		Aerynian,
+		Bycrian,
+		Pathian,
+		Mydian,
+		Thyptian,
+		Phrothian,
+		Katycrian,
+		Ionalian,
+		Dolian,
+		Porian,
+		Aerylian,
+		Zagian,
+		Lagian,
+		Tyrian,
+		Mixonorian,
+		Pagian,
+		Aeolythian,
+		Molian,
+		Staptian,
+		Mothian,
+		Aeranian,
+		Ragian,
+		Larian,
+		Lythian,
+		Stydian,
+		Lorian,
+		Ionadian,
+		Bocrian,
+		Mixolythian,
+		Thadian,
+		Sanian,
+		Ionydian,
+		Epydian,
+		Katydian,
+		Mathian,
+		Aeryptian,
+		Pythian,
+		Katylian,
+		Bydian,
+		Bynian,
+		Galian,
+		Zonian,
+		Myrian,
+		Katogian,
+		Stacrian,
+		Styrian,
+		Ionyrian,
+		Phrodian,
+		Pycrian,
+		Gyptian,
+		Katacrian,
+		Sodian,
+		Bathian,
+		Mylian,
+		Godian,
+		Thorian,
+		Zocrian,
+		Stanian,
+		Epanian,
+		Konian,
+		Stocrian,
+		Kalian,
+		Phroptian,
+		Dydian,
+		Katyptian,
+		Epodian,
+		Mygian,
+		Pacrian,
+		Aerocrian,
+		Aeolarian,
+		Kythian,
+		Bonian,
+		Badian,
+		Katodian,
+		Sadian,
+		Dothian,
+		Moptian,
+		Aeryrian,
+		Epagian,
+		Raptian,
+		Epolian,
+		Sythian,
+		Sydian,
+		Epocrian,
+		Kylian,
+		Gacrian,
+		Borian,
+		Sycrian,
+		Gadian,
+		Aeolocrian,
+		Mixodorian,
+		Dathian,
+		Katoptian,
+		Ponian,
+		Kadian,
+		Gynian,
+		Thyphian,
+		Polian,
+		Thanian,
+		Epacrian,
+		Sathian,
+		Lathian,
+		Aeralian,
+		Kynian,
+		Stynian,
+		Epyphian,
+		Pogian,
+		Aeraptian,
+		Epylian,
+		Gamian,
+		Kathian,
+		Lylian,
+		Epalian,
+		Eporian,
+		Rylian,
+		Epaptian,
+		Byrian,
+		Katanian,
+		Katyrian,
+		Rynian,
+		Korian,
+		Lynian,
+		Malian,
+		Synian,
+		Phragian,
+		Manian,
+		Marian,
+		Mycrian,
+		Ionorian,
+		Phrydian,
+		Zyptian,
+		Katothian,
+		Phrylian,
+		Kocrian,
+		Ionanian,
+		Aerothian,
+		Stagian,
+		Lothian,
+		Phrycrian,
+		Kyptian,
+		Ionylian,
+		Gydian,
+		Kogian,
+		Rarian,
+		Aerolian,
+		Karian,
+		Myptian,
+		Rydian,
+		Aeolynian,
+		Aeroptian,
+		Phryrian,
+		Gothian,
+		Storian,
+		Pyptian,
+		Thydian,
 	}
 }
 
@@ -1107,4 +1935,16 @@ func (s Type) Perfection() Perfection {
 	}
 
 	return result
+}
+
+// Cardinality returns scale cardinality
+func (s Type) Cardinality() int {
+	var cardinality int
+	for _, v := range pitch.AllPitches() {
+		if s.Number()&v.Number() == v.Number() {
+			cardinality++
+		}
+	}
+
+	return cardinality
 }
