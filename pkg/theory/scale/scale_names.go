@@ -239,5 +239,13 @@ func (s Type) String() string {
 		"Kaptygic", "Sacrygic", "Padygic", "Epilygic", "Kynygic", "Stophygic", "Ionidygic", "Stonygic", "Stalygic",
 		"Koptygic", "Raphygic", "Zycrygic", "Mycrygic", "Laptygic", "Pylygic", "Rodygic", "Epolygic", "Epidygic",
 		"Phronygic", "Stynygic", "Zydygic",
+
+		// 10 notes, reference https://allthescales.org/scales.php?n=10
+		"Aerycryllian", "Gadyllian", "Solyllian", "Zyphyllian", "Garyllian", "Soryllian", "Godyllian", "Epityllian", "Ionyllian", "Aeoryllian",
+		"Katoryllian", "Dodyllian", "Zogyllian", "Madyllian", "Dycryllian", "Aeogyllian", "Dydyllian", "Thogyllian", "Rygyllian", "Bathyllian",
+		"Sydyllian", "Katogyllian", "Mixodyllian", "Aeradyllian", "Ryptyllian", "Loptyllian", "Kataphyllian", "Phradyllian", "Dagyllian", "Katyllian",
+		"Gothyllian", "Lythyllian", "Bacryllian", "Aerygyllian", "Dathyllian", "Boptyllian", "Bagyllian", "Mathyllian", "Styptyllian", "Zolyllian",
+		"Staptyllian", "Danyllian", "Goptyllian", "Epocryllian", "Rocryllian", "Zyryllian", "Sagyllian", "Epinyllian", "Katagyllian", "Ragyllian",
+		"Thydyllian", "Epiryllian", "Lyryllian", "Mogyllian", "Katodyllian",
 	}[s]
 }
