@@ -128,6 +128,7 @@ func fromInt(v int) Type {
 	}
 }
 
+// NextFifth returns next fifth
 func (p Type) NextFifth() Type {
 	switch p {
 	case CNatural:
@@ -159,6 +160,7 @@ func (p Type) NextFifth() Type {
 	}
 }
 
+// PreviousFifth returns previous fifth
 func (p Type) PreviousFifth() Type {
 	switch p {
 	case CNatural:
