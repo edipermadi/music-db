@@ -247,5 +247,11 @@ func (s Type) String() string {
 		"Gothyllian", "Lythyllian", "Bacryllian", "Aerygyllian", "Dathyllian", "Boptyllian", "Bagyllian", "Mathyllian", "Styptyllian", "Zolyllian",
 		"Staptyllian", "Danyllian", "Goptyllian", "Epocryllian", "Rocryllian", "Zyryllian", "Sagyllian", "Epinyllian", "Katagyllian", "Ragyllian",
 		"Thydyllian", "Epiryllian", "Lyryllian", "Mogyllian", "Katodyllian",
+
+		// 11 notes, reference https://allthescales.org/scales.php?n=11
+		"Aerycratic", "Monatic", "Solatic", "Zylatic", "Mixolatic", "Soratic", "Godatic", "Eptatic", "Ionatic", "Aeolatic", "Thydatic",
+
+		// 12 notes, reference https://allthescales.org/scales.php?n=12
+		"Chromatic",
 	}[s]
 }
