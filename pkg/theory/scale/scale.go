@@ -195,6 +195,342 @@ const (
 	Kataditonic    Type = iota
 	Koditonic      Type = iota
 	Tholitonic     Type = iota
+	Epathimic      Type = iota
+	Mynimic        Type = iota
+	Rocrimic       Type = iota
+	Eporimic       Type = iota
+	Thaptimic      Type = iota
+	Lothimic       Type = iota
+	Dyrimic        Type = iota
+	Koptimic       Type = iota
+	Thocrimic      Type = iota
+	Aeolanimic     Type = iota
+	Danimic        Type = iota
+	Ionarimic      Type = iota
+	Daptimic       Type = iota
+	Kygimic        Type = iota
+	Mocrimic       Type = iota
+	Zynimic        Type = iota
+	Aeolimic       Type = iota
+	Zythimic       Type = iota
+	Epygimic       Type = iota
+	Zaptimic       Type = iota
+	Kagimic        Type = iota
+	Zogimic        Type = iota
+	Epyrimic       Type = iota
+	Lycrimic       Type = iota
+	Bylimic        Type = iota
+	Zothimic       Type = iota
+	Phrolimic      Type = iota
+	Ionagimic      Type = iota
+	Aeolaphimic    Type = iota
+	Kycrimic       Type = iota
+	Garimic        Type = iota
+	Soptimic       Type = iota
+	Ionyptimic     Type = iota
+	Gyrimic        Type = iota
+	Zalimic        Type = iota
+	Stolimic       Type = iota
+	Thonimic       Type = iota
+	Stadimic       Type = iota
+	Thodimic       Type = iota
+	Mythimic       Type = iota
+	Sogimic        Type = iota
+	Gogimic        Type = iota
+	Rothimic       Type = iota
+	Katarimic      Type = iota
+	Sylimic        Type = iota
+	Mixolimic      Type = iota
+	Dadimic        Type = iota
+	Aeolyphimic    Type = iota
+	Gycrimic       Type = iota
+	Pyrimic        Type = iota
+	Lydimic        Type = iota
+	Ionacrimic     Type = iota
+	Gathimic       Type = iota
+	Ionynimic      Type = iota
+	Phrynimic      Type = iota
+	Stathimic      Type = iota
+	Thatimic       Type = iota
+	Dalimic        Type = iota
+	Dygimic        Type = iota
+	Zolimic        Type = iota
+	Epogimic       Type = iota
+	Lanimic        Type = iota
+	Paptimic       Type = iota
+	Darmic         Type = iota
+	Lonimic        Type = iota
+	Ionycrimic     Type = iota
+	Phradimic      Type = iota
+	Aeolorimic     Type = iota
+	Gonimic        Type = iota
+	Phracrimic     Type = iota
+	Aerathimic     Type = iota
+	Sarimic        Type = iota
+	Zoptimic       Type = iota
+	Zeracrimic     Type = iota
+	Byptimic       Type = iota
+	Starimic       Type = iota
+	Phrathimic     Type = iota
+	Saptimic       Type = iota
+	Aerodimic      Type = iota
+	Macrimic       Type = iota
+	Rogimic        Type = iota
+	Bygimic        Type = iota
+	Thycrimic      Type = iota
+	Aeoladimic     Type = iota
+	Dylimic        Type = iota
+	Eponimic       Type = iota
+	Katygimic      Type = iota
+	Stalimic       Type = iota
+	Stoptimic      Type = iota
+	Zygimic        Type = iota
+	Kataptimic     Type = iota
+	Aeolaptimic    Type = iota
+	Pothimic       Type = iota
+	Rycrimic       Type = iota
+	Ronimic        Type = iota
+	Stycrimic      Type = iota
+	Katorimic      Type = iota
+	Epythimic      Type = iota
+	Kaptimic       Type = iota
+	Katythimic     Type = iota
+	Madimic        Type = iota
+	Aerygimic      Type = iota
+	Pylimic        Type = iota
+	Ionathimic     Type = iota
+	Morimic        Type = iota
+	Aerycrimic     Type = iota
+	Ganimic        Type = iota
+	Eparimic       Type = iota
+	Lyrimic        Type = iota
+	Phraptimic     Type = iota
+	Bacrimic       Type = iota
+	Phralimic      Type = iota
+	Phrogimic      Type = iota
+	Rathimic       Type = iota
+	Katocrimic     Type = iota
+	Phryptimic     Type = iota
+	Katynimic      Type = iota
+	Solimic        Type = iota
+	Ionolimic      Type = iota
+	Ionophimic     Type = iota
+	Aeologimic     Type = iota
+	Zadimic        Type = iota
+	Sygimic        Type = iota
+	Thogimic       Type = iota
+	Rythimic       Type = iota
+	Donimic        Type = iota
+	Aeoloptimic    Type = iota
+	Panimic        Type = iota
+	Lodimic        Type = iota
+	Laptimic       Type = iota
+	Lygimic        Type = iota
+	Logimic        Type = iota
+	Lalimic        Type = iota
+	Sothimic       Type = iota
+	Phrocrimic     Type = iota
+	Modimic        Type = iota
+	Barimic        Type = iota
+	Poptimic       Type = iota
+	Sagimic        Type = iota
+	Aelothimic     Type = iota
+	Socrimic       Type = iota
+	Syrimic        Type = iota
+	Stodimic       Type = iota
+	Ionocrimic     Type = iota
+	Zycrimic       Type = iota
+	Ionygimic      Type = iota
+	Katathimic     Type = iota
+	Bolimic        Type = iota
+	Bothimic       Type = iota
+	Katadimic      Type = iota
+	Kodimic        Type = iota
+	Tholimic       Type = iota
+	Ralimic        Type = iota
+	Kanimic        Type = iota
+	Zylimic        Type = iota
+	Zodimic        Type = iota
+	Zarimic        Type = iota
+	Phrythimic     Type = iota
+	Rorimic        Type = iota
+	Pynimic        Type = iota
+	Zanimic        Type = iota
+	Ranimic        Type = iota
+	Ladimic        Type = iota
+	Podimic        Type = iota
+	Ionothimic     Type = iota
+	Kytrimic       Type = iota
+	Golimic        Type = iota
+	Dyptimic       Type = iota
+	Ryrimic        Type = iota
+	Gylimic        Type = iota
+	Aeolycrimic    Type = iota
+	Palimic        Type = iota
+	Stothimic      Type = iota
+	Aeronimic      Type = iota
+	Katagimic      Type = iota
+	Phronimic      Type = iota
+	Banimic        Type = iota
+	Ionodimic      Type = iota
+	Bogimic        Type = iota
+	Mogimic        Type = iota
+	Docrimic       Type = iota
+	Epadimic       Type = iota
+	Aerynimic      Type = iota
+	Mydimic        Type = iota
+	Thyptimic      Type = iota
+	Phrothimic     Type = iota
+	Katycrimic     Type = iota
+	Ionalimic      Type = iota
+	Loptimic       Type = iota
+	Zagimic        Type = iota
+	Lagimic        Type = iota
+	Thyrimic       Type = iota
+	Thothimic      Type = iota
+	Bycrimic       Type = iota
+	Pathimic       Type = iota
+	Mothimic       Type = iota
+	Aeranimic      Type = iota
+	Ragimic        Type = iota
+	Dolimic        Type = iota
+	Porimic        Type = iota
+	Aerylimic      Type = iota
+	Bocrimic       Type = iota
+	Gythimic       Type = iota
+	Pagimic        Type = iota
+	Aeolythimic    Type = iota
+	Molimic        Type = iota
+	Staptimic      Type = iota
+	Zacrimic       Type = iota
+	Larimic        Type = iota
+	Thacrimic      Type = iota
+	Stydimic       Type = iota
+	Lorimic        Type = iota
+	Ionadimic      Type = iota
+	Ionythimic     Type = iota
+	Aerythimic     Type = iota
+	Dynimic        Type = iota
+	Zydimic        Type = iota
+	Zathimic       Type = iota
+	Radimic        Type = iota
+	Stonimic       Type = iota
+	Syptimic       Type = iota
+	Ponimic        Type = iota
+	Kadimic        Type = iota
+	Gynimic        Type = iota
+	Thydimic       Type = iota
+	Polimic        Type = iota
+	Thanimic       Type = iota
+	Lathimic       Type = iota
+	Aeralimic      Type = iota
+	Kynimic        Type = iota
+	Stynimic       Type = iota
+	Epytimic       Type = iota
+	Katoptimic     Type = iota
+	Galimic        Type = iota
+	Kathimic       Type = iota
+	Lylimic        Type = iota
+	Epalimic       Type = iota
+	Epacrimic      Type = iota
+	Sathimic       Type = iota
+	Katanimic      Type = iota
+	Katyrimic      Type = iota
+	Rynimic        Type = iota
+	Pogimic        Type = iota
+	Aeraptimic     Type = iota
+	Epylimic       Type = iota
+	Manimic        Type = iota
+	Marimic        Type = iota
+	Locrimic       Type = iota
+	Rylimic        Type = iota
+	Epatimic       Type = iota
+	Byrimic        Type = iota
+	Kocrimic       Type = iota
+	Korimic        Type = iota
+	Lynimic        Type = iota
+	Malimic        Type = iota
+	Synimic        Type = iota
+	Phragimic      Type = iota
+	Mycrimic       Type = iota
+	Ionorimic      Type = iota
+	Phrydimic      Type = iota
+	Zyptimic       Type = iota
+	Katothimic     Type = iota
+	Phrylimic      Type = iota
+	Aerothimic     Type = iota
+	Stagimic       Type = iota
+	Dorimic        Type = iota
+	Phrycrimic     Type = iota
+	Kyptimic       Type = iota
+	Ionylimic      Type = iota
+	Epynimic       Type = iota
+	Ionogimic      Type = iota
+	Kydimic        Type = iota
+	Gaptimic       Type = iota
+	Tharimic       Type = iota
+	Ionaphimic     Type = iota
+	Thoptimic      Type = iota
+	Bagimic        Type = iota
+	Kyrimic        Type = iota
+	Sonimic        Type = iota
+	Aeolonimic     Type = iota
+	Rygimic        Type = iota
+	Thagimic       Type = iota
+	Kolimic        Type = iota
+	Dycrimic       Type = iota
+	Epycrimic      Type = iota
+	Gocrimic       Type = iota
+	Katolimic      Type = iota
+	Dagimic        Type = iota
+	Aeolydimic     Type = iota
+	Parimic        Type = iota
+	Ionaptimic     Type = iota
+	Thylimic       Type = iota
+	Lolimic        Type = iota
+	Thalimic       Type = iota
+	Stygimic       Type = iota
+	Aeolygimic     Type = iota
+	Aerogimic      Type = iota
+	Dacrimic       Type = iota
+	Baptimic       Type = iota
+	Stythimic      Type = iota
+	Kothimic       Type = iota
+	Pygimic        Type = iota
+	Rodimic        Type = iota
+	Sorimic        Type = iota
+	Monimic        Type = iota
+	Aeragimic      Type = iota
+	Epothimic      Type = iota
+	Salimic        Type = iota
+	Lyptimic       Type = iota
+	Katonimic      Type = iota
+	Gygimic        Type = iota
+	Aeradimic      Type = iota
+	Zyrimic        Type = iota
+	Stylimic       Type = iota
+	Lythimic       Type = iota
+	Dodimic        Type = iota
+	Katalimic      Type = iota
+	Boptimic       Type = iota
+	Stogimic       Type = iota
+	Thynimic       Type = iota
+	Aeolathimic    Type = iota
+	Bythimic       Type = iota
+	Padimic        Type = iota
+	Dathimic       Type = iota
+	Epagimic       Type = iota
+	Raptimic       Type = iota
+	Epolimic       Type = iota
+	Sythimic       Type = iota
+	Sydimic        Type = iota
+	Gacrimic       Type = iota
+	Borimic        Type = iota
+	Sycrimic       Type = iota
+	Gadimic        Type = iota
+	Aeolocrimic    Type = iota
+	Phrygimic      Type = iota
+	WholeTone      Type = iota
 )
 
 // AllScales return all scales
@@ -347,60 +683,389 @@ func AllScales() []Type {
 		Sogitonic,
 		Gothitonic,
 		Rothitonic,
-
 		Zylitonic,
 		Zoditonic,
 		Zaritonic,
 		Phrythitonic,
 		Rolitonic,
-
 		Ranitonic,
 		Laditonic,
 		Poditonic,
 		Ionothitonic,
 		Kanitonic,
-
 		Ryphitonic,
 		Gylitonic,
 		Aeolycritonic,
 		Pynitonic,
 		Zanitonic,
-
 		Phronitonic,
 		Banitonic,
 		Aeronitonic,
 		Golitonic,
 		Dyptitonic,
-
 		Aerynitonic,
 		Palitonic,
 		Stothitonic,
 		Aerophitonic,
 		Katagitonic,
-
 		Ionoditonic,
 		Bogitonic,
 		Mogitonic,
 		Docritonic,
 		Epaditonic,
-
 		Mixitonic,
 		Phrothitonic,
 		Katycritonic,
 		Ionalitonic,
 		Loptitonic,
-
 		Thyritonic,
 		Thoptitonic,
 		Bycritonic,
 		Pathitonic,
 		Myditonic,
-
 		Bolitonic,
 		Bothitonic,
 		Kataditonic,
 		Koditonic,
 		Tholitonic,
+
+		// 6 notes
+		Epathimic,
+		Mynimic,
+		Rocrimic,
+		Eporimic,
+		Thaptimic,
+		Lothimic,
+		Dyrimic,
+		Koptimic,
+		Thocrimic,
+		Aeolanimic,
+		Danimic,
+		Ionarimic,
+		Daptimic,
+		Kygimic,
+		Mocrimic,
+		Zynimic,
+		Aeolimic,
+		Zythimic,
+		Epygimic,
+		Zaptimic,
+		Kagimic,
+		Zogimic,
+		Epyrimic,
+		Lycrimic,
+		Bylimic,
+		Zothimic,
+		Phrolimic,
+		Ionagimic,
+		Aeolaphimic,
+		Kycrimic,
+		Garimic,
+		Soptimic,
+		Ionyptimic,
+		Gyrimic,
+		Zalimic,
+		Stolimic,
+		Thonimic,
+		Stadimic,
+		Thodimic,
+		Mythimic,
+		Sogimic,
+		Gogimic,
+		Rothimic,
+		Katarimic,
+		Sylimic,
+		Mixolimic,
+		Dadimic,
+		Aeolyphimic,
+		Gycrimic,
+		Pyrimic,
+		Lydimic,
+		Ionacrimic,
+		Gathimic,
+		Ionynimic,
+		Phrynimic,
+		Stathimic,
+		Thatimic,
+		Dalimic,
+		Dygimic,
+		Zolimic,
+		Epogimic,
+		Lanimic,
+		Paptimic,
+		Darmic,
+		Lonimic,
+		Ionycrimic,
+		Phradimic,
+		Aeolorimic,
+		Gonimic,
+		Phracrimic,
+		Aerathimic,
+		Sarimic,
+		Zoptimic,
+		Zeracrimic,
+		Byptimic,
+		Starimic,
+		Phrathimic,
+		Saptimic,
+		Aerodimic,
+		Macrimic,
+		Rogimic,
+		Bygimic,
+		Thycrimic,
+		Aeoladimic,
+		Dylimic,
+		Eponimic,
+		Katygimic,
+		Stalimic,
+		Stoptimic,
+		Zygimic,
+		Kataptimic,
+		Aeolaptimic,
+		Pothimic,
+		Rycrimic,
+		Ronimic,
+		Stycrimic,
+		Katorimic,
+		Epythimic,
+		Kaptimic,
+		Katythimic,
+		Madimic,
+		Aerygimic,
+		Pylimic,
+		Ionathimic,
+		Morimic,
+		Aerycrimic,
+		Ganimic,
+		Eparimic,
+		Lyrimic,
+		Phraptimic,
+		Bacrimic,
+		Phralimic,
+		Phrogimic,
+		Rathimic,
+		Katocrimic,
+		Phryptimic,
+		Katynimic,
+		Solimic,
+		Ionolimic,
+		Ionophimic,
+		Aeologimic,
+		Zadimic,
+		Sygimic,
+		Thogimic,
+		Rythimic,
+		Donimic,
+		Aeoloptimic,
+		Panimic,
+		Lodimic,
+		Laptimic,
+		Lygimic,
+		Logimic,
+		Lalimic,
+		Sothimic,
+		Phrocrimic,
+		Modimic,
+		Barimic,
+		Poptimic,
+		Sagimic,
+		Aelothimic,
+		Socrimic,
+		Syrimic,
+		Stodimic,
+		Ionocrimic,
+		Zycrimic,
+		Ionygimic,
+		Katathimic,
+		Bolimic,
+		Bothimic,
+		Katadimic,
+		Kodimic,
+		Tholimic,
+		Ralimic,
+		Kanimic,
+		Zylimic,
+		Zodimic,
+		Zarimic,
+		Phrythimic,
+		Rorimic,
+		Pynimic,
+		Zanimic,
+		Ranimic,
+		Ladimic,
+		Podimic,
+		Ionothimic,
+		Kytrimic,
+		Golimic,
+		Dyptimic,
+		Ryrimic,
+		Gylimic,
+		Aeolycrimic,
+		Palimic,
+		Stothimic,
+		Aeronimic,
+		Katagimic,
+		Phronimic,
+		Banimic,
+		Ionodimic,
+		Bogimic,
+		Mogimic,
+		Docrimic,
+		Epadimic,
+		Aerynimic,
+		Mydimic,
+		Thyptimic,
+		Phrothimic,
+		Katycrimic,
+		Ionalimic,
+		Loptimic,
+		Zagimic,
+		Lagimic,
+		Thyrimic,
+		Thothimic,
+		Bycrimic,
+		Pathimic,
+		Mothimic,
+		Aeranimic,
+		Ragimic,
+		Dolimic,
+		Porimic,
+		Aerylimic,
+		Bocrimic,
+		Gythimic,
+		Pagimic,
+		Aeolythimic,
+		Molimic,
+		Staptimic,
+		Zacrimic,
+		Larimic,
+		Thacrimic,
+		Stydimic,
+		Lorimic,
+		Ionadimic,
+		Ionythimic,
+		Aerythimic,
+		Dynimic,
+		Zydimic,
+		Zathimic,
+		Radimic,
+		Stonimic,
+		Syptimic,
+		Ponimic,
+		Kadimic,
+		Gynimic,
+		Thydimic,
+		Polimic,
+		Thanimic,
+		Lathimic,
+		Aeralimic,
+		Kynimic,
+		Stynimic,
+		Epytimic,
+		Katoptimic,
+		Galimic,
+		Kathimic,
+		Lylimic,
+		Epalimic,
+		Epacrimic,
+		Sathimic,
+		Katanimic,
+		Katyrimic,
+		Rynimic,
+		Pogimic,
+		Aeraptimic,
+		Epylimic,
+		Manimic,
+		Marimic,
+		Locrimic,
+		Rylimic,
+		Epatimic,
+		Byrimic,
+		Kocrimic,
+		Korimic,
+		Lynimic,
+		Malimic,
+		Synimic,
+		Phragimic,
+		Mycrimic,
+		Ionorimic,
+		Phrydimic,
+		Zyptimic,
+		Katothimic,
+		Phrylimic,
+		Aerothimic,
+		Stagimic,
+		Dorimic,
+		Phrycrimic,
+		Kyptimic,
+		Ionylimic,
+		Epynimic,
+		Ionogimic,
+		Kydimic,
+		Gaptimic,
+		Tharimic,
+		Ionaphimic,
+		Thoptimic,
+		Bagimic,
+		Kyrimic,
+		Sonimic,
+		Aeolonimic,
+		Rygimic,
+		Thagimic,
+		Kolimic,
+		Dycrimic,
+		Epycrimic,
+		Gocrimic,
+		Katolimic,
+		Dagimic,
+		Aeolydimic,
+		Parimic,
+		Ionaptimic,
+		Thylimic,
+		Lolimic,
+		Thalimic,
+		Stygimic,
+		Aeolygimic,
+		Aerogimic,
+		Dacrimic,
+		Baptimic,
+		Stythimic,
+		Kothimic,
+		Pygimic,
+		Rodimic,
+		Sorimic,
+		Monimic,
+		Aeragimic,
+		Epothimic,
+		Salimic,
+		Lyptimic,
+		Katonimic,
+		Gygimic,
+		Aeradimic,
+		Zyrimic,
+		Stylimic,
+		Lythimic,
+		Dodimic,
+		Katalimic,
+		Boptimic,
+		Stogimic,
+		Thynimic,
+		Aeolathimic,
+		Bythimic,
+		Padimic,
+		Dathimic,
+		Epagimic,
+		Raptimic,
+		Epolimic,
+		Sythimic,
+		Sydimic,
+		Gacrimic,
+		Borimic,
+		Sycrimic,
+		Gadimic,
+		Aeolocrimic,
+		Phrygimic,
+		WholeTone,
 	}
 }
 
