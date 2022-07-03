@@ -747,6 +747,537 @@ func TestScale_Values(t *testing.T) {
 
 		// 6.59
 		{Scale: scale.WholeTone, Name: "WholeTone", Number: 2730, Perfection: 0, Imperfection: 6},
+
+		// 7.1
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 6, Imperfection: 1},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 6, Imperfection: 1},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 6, Imperfection: 1},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 6, Imperfection: 1},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 6, Imperfection: 1},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 6, Imperfection: 1},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 6, Imperfection: 1},
+
+		// 7.2
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+
+		// 7.3
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+
+		// 7.4
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+
+		// 7.5
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+
+		// 7.6
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+
+		// 7.7
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+
+		// 7.8
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+
+		// 7.9
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+
+		// 7.10
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+
+		// 7.11
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+
+		// 7.12
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+
+		// 7.13
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 5, Imperfection: 2},
+
+		// 7.14
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.15
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.16
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.17
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.18
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.19
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.20
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.21
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.22
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.23
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.24
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.25
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.26
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.27
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.28
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.29
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.30
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.31
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.32
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.33
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.34
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.35
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.36
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.37
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.38
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.39
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.40
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.41
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 4, Imperfection: 3},
+
+		// 7.42
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+
+		// 7.43
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+
+		// 7.44
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+
+		// 7.45
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+
+		// 7.46
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+
+		// 7.47
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+
+		// 7.48
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+
+		// 7.49
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+
+		// 7.50
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+
+		// 7.51
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+
+		// 7.52
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+
+		// 7.53
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+
+		// 7.54
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+
+		// 7.55
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+
+		// 7.56
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+
+		// 7.57
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 3, Imperfection: 4},
+
+		// 7.58
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 2, Imperfection: 5},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 2, Imperfection: 5},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 2, Imperfection: 5},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 2, Imperfection: 5},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 2, Imperfection: 5},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 2, Imperfection: 5},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 2, Imperfection: 5},
+
+		// 7.59
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 2, Imperfection: 5},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 2, Imperfection: 5},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 2, Imperfection: 5},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 2, Imperfection: 5},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 2, Imperfection: 5},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 2, Imperfection: 5},
+		{Scale: scale.Invalid, Name: "XXX", Number: 999999, Perfection: 2, Imperfection: 5},
 	}
 
 	for _, tc := range testCases {
