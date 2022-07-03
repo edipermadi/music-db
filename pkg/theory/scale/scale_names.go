@@ -4,7 +4,7 @@ package scale
 func (s Type) String() string {
 	return [...]string{
 		// invalid
-		"InvalidScale",
+		"Invalid",
 
 		// 3 notes, reference https://allthescales.org/scales.php?n=3
 		"Minoric",

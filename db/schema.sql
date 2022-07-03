@@ -29,6 +29,6 @@ CREATE TABLE scale_pitches
     tonic_id   BIGINT  NOT NULL REFERENCES pitches (id),
     pitch_id   BIGINT  NOT NULL REFERENCES pitches (id),
     is_perfect BOOLEAN NOT NULL
-)
+);
 
 CREATE UNIQUE INDEX ON scale_pitches (scale_id, tonic_id, pitch_id);
