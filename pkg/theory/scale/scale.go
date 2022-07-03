@@ -1936,3 +1936,15 @@ func (s Type) Perfection() Perfection {
 
 	return result
 }
+
+// Cardinality returns scale cardinality
+func (s Type) Cardinality() int {
+	var cardinality int
+	for _, v := range pitch.AllPitches() {
+		if s.Number()&v.Number() == v.Number() {
+			cardinality++
+		}
+	}
+
+	return cardinality
+}
