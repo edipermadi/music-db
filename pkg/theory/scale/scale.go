@@ -1486,6 +1486,18 @@ const (
 	Lyryllian       Type = iota
 	Mogyllian       Type = iota
 	Katodyllian     Type = iota
+	Aerycratic      Type = iota
+	Monatic         Type = iota
+	Solatic         Type = iota
+	Zylatic         Type = iota
+	Mixolatic       Type = iota
+	Soratic         Type = iota
+	Godatic         Type = iota
+	Eptatic         Type = iota
+	Ionatic         Type = iota
+	Aeolatic        Type = iota
+	Thydatic        Type = iota
+	Chromatic       Type = iota
 )
 
 // AllScales return all scales
@@ -1732,6 +1744,12 @@ func AllScales() []Type {
 		Gothyllian, Lythyllian, Bacryllian, Aerygyllian, Dathyllian, Boptyllian, Bagyllian, Mathyllian, Styptyllian, Zolyllian,
 		Staptyllian, Danyllian, Goptyllian, Epocryllian, Rocryllian, Zyryllian, Sagyllian, Epinyllian, Katagyllian, Ragyllian,
 		Thydyllian, Epiryllian, Lyryllian, Mogyllian, Katodyllian,
+
+		// 11 notes, reference https://allthescales.org/scales.php?n=11
+		Aerycratic, Monatic, Solatic, Zylatic, Mixolatic, Soratic, Godatic, Eptatic, Ionatic, Aeolatic, Thydatic,
+
+		// 12 notes, reference https://allthescales.org/scales.php?n=12
+		Chromatic,
 	}
 }
 

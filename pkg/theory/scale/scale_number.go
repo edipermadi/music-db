@@ -246,5 +246,11 @@ func (s Type) Number() int {
 		2943, 3582, 3069, 4086, 4077, 4059, 4023, 3951, 3807, 3519,
 		3007, 3838, 3581, 3067, 4078, 4061, 4027, 3959, 3823, 3551,
 		3055, 4030, 3965, 3835, 3575,
+
+		// 11 notes, reference: reference https://allthescales.org/scales.php?n=11
+		3071, 4094, 4093, 4091, 4087, 4079, 4063, 4031, 3967, 3839, 3583,
+
+		// 12 notes, reference: reference https://allthescales.org/scales.php?n=12
+		4095,
 	}[s]
 }
