@@ -7,943 +7,1265 @@ type Type int
 
 // Scale name enumerations
 const (
-	Invalid        Type = iota
-	Minoric        Type = iota
-	Thaptic        Type = iota
-	Lothic         Type = iota
-	Phratic        Type = iota
-	Aerathic       Type = iota
-	Epathic        Type = iota
-	Mynic          Type = iota
-	Rothic         Type = iota
-	Eporic         Type = iota
-	Zyphic         Type = iota
-	Epogic         Type = iota
-	Lanic          Type = iota
-	Pyrric         Type = iota
-	Aeoloric       Type = iota
-	Gonic          Type = iota
-	Dalic          Type = iota
-	Dygic          Type = iota
-	Daric          Type = iota
-	Lonic          Type = iota
-	Phradic        Type = iota
-	Bolic          Type = iota
-	Saric          Type = iota
-	Zoptic         Type = iota
-	Aeraphic       Type = iota
-	Byptic         Type = iota
-	Aeolic         Type = iota
-	Koptic         Type = iota
-	Mixolyric      Type = iota
-	Lydic          Type = iota
-	Stathic        Type = iota
-	Dadic          Type = iota
-	Phrynic        Type = iota
-	Epathitonic    Type = iota
-	Mynitonic      Type = iota
-	Rocritonic     Type = iota
-	Pentatonic     Type = iota
-	Thaptitonic    Type = iota
-	Magitonic      Type = iota
-	Daditonic      Type = iota
-	Aeolyphritonic Type = iota
-	Gycritonic     Type = iota
-	Pyritonic      Type = iota
-	Gathitonic     Type = iota
-	Ionitonic      Type = iota
-	Phrynitonic    Type = iota
-	Stathitonic    Type = iota
-	Thalitonic     Type = iota
-	Zolitonic      Type = iota
-	Epogitonic     Type = iota
-	Lanitonic      Type = iota
-	Paptitonic     Type = iota
-	Ionacritonic   Type = iota
-	Phraditonic    Type = iota
-	Aeoloritonic   Type = iota
-	Gonitonic      Type = iota
-	Dalitonic      Type = iota
-	Dygitonic      Type = iota
-	Aeracritonic   Type = iota
-	Byptitonic     Type = iota
-	Daritonic      Type = iota
-	Lonitonic      Type = iota
-	Ionycritonic   Type = iota
-	Lothitonic     Type = iota
-	Phratonic      Type = iota
-	Aerathitonic   Type = iota
-	Saritonic      Type = iota
-	Zoptitonic     Type = iota
-	Dolitonic      Type = iota
-	Poritonic      Type = iota
-	Aerylitonic    Type = iota
-	Zagitonic      Type = iota
-	Lagitonic      Type = iota
-	Molitonic      Type = iota
-	Staptitonic    Type = iota
-	Mothitonic     Type = iota
-	Aeritonic      Type = iota
-	Ragitonic      Type = iota
-	Ionaditonic    Type = iota
-	Bocritonic     Type = iota
-	Gythitonic     Type = iota
-	Pagitonic      Type = iota
-	Aeolythitonic  Type = iota
-	Zacritonic     Type = iota
-	Laritonic      Type = iota
-	Thacritonic    Type = iota
-	Styditonic     Type = iota
-	Loritonic      Type = iota
-	Aeolyritonic   Type = iota
-	Goritonic      Type = iota
-	Aeoloditonic   Type = iota
-	Doptitonic     Type = iota
-	Aeraphitonic   Type = iota
-	Zathitonic     Type = iota
-	Raditonic      Type = iota
-	Stonitonic     Type = iota
-	Syptitonic     Type = iota
-	Ionythitonic   Type = iota
-	Aeolanitonic   Type = iota
-	Danitonic      Type = iota
-	Ionaritonic    Type = iota
-	Dynitonic      Type = iota
-	Zyditonic      Type = iota
-	Aeolacritonic  Type = iota
-	Zythitonic     Type = iota
-	Dyritonic      Type = iota
-	Koptitonic     Type = iota
-	Thocritonic    Type = iota
-	Lycritonic     Type = iota
-	Daptitonic     Type = iota
-	Kygitonic      Type = iota
-	Mocritonic     Type = iota
-	Zynitonic      Type = iota
-	Epygitonic     Type = iota
-	Zaptitonic     Type = iota
-	Kagitonic      Type = iota
-	Zogitonic      Type = iota
-	Epyritonic     Type = iota
-	Zothitonic     Type = iota
-	Phrolitonic    Type = iota
-	Ionagitonic    Type = iota
-	Aeolapritonic  Type = iota
-	Kyritonic      Type = iota
-	Ionyptitonic   Type = iota
-	Gyritonic      Type = iota
-	Zalitonic      Type = iota
-	Stolitonic     Type = iota
-	Bylitonic      Type = iota
-	Thoditonic     Type = iota
-	Dogitonic      Type = iota
-	Phralitonic    Type = iota
-	Garitonic      Type = iota
-	Soptitonic     Type = iota
-	Kataritonic    Type = iota
-	Sylitonic      Type = iota
-	Thonitonic     Type = iota
-	Phropitonic    Type = iota
-	Staditonic     Type = iota
-	Lyditonic      Type = iota
-	Mythitonic     Type = iota
-	Sogitonic      Type = iota
-	Gothitonic     Type = iota
-	Rothitonic     Type = iota
-	Zylitonic      Type = iota
-	Zoditonic      Type = iota
-	Zaritonic      Type = iota
-	Phrythitonic   Type = iota
-	Rolitonic      Type = iota
-	Ranitonic      Type = iota
-	Laditonic      Type = iota
-	Poditonic      Type = iota
-	Ionothitonic   Type = iota
-	Kanitonic      Type = iota
-	Ryphitonic     Type = iota
-	Gylitonic      Type = iota
-	Aeolycritonic  Type = iota
-	Pynitonic      Type = iota
-	Zanitonic      Type = iota
-	Phronitonic    Type = iota
-	Banitonic      Type = iota
-	Aeronitonic    Type = iota
-	Golitonic      Type = iota
-	Dyptitonic     Type = iota
-	Aerynitonic    Type = iota
-	Palitonic      Type = iota
-	Stothitonic    Type = iota
-	Aerophitonic   Type = iota
-	Katagitonic    Type = iota
-	Ionoditonic    Type = iota
-	Bogitonic      Type = iota
-	Mogitonic      Type = iota
-	Docritonic     Type = iota
-	Epaditonic     Type = iota
-	Mixitonic      Type = iota
-	Phrothitonic   Type = iota
-	Katycritonic   Type = iota
-	Ionalitonic    Type = iota
-	Loptitonic     Type = iota
-	Thyritonic     Type = iota
-	Thoptitonic    Type = iota
-	Bycritonic     Type = iota
-	Pathitonic     Type = iota
-	Myditonic      Type = iota
-	Bolitonic      Type = iota
-	Bothitonic     Type = iota
-	Kataditonic    Type = iota
-	Koditonic      Type = iota
-	Tholitonic     Type = iota
-	Epathimic      Type = iota
-	Mynimic        Type = iota
-	Rocrimic       Type = iota
-	Eporimic       Type = iota
-	Thaptimic      Type = iota
-	Lothimic       Type = iota
-	Dyrimic        Type = iota
-	Koptimic       Type = iota
-	Thocrimic      Type = iota
-	Aeolanimic     Type = iota
-	Danimic        Type = iota
-	Ionarimic      Type = iota
-	Daptimic       Type = iota
-	Kygimic        Type = iota
-	Mocrimic       Type = iota
-	Zynimic        Type = iota
-	Aeolimic       Type = iota
-	Zythimic       Type = iota
-	Epygimic       Type = iota
-	Zaptimic       Type = iota
-	Kagimic        Type = iota
-	Zogimic        Type = iota
-	Epyrimic       Type = iota
-	Lycrimic       Type = iota
-	Bylimic        Type = iota
-	Zothimic       Type = iota
-	Phrolimic      Type = iota
-	Ionagimic      Type = iota
-	Aeolaphimic    Type = iota
-	Kycrimic       Type = iota
-	Garimic        Type = iota
-	Soptimic       Type = iota
-	Ionyptimic     Type = iota
-	Gyrimic        Type = iota
-	Zalimic        Type = iota
-	Stolimic       Type = iota
-	Thonimic       Type = iota
-	Stadimic       Type = iota
-	Thodimic       Type = iota
-	Mythimic       Type = iota
-	Sogimic        Type = iota
-	Gogimic        Type = iota
-	Rothimic       Type = iota
-	Katarimic      Type = iota
-	Sylimic        Type = iota
-	Mixolimic      Type = iota
-	Dadimic        Type = iota
-	Aeolyphimic    Type = iota
-	Gycrimic       Type = iota
-	Pyrimic        Type = iota
-	Lydimic        Type = iota
-	Ionacrimic     Type = iota
-	Gathimic       Type = iota
-	Ionynimic      Type = iota
-	Phrynimic      Type = iota
-	Stathimic      Type = iota
-	Thatimic       Type = iota
-	Dalimic        Type = iota
-	Dygimic        Type = iota
-	Zolimic        Type = iota
-	Epogimic       Type = iota
-	Lanimic        Type = iota
-	Paptimic       Type = iota
-	Darmic         Type = iota
-	Lonimic        Type = iota
-	Ionycrimic     Type = iota
-	Phradimic      Type = iota
-	Aeolorimic     Type = iota
-	Gonimic        Type = iota
-	Phracrimic     Type = iota
-	Aerathimic     Type = iota
-	Sarimic        Type = iota
-	Zoptimic       Type = iota
-	Zeracrimic     Type = iota
-	Byptimic       Type = iota
-	Starimic       Type = iota
-	Phrathimic     Type = iota
-	Saptimic       Type = iota
-	Aerodimic      Type = iota
-	Macrimic       Type = iota
-	Rogimic        Type = iota
-	Bygimic        Type = iota
-	Thycrimic      Type = iota
-	Aeoladimic     Type = iota
-	Dylimic        Type = iota
-	Eponimic       Type = iota
-	Katygimic      Type = iota
-	Stalimic       Type = iota
-	Stoptimic      Type = iota
-	Zygimic        Type = iota
-	Kataptimic     Type = iota
-	Aeolaptimic    Type = iota
-	Pothimic       Type = iota
-	Rycrimic       Type = iota
-	Ronimic        Type = iota
-	Stycrimic      Type = iota
-	Katorimic      Type = iota
-	Epythimic      Type = iota
-	Kaptimic       Type = iota
-	Katythimic     Type = iota
-	Madimic        Type = iota
-	Aerygimic      Type = iota
-	Pylimic        Type = iota
-	Ionathimic     Type = iota
-	Morimic        Type = iota
-	Aerycrimic     Type = iota
-	Ganimic        Type = iota
-	Eparimic       Type = iota
-	Lyrimic        Type = iota
-	Phraptimic     Type = iota
-	Bacrimic       Type = iota
-	Phralimic      Type = iota
-	Phrogimic      Type = iota
-	Rathimic       Type = iota
-	Katocrimic     Type = iota
-	Phryptimic     Type = iota
-	Katynimic      Type = iota
-	Solimic        Type = iota
-	Ionolimic      Type = iota
-	Ionophimic     Type = iota
-	Aeologimic     Type = iota
-	Zadimic        Type = iota
-	Sygimic        Type = iota
-	Thogimic       Type = iota
-	Rythimic       Type = iota
-	Donimic        Type = iota
-	Aeoloptimic    Type = iota
-	Panimic        Type = iota
-	Lodimic        Type = iota
-	Laptimic       Type = iota
-	Lygimic        Type = iota
-	Logimic        Type = iota
-	Lalimic        Type = iota
-	Sothimic       Type = iota
-	Phrocrimic     Type = iota
-	Modimic        Type = iota
-	Barimic        Type = iota
-	Poptimic       Type = iota
-	Sagimic        Type = iota
-	Aelothimic     Type = iota
-	Socrimic       Type = iota
-	Syrimic        Type = iota
-	Stodimic       Type = iota
-	Ionocrimic     Type = iota
-	Zycrimic       Type = iota
-	Ionygimic      Type = iota
-	Katathimic     Type = iota
-	Bolimic        Type = iota
-	Bothimic       Type = iota
-	Katadimic      Type = iota
-	Kodimic        Type = iota
-	Tholimic       Type = iota
-	Ralimic        Type = iota
-	Kanimic        Type = iota
-	Zylimic        Type = iota
-	Zodimic        Type = iota
-	Zarimic        Type = iota
-	Phrythimic     Type = iota
-	Rorimic        Type = iota
-	Pynimic        Type = iota
-	Zanimic        Type = iota
-	Ranimic        Type = iota
-	Ladimic        Type = iota
-	Podimic        Type = iota
-	Ionothimic     Type = iota
-	Kytrimic       Type = iota
-	Golimic        Type = iota
-	Dyptimic       Type = iota
-	Ryrimic        Type = iota
-	Gylimic        Type = iota
-	Aeolycrimic    Type = iota
-	Palimic        Type = iota
-	Stothimic      Type = iota
-	Aeronimic      Type = iota
-	Katagimic      Type = iota
-	Phronimic      Type = iota
-	Banimic        Type = iota
-	Ionodimic      Type = iota
-	Bogimic        Type = iota
-	Mogimic        Type = iota
-	Docrimic       Type = iota
-	Epadimic       Type = iota
-	Aerynimic      Type = iota
-	Mydimic        Type = iota
-	Thyptimic      Type = iota
-	Phrothimic     Type = iota
-	Katycrimic     Type = iota
-	Ionalimic      Type = iota
-	Loptimic       Type = iota
-	Zagimic        Type = iota
-	Lagimic        Type = iota
-	Thyrimic       Type = iota
-	Thothimic      Type = iota
-	Bycrimic       Type = iota
-	Pathimic       Type = iota
-	Mothimic       Type = iota
-	Aeranimic      Type = iota
-	Ragimic        Type = iota
-	Dolimic        Type = iota
-	Porimic        Type = iota
-	Aerylimic      Type = iota
-	Bocrimic       Type = iota
-	Gythimic       Type = iota
-	Pagimic        Type = iota
-	Aeolythimic    Type = iota
-	Molimic        Type = iota
-	Staptimic      Type = iota
-	Zacrimic       Type = iota
-	Larimic        Type = iota
-	Thacrimic      Type = iota
-	Stydimic       Type = iota
-	Lorimic        Type = iota
-	Ionadimic      Type = iota
-	Ionythimic     Type = iota
-	Aerythimic     Type = iota
-	Dynimic        Type = iota
-	Zydimic        Type = iota
-	Zathimic       Type = iota
-	Radimic        Type = iota
-	Stonimic       Type = iota
-	Syptimic       Type = iota
-	Ponimic        Type = iota
-	Kadimic        Type = iota
-	Gynimic        Type = iota
-	Thydimic       Type = iota
-	Polimic        Type = iota
-	Thanimic       Type = iota
-	Lathimic       Type = iota
-	Aeralimic      Type = iota
-	Kynimic        Type = iota
-	Stynimic       Type = iota
-	Epytimic       Type = iota
-	Katoptimic     Type = iota
-	Galimic        Type = iota
-	Kathimic       Type = iota
-	Lylimic        Type = iota
-	Epalimic       Type = iota
-	Epacrimic      Type = iota
-	Sathimic       Type = iota
-	Katanimic      Type = iota
-	Katyrimic      Type = iota
-	Rynimic        Type = iota
-	Pogimic        Type = iota
-	Aeraptimic     Type = iota
-	Epylimic       Type = iota
-	Manimic        Type = iota
-	Marimic        Type = iota
-	Locrimic       Type = iota
-	Rylimic        Type = iota
-	Epatimic       Type = iota
-	Byrimic        Type = iota
-	Kocrimic       Type = iota
-	Korimic        Type = iota
-	Lynimic        Type = iota
-	Malimic        Type = iota
-	Synimic        Type = iota
-	Phragimic      Type = iota
-	Mycrimic       Type = iota
-	Ionorimic      Type = iota
-	Phrydimic      Type = iota
-	Zyptimic       Type = iota
-	Katothimic     Type = iota
-	Phrylimic      Type = iota
-	Aerothimic     Type = iota
-	Stagimic       Type = iota
-	Dorimic        Type = iota
-	Phrycrimic     Type = iota
-	Kyptimic       Type = iota
-	Ionylimic      Type = iota
-	Epynimic       Type = iota
-	Ionogimic      Type = iota
-	Kydimic        Type = iota
-	Gaptimic       Type = iota
-	Tharimic       Type = iota
-	Ionaphimic     Type = iota
-	Thoptimic      Type = iota
-	Bagimic        Type = iota
-	Kyrimic        Type = iota
-	Sonimic        Type = iota
-	Aeolonimic     Type = iota
-	Rygimic        Type = iota
-	Thagimic       Type = iota
-	Kolimic        Type = iota
-	Dycrimic       Type = iota
-	Epycrimic      Type = iota
-	Gocrimic       Type = iota
-	Katolimic      Type = iota
-	Dagimic        Type = iota
-	Aeolydimic     Type = iota
-	Parimic        Type = iota
-	Ionaptimic     Type = iota
-	Thylimic       Type = iota
-	Lolimic        Type = iota
-	Thalimic       Type = iota
-	Stygimic       Type = iota
-	Aeolygimic     Type = iota
-	Aerogimic      Type = iota
-	Dacrimic       Type = iota
-	Baptimic       Type = iota
-	Stythimic      Type = iota
-	Kothimic       Type = iota
-	Pygimic        Type = iota
-	Rodimic        Type = iota
-	Sorimic        Type = iota
-	Monimic        Type = iota
-	Aeragimic      Type = iota
-	Epothimic      Type = iota
-	Salimic        Type = iota
-	Lyptimic       Type = iota
-	Katonimic      Type = iota
-	Gygimic        Type = iota
-	Aeradimic      Type = iota
-	Zyrimic        Type = iota
-	Stylimic       Type = iota
-	Lythimic       Type = iota
-	Dodimic        Type = iota
-	Katalimic      Type = iota
-	Boptimic       Type = iota
-	Stogimic       Type = iota
-	Thynimic       Type = iota
-	Aeolathimic    Type = iota
-	Bythimic       Type = iota
-	Padimic        Type = iota
-	Dathimic       Type = iota
-	Epagimic       Type = iota
-	Raptimic       Type = iota
-	Epolimic       Type = iota
-	Sythimic       Type = iota
-	Sydimic        Type = iota
-	Gacrimic       Type = iota
-	Borimic        Type = iota
-	Sycrimic       Type = iota
-	Gadimic        Type = iota
-	Aeolocrimic    Type = iota
-	Phrygimic      Type = iota
-	WholeTone      Type = iota
-	Lydian         Type = iota
-	Mixolydian     Type = iota
-	Aeolian        Type = iota
-	Locrian        Type = iota
-	Ionian         Type = iota
-	Dorian         Type = iota
-	Phrygian       Type = iota
-	Ionythian      Type = iota
-	Aeolyrian      Type = iota
-	Gorian         Type = iota
-	Aeolodian      Type = iota
-	Doptian        Type = iota
-	Aeraphian      Type = iota
-	Zacrian        Type = iota
-	Ionarian       Type = iota
-	Dynian         Type = iota
-	Zydian         Type = iota
-	Zathian        Type = iota
-	Radian         Type = iota
-	Stonian        Type = iota
-	Syptian        Type = iota
-	Aeolacrian     Type = iota
-	Zythian        Type = iota
-	Dyrian         Type = iota
-	Koptian        Type = iota
-	Thocrian       Type = iota
-	Aeolanian      Type = iota
-	Danian         Type = iota
-	Zogian         Type = iota
-	Epyrian        Type = iota
-	Lycrian        Type = iota
-	Daptian        Type = iota
-	Kygian         Type = iota
-	Mocrian        Type = iota
-	Zynian         Type = iota
-	Phrolian       Type = iota
-	Ionagian       Type = iota
-	Aeodian        Type = iota
-	Kycrian        Type = iota
-	Epygian        Type = iota
-	Zaptian        Type = iota
-	Kagian         Type = iota
-	Soptian        Type = iota
-	Ionyptian      Type = iota
-	Gyrian         Type = iota
-	Zalian         Type = iota
-	Stolian        Type = iota
-	Bylian         Type = iota
-	Zothian        Type = iota
-	Thonian        Type = iota
-	Phrorian       Type = iota
-	Stadian        Type = iota
-	Thodian        Type = iota
-	Dogian         Type = iota
-	Mixopyrian     Type = iota
-	Garian         Type = iota
-	Epathian       Type = iota
-	Mythian        Type = iota
-	Sogian         Type = iota
-	Gogian         Type = iota
-	Rothian        Type = iota
-	Katarian       Type = iota
-	Stylian        Type = iota
-	Stathian       Type = iota
-	Mixonyphian    Type = iota
-	Magian         Type = iota
-	Dadian         Type = iota
-	Aeolylian      Type = iota
-	Gycrian        Type = iota
-	Pyrian         Type = iota
-	Epogian        Type = iota
-	Lanian         Type = iota
-	Paptian        Type = iota
-	Ionacrian      Type = iota
-	Gathian        Type = iota
-	Ionyphian      Type = iota
-	Phrynian       Type = iota
-	Ionycrian      Type = iota
-	Phradian       Type = iota
-	Aeolorian      Type = iota
-	Gonian         Type = iota
-	Dalian         Type = iota
-	Dygian         Type = iota
-	Zolian         Type = iota
-	Aerathian      Type = iota
-	Sarian         Type = iota
-	Zoptian        Type = iota
-	Aeracrian      Type = iota
-	Byptian        Type = iota
-	Darian         Type = iota
-	Lonian         Type = iota
-	Aeopian        Type = iota
-	Rygian         Type = iota
-	Epynian        Type = iota
-	Ionogian       Type = iota
-	Kydian         Type = iota
-	Gaptian        Type = iota
-	Tharian        Type = iota
-	Epycrian       Type = iota
-	Gocrian        Type = iota
-	Katolian       Type = iota
-	Thoptian       Type = iota
-	Bagian         Type = iota
-	Kyrian         Type = iota
-	Sonian         Type = iota
-	Parian         Type = iota
-	Ionaptian      Type = iota
-	Thylian        Type = iota
-	Lolian         Type = iota
-	Thagian        Type = iota
-	Kolian         Type = iota
-	Dycrian        Type = iota
-	Stygian        Type = iota
-	Aeolygian      Type = iota
-	Aerogian       Type = iota
-	Dacrian        Type = iota
-	Baptian        Type = iota
-	Dagian         Type = iota
-	Aeolydian      Type = iota
-	Stythian       Type = iota
-	Kothian        Type = iota
-	Pygian         Type = iota
-	Rodian         Type = iota
-	Sorian         Type = iota
-	Monian         Type = iota
-	Thalian        Type = iota
-	Zorian         Type = iota
-	Aeragian       Type = iota
-	Epothian       Type = iota
-	Salian         Type = iota
-	Lyptian        Type = iota
-	Katonian       Type = iota
-	Gyphian        Type = iota
-	Thacrian       Type = iota
-	Dodian         Type = iota
-	Aeolyptian     Type = iota
-	Aeolonian      Type = iota
-	Aeradian       Type = iota
-	Aeolagian      Type = iota
-	Zyrian         Type = iota
-	Aeolathian     Type = iota
-	Bythian        Type = iota
-	Padian         Type = iota
-	Rolian         Type = iota
-	Pydian         Type = iota
-	Thygian        Type = iota
-	Katalian       Type = iota
-	Saptian        Type = iota
-	Aerodian       Type = iota
-	Macrian        Type = iota
-	Rogian         Type = iota
-	Boptian        Type = iota
-	Stogian        Type = iota
-	Thynian        Type = iota
-	Thycrian       Type = iota
-	Aeoladian      Type = iota
-	Dylian         Type = iota
-	Eponian        Type = iota
-	Katygian       Type = iota
-	Starian        Type = iota
-	Phrathian      Type = iota
-	Stalian        Type = iota
-	Stoptian       Type = iota
-	Zygian         Type = iota
-	Kataptian      Type = iota
-	Aeolaptian     Type = iota
-	Pothian        Type = iota
-	Bygian         Type = iota
-	Morian         Type = iota
-	Rycrian        Type = iota
-	Ronian         Type = iota
-	Stycrian       Type = iota
-	Katorian       Type = iota
-	Epythian       Type = iota
-	Kaptian        Type = iota
-	Phraptian      Type = iota
-	Bacrian        Type = iota
-	Katythian      Type = iota
-	Madian         Type = iota
-	Aerygian       Type = iota
-	Pylian         Type = iota
-	Ionathian      Type = iota
-	Katocrian      Type = iota
-	Phryptian      Type = iota
-	Katynian       Type = iota
-	Aerycrian      Type = iota
-	Ganian         Type = iota
-	Eparian        Type = iota
-	Lyrian         Type = iota
-	Ionopian       Type = iota
-	Aeologian      Type = iota
-	Zadian         Type = iota
-	Sygian         Type = iota
-	Phralian       Type = iota
-	Phrogian       Type = iota
-	Rathian        Type = iota
-	Rythian        Type = iota
-	Donian         Type = iota
-	Aeoloptian     Type = iota
-	Panian         Type = iota
-	Lodian         Type = iota
-	Solian         Type = iota
-	Ionolian       Type = iota
-	Laptian        Type = iota
-	Lygian         Type = iota
-	Logian         Type = iota
-	Lalian         Type = iota
-	Sothian        Type = iota
-	Phrocrian      Type = iota
-	Thogian        Type = iota
-	Katathian      Type = iota
-	Modian         Type = iota
-	Barian         Type = iota
-	Mixolocrian    Type = iota
-	Sagian         Type = iota
-	Aeolothian     Type = iota
-	Socrian        Type = iota
-	Tholian        Type = iota
-	Ralian         Type = iota
-	Syrian         Type = iota
-	Stodian        Type = iota
-	Ionocrian      Type = iota
-	Zycrian        Type = iota
-	Ionygian       Type = iota
-	Zarian         Type = iota
-	Phrythian      Type = iota
-	Rorian         Type = iota
-	Bolian         Type = iota
-	Bothian        Type = iota
-	Katadian       Type = iota
-	Kodian         Type = iota
-	Ranian         Type = iota
-	Ladian         Type = iota
-	Podian         Type = iota
-	Ionothian      Type = iota
-	Kanian         Type = iota
-	Zylian         Type = iota
-	Zodian         Type = iota
-	Golian         Type = iota
-	Dyptian        Type = iota
-	Ryphian        Type = iota
-	Gylian         Type = iota
-	Aeolycrian     Type = iota
-	Pynian         Type = iota
-	Zanian         Type = iota
-	Palian         Type = iota
-	Stothian       Type = iota
-	Aerorian       Type = iota
-	Katagian       Type = iota
-	Phronian       Type = iota
-	Banian         Type = iota
-	Aeronian       Type = iota
-	Loptian        Type = iota
-	Ionodian       Type = iota
-	Bogian         Type = iota
-	Mogian         Type = iota
-	Docrian        Type = iota
-	Epadian        Type = iota
-	Aerynian       Type = iota
-	Bycrian        Type = iota
-	Pathian        Type = iota
-	Mydian         Type = iota
-	Thyptian       Type = iota
-	Phrothian      Type = iota
-	Katycrian      Type = iota
-	Ionalian       Type = iota
-	Dolian         Type = iota
-	Porian         Type = iota
-	Aerylian       Type = iota
-	Zagian         Type = iota
-	Lagian         Type = iota
-	Tyrian         Type = iota
-	Mixonorian     Type = iota
-	Pagian         Type = iota
-	Aeolythian     Type = iota
-	Molian         Type = iota
-	Staptian       Type = iota
-	Mothian        Type = iota
-	Aeranian       Type = iota
-	Ragian         Type = iota
-	Larian         Type = iota
-	Lythian        Type = iota
-	Stydian        Type = iota
-	Lorian         Type = iota
-	Ionadian       Type = iota
-	Bocrian        Type = iota
-	Mixolythian    Type = iota
-	Thadian        Type = iota
-	Sanian         Type = iota
-	Ionydian       Type = iota
-	Epydian        Type = iota
-	Katydian       Type = iota
-	Mathian        Type = iota
-	Aeryptian      Type = iota
-	Pythian        Type = iota
-	Katylian       Type = iota
-	Bydian         Type = iota
-	Bynian         Type = iota
-	Galian         Type = iota
-	Zonian         Type = iota
-	Myrian         Type = iota
-	Katogian       Type = iota
-	Stacrian       Type = iota
-	Styrian        Type = iota
-	Ionyrian       Type = iota
-	Phrodian       Type = iota
-	Pycrian        Type = iota
-	Gyptian        Type = iota
-	Katacrian      Type = iota
-	Sodian         Type = iota
-	Bathian        Type = iota
-	Mylian         Type = iota
-	Godian         Type = iota
-	Thorian        Type = iota
-	Zocrian        Type = iota
-	Stanian        Type = iota
-	Epanian        Type = iota
-	Konian         Type = iota
-	Stocrian       Type = iota
-	Kalian         Type = iota
-	Phroptian      Type = iota
-	Dydian         Type = iota
-	Katyptian      Type = iota
-	Epodian        Type = iota
-	Mygian         Type = iota
-	Pacrian        Type = iota
-	Aerocrian      Type = iota
-	Aeolarian      Type = iota
-	Kythian        Type = iota
-	Bonian         Type = iota
-	Badian         Type = iota
-	Katodian       Type = iota
-	Sadian         Type = iota
-	Dothian        Type = iota
-	Moptian        Type = iota
-	Aeryrian       Type = iota
-	Epagian        Type = iota
-	Raptian        Type = iota
-	Epolian        Type = iota
-	Sythian        Type = iota
-	Sydian         Type = iota
-	Epocrian       Type = iota
-	Kylian         Type = iota
-	Gacrian        Type = iota
-	Borian         Type = iota
-	Sycrian        Type = iota
-	Gadian         Type = iota
-	Aeolocrian     Type = iota
-	Mixodorian     Type = iota
-	Dathian        Type = iota
-	Katoptian      Type = iota
-	Ponian         Type = iota
-	Kadian         Type = iota
-	Gynian         Type = iota
-	Thyphian       Type = iota
-	Polian         Type = iota
-	Thanian        Type = iota
-	Epacrian       Type = iota
-	Sathian        Type = iota
-	Lathian        Type = iota
-	Aeralian       Type = iota
-	Kynian         Type = iota
-	Stynian        Type = iota
-	Epyphian       Type = iota
-	Pogian         Type = iota
-	Aeraptian      Type = iota
-	Epylian        Type = iota
-	Gamian         Type = iota
-	Kathian        Type = iota
-	Lylian         Type = iota
-	Epalian        Type = iota
-	Eporian        Type = iota
-	Rylian         Type = iota
-	Epaptian       Type = iota
-	Byrian         Type = iota
-	Katanian       Type = iota
-	Katyrian       Type = iota
-	Rynian         Type = iota
-	Korian         Type = iota
-	Lynian         Type = iota
-	Malian         Type = iota
-	Synian         Type = iota
-	Phragian       Type = iota
-	Manian         Type = iota
-	Marian         Type = iota
-	Mycrian        Type = iota
-	Ionorian       Type = iota
-	Phrydian       Type = iota
-	Zyptian        Type = iota
-	Katothian      Type = iota
-	Phrylian       Type = iota
-	Kocrian        Type = iota
-	Ionanian       Type = iota
-	Aerothian      Type = iota
-	Stagian        Type = iota
-	Lothian        Type = iota
-	Phrycrian      Type = iota
-	Kyptian        Type = iota
-	Ionylian       Type = iota
-	Gydian         Type = iota
-	Kogian         Type = iota
-	Rarian         Type = iota
-	Aerolian       Type = iota
-	Karian         Type = iota
-	Myptian        Type = iota
-	Rydian         Type = iota
-	Aeolynian      Type = iota
-	Aeroptian      Type = iota
-	Phryrian       Type = iota
-	Gothian        Type = iota
-	Storian        Type = iota
-	Pyptian        Type = iota
-	Thydian        Type = iota
+	Invalid         Type = iota
+	Minoric         Type = iota
+	Thaptic         Type = iota
+	Lothic          Type = iota
+	Phratic         Type = iota
+	Aerathic        Type = iota
+	Epathic         Type = iota
+	Mynic           Type = iota
+	Rothic          Type = iota
+	Eporic          Type = iota
+	Zyphic          Type = iota
+	Epogic          Type = iota
+	Lanic           Type = iota
+	Pyrric          Type = iota
+	Aeoloric        Type = iota
+	Gonic           Type = iota
+	Dalic           Type = iota
+	Dygic           Type = iota
+	Daric           Type = iota
+	Lonic           Type = iota
+	Phradic         Type = iota
+	Bolic           Type = iota
+	Saric           Type = iota
+	Zoptic          Type = iota
+	Aeraphic        Type = iota
+	Byptic          Type = iota
+	Aeolic          Type = iota
+	Koptic          Type = iota
+	Mixolyric       Type = iota
+	Lydic           Type = iota
+	Stathic         Type = iota
+	Dadic           Type = iota
+	Phrynic         Type = iota
+	Epathitonic     Type = iota
+	Mynitonic       Type = iota
+	Rocritonic      Type = iota
+	Pentatonic      Type = iota
+	Thaptitonic     Type = iota
+	Magitonic       Type = iota
+	Daditonic       Type = iota
+	Aeolyphritonic  Type = iota
+	Gycritonic      Type = iota
+	Pyritonic       Type = iota
+	Gathitonic      Type = iota
+	Ionitonic       Type = iota
+	Phrynitonic     Type = iota
+	Stathitonic     Type = iota
+	Thalitonic      Type = iota
+	Zolitonic       Type = iota
+	Epogitonic      Type = iota
+	Lanitonic       Type = iota
+	Paptitonic      Type = iota
+	Ionacritonic    Type = iota
+	Phraditonic     Type = iota
+	Aeoloritonic    Type = iota
+	Gonitonic       Type = iota
+	Dalitonic       Type = iota
+	Dygitonic       Type = iota
+	Aeracritonic    Type = iota
+	Byptitonic      Type = iota
+	Daritonic       Type = iota
+	Lonitonic       Type = iota
+	Ionycritonic    Type = iota
+	Lothitonic      Type = iota
+	Phratonic       Type = iota
+	Aerathitonic    Type = iota
+	Saritonic       Type = iota
+	Zoptitonic      Type = iota
+	Dolitonic       Type = iota
+	Poritonic       Type = iota
+	Aerylitonic     Type = iota
+	Zagitonic       Type = iota
+	Lagitonic       Type = iota
+	Molitonic       Type = iota
+	Staptitonic     Type = iota
+	Mothitonic      Type = iota
+	Aeritonic       Type = iota
+	Ragitonic       Type = iota
+	Ionaditonic     Type = iota
+	Bocritonic      Type = iota
+	Gythitonic      Type = iota
+	Pagitonic       Type = iota
+	Aeolythitonic   Type = iota
+	Zacritonic      Type = iota
+	Laritonic       Type = iota
+	Thacritonic     Type = iota
+	Styditonic      Type = iota
+	Loritonic       Type = iota
+	Aeolyritonic    Type = iota
+	Goritonic       Type = iota
+	Aeoloditonic    Type = iota
+	Doptitonic      Type = iota
+	Aeraphitonic    Type = iota
+	Zathitonic      Type = iota
+	Raditonic       Type = iota
+	Stonitonic      Type = iota
+	Syptitonic      Type = iota
+	Ionythitonic    Type = iota
+	Aeolanitonic    Type = iota
+	Danitonic       Type = iota
+	Ionaritonic     Type = iota
+	Dynitonic       Type = iota
+	Zyditonic       Type = iota
+	Aeolacritonic   Type = iota
+	Zythitonic      Type = iota
+	Dyritonic       Type = iota
+	Koptitonic      Type = iota
+	Thocritonic     Type = iota
+	Lycritonic      Type = iota
+	Daptitonic      Type = iota
+	Kygitonic       Type = iota
+	Mocritonic      Type = iota
+	Zynitonic       Type = iota
+	Epygitonic      Type = iota
+	Zaptitonic      Type = iota
+	Kagitonic       Type = iota
+	Zogitonic       Type = iota
+	Epyritonic      Type = iota
+	Zothitonic      Type = iota
+	Phrolitonic     Type = iota
+	Ionagitonic     Type = iota
+	Aeolapritonic   Type = iota
+	Kyritonic       Type = iota
+	Ionyptitonic    Type = iota
+	Gyritonic       Type = iota
+	Zalitonic       Type = iota
+	Stolitonic      Type = iota
+	Bylitonic       Type = iota
+	Thoditonic      Type = iota
+	Dogitonic       Type = iota
+	Phralitonic     Type = iota
+	Garitonic       Type = iota
+	Soptitonic      Type = iota
+	Kataritonic     Type = iota
+	Sylitonic       Type = iota
+	Thonitonic      Type = iota
+	Phropitonic     Type = iota
+	Staditonic      Type = iota
+	Lyditonic       Type = iota
+	Mythitonic      Type = iota
+	Sogitonic       Type = iota
+	Gothitonic      Type = iota
+	Rothitonic      Type = iota
+	Zylitonic       Type = iota
+	Zoditonic       Type = iota
+	Zaritonic       Type = iota
+	Phrythitonic    Type = iota
+	Rolitonic       Type = iota
+	Ranitonic       Type = iota
+	Laditonic       Type = iota
+	Poditonic       Type = iota
+	Ionothitonic    Type = iota
+	Kanitonic       Type = iota
+	Ryphitonic      Type = iota
+	Gylitonic       Type = iota
+	Aeolycritonic   Type = iota
+	Pynitonic       Type = iota
+	Zanitonic       Type = iota
+	Phronitonic     Type = iota
+	Banitonic       Type = iota
+	Aeronitonic     Type = iota
+	Golitonic       Type = iota
+	Dyptitonic      Type = iota
+	Aerynitonic     Type = iota
+	Palitonic       Type = iota
+	Stothitonic     Type = iota
+	Aerophitonic    Type = iota
+	Katagitonic     Type = iota
+	Ionoditonic     Type = iota
+	Bogitonic       Type = iota
+	Mogitonic       Type = iota
+	Docritonic      Type = iota
+	Epaditonic      Type = iota
+	Mixitonic       Type = iota
+	Phrothitonic    Type = iota
+	Katycritonic    Type = iota
+	Ionalitonic     Type = iota
+	Loptitonic      Type = iota
+	Thyritonic      Type = iota
+	Thoptitonic     Type = iota
+	Bycritonic      Type = iota
+	Pathitonic      Type = iota
+	Myditonic       Type = iota
+	Bolitonic       Type = iota
+	Bothitonic      Type = iota
+	Kataditonic     Type = iota
+	Koditonic       Type = iota
+	Tholitonic      Type = iota
+	Epathimic       Type = iota
+	Mynimic         Type = iota
+	Rocrimic        Type = iota
+	Eporimic        Type = iota
+	Thaptimic       Type = iota
+	Lothimic        Type = iota
+	Dyrimic         Type = iota
+	Koptimic        Type = iota
+	Thocrimic       Type = iota
+	Aeolanimic      Type = iota
+	Danimic         Type = iota
+	Ionarimic       Type = iota
+	Daptimic        Type = iota
+	Kygimic         Type = iota
+	Mocrimic        Type = iota
+	Zynimic         Type = iota
+	Aeolimic        Type = iota
+	Zythimic        Type = iota
+	Epygimic        Type = iota
+	Zaptimic        Type = iota
+	Kagimic         Type = iota
+	Zogimic         Type = iota
+	Epyrimic        Type = iota
+	Lycrimic        Type = iota
+	Bylimic         Type = iota
+	Zothimic        Type = iota
+	Phrolimic       Type = iota
+	Ionagimic       Type = iota
+	Aeolaphimic     Type = iota
+	Kycrimic        Type = iota
+	Garimic         Type = iota
+	Soptimic        Type = iota
+	Ionyptimic      Type = iota
+	Gyrimic         Type = iota
+	Zalimic         Type = iota
+	Stolimic        Type = iota
+	Thonimic        Type = iota
+	Stadimic        Type = iota
+	Thodimic        Type = iota
+	Mythimic        Type = iota
+	Sogimic         Type = iota
+	Gogimic         Type = iota
+	Rothimic        Type = iota
+	Katarimic       Type = iota
+	Sylimic         Type = iota
+	Mixolimic       Type = iota
+	Dadimic         Type = iota
+	Aeolyphimic     Type = iota
+	Gycrimic        Type = iota
+	Pyrimic         Type = iota
+	Lydimic         Type = iota
+	Ionacrimic      Type = iota
+	Gathimic        Type = iota
+	Ionynimic       Type = iota
+	Phrynimic       Type = iota
+	Stathimic       Type = iota
+	Thatimic        Type = iota
+	Dalimic         Type = iota
+	Dygimic         Type = iota
+	Zolimic         Type = iota
+	Epogimic        Type = iota
+	Lanimic         Type = iota
+	Paptimic        Type = iota
+	Darmic          Type = iota
+	Lonimic         Type = iota
+	Ionycrimic      Type = iota
+	Phradimic       Type = iota
+	Aeolorimic      Type = iota
+	Gonimic         Type = iota
+	Phracrimic      Type = iota
+	Aerathimic      Type = iota
+	Sarimic         Type = iota
+	Zoptimic        Type = iota
+	Zeracrimic      Type = iota
+	Byptimic        Type = iota
+	Starimic        Type = iota
+	Phrathimic      Type = iota
+	Saptimic        Type = iota
+	Aerodimic       Type = iota
+	Macrimic        Type = iota
+	Rogimic         Type = iota
+	Bygimic         Type = iota
+	Thycrimic       Type = iota
+	Aeoladimic      Type = iota
+	Dylimic         Type = iota
+	Eponimic        Type = iota
+	Katygimic       Type = iota
+	Stalimic        Type = iota
+	Stoptimic       Type = iota
+	Zygimic         Type = iota
+	Kataptimic      Type = iota
+	Aeolaptimic     Type = iota
+	Pothimic        Type = iota
+	Rycrimic        Type = iota
+	Ronimic         Type = iota
+	Stycrimic       Type = iota
+	Katorimic       Type = iota
+	Epythimic       Type = iota
+	Kaptimic        Type = iota
+	Katythimic      Type = iota
+	Madimic         Type = iota
+	Aerygimic       Type = iota
+	Pylimic         Type = iota
+	Ionathimic      Type = iota
+	Morimic         Type = iota
+	Aerycrimic      Type = iota
+	Ganimic         Type = iota
+	Eparimic        Type = iota
+	Lyrimic         Type = iota
+	Phraptimic      Type = iota
+	Bacrimic        Type = iota
+	Phralimic       Type = iota
+	Phrogimic       Type = iota
+	Rathimic        Type = iota
+	Katocrimic      Type = iota
+	Phryptimic      Type = iota
+	Katynimic       Type = iota
+	Solimic         Type = iota
+	Ionolimic       Type = iota
+	Ionophimic      Type = iota
+	Aeologimic      Type = iota
+	Zadimic         Type = iota
+	Sygimic         Type = iota
+	Thogimic        Type = iota
+	Rythimic        Type = iota
+	Donimic         Type = iota
+	Aeoloptimic     Type = iota
+	Panimic         Type = iota
+	Lodimic         Type = iota
+	Laptimic        Type = iota
+	Lygimic         Type = iota
+	Logimic         Type = iota
+	Lalimic         Type = iota
+	Sothimic        Type = iota
+	Phrocrimic      Type = iota
+	Modimic         Type = iota
+	Barimic         Type = iota
+	Poptimic        Type = iota
+	Sagimic         Type = iota
+	Aelothimic      Type = iota
+	Socrimic        Type = iota
+	Syrimic         Type = iota
+	Stodimic        Type = iota
+	Ionocrimic      Type = iota
+	Zycrimic        Type = iota
+	Ionygimic       Type = iota
+	Katathimic      Type = iota
+	Bolimic         Type = iota
+	Bothimic        Type = iota
+	Katadimic       Type = iota
+	Kodimic         Type = iota
+	Tholimic        Type = iota
+	Ralimic         Type = iota
+	Kanimic         Type = iota
+	Zylimic         Type = iota
+	Zodimic         Type = iota
+	Zarimic         Type = iota
+	Phrythimic      Type = iota
+	Rorimic         Type = iota
+	Pynimic         Type = iota
+	Zanimic         Type = iota
+	Ranimic         Type = iota
+	Ladimic         Type = iota
+	Podimic         Type = iota
+	Ionothimic      Type = iota
+	Kytrimic        Type = iota
+	Golimic         Type = iota
+	Dyptimic        Type = iota
+	Ryrimic         Type = iota
+	Gylimic         Type = iota
+	Aeolycrimic     Type = iota
+	Palimic         Type = iota
+	Stothimic       Type = iota
+	Aeronimic       Type = iota
+	Katagimic       Type = iota
+	Phronimic       Type = iota
+	Banimic         Type = iota
+	Ionodimic       Type = iota
+	Bogimic         Type = iota
+	Mogimic         Type = iota
+	Docrimic        Type = iota
+	Epadimic        Type = iota
+	Aerynimic       Type = iota
+	Mydimic         Type = iota
+	Thyptimic       Type = iota
+	Phrothimic      Type = iota
+	Katycrimic      Type = iota
+	Ionalimic       Type = iota
+	Loptimic        Type = iota
+	Zagimic         Type = iota
+	Lagimic         Type = iota
+	Thyrimic        Type = iota
+	Thothimic       Type = iota
+	Bycrimic        Type = iota
+	Pathimic        Type = iota
+	Mothimic        Type = iota
+	Aeranimic       Type = iota
+	Ragimic         Type = iota
+	Dolimic         Type = iota
+	Porimic         Type = iota
+	Aerylimic       Type = iota
+	Bocrimic        Type = iota
+	Gythimic        Type = iota
+	Pagimic         Type = iota
+	Aeolythimic     Type = iota
+	Molimic         Type = iota
+	Staptimic       Type = iota
+	Zacrimic        Type = iota
+	Larimic         Type = iota
+	Thacrimic       Type = iota
+	Stydimic        Type = iota
+	Lorimic         Type = iota
+	Ionadimic       Type = iota
+	Ionythimic      Type = iota
+	Aerythimic      Type = iota
+	Dynimic         Type = iota
+	Zydimic         Type = iota
+	Zathimic        Type = iota
+	Radimic         Type = iota
+	Stonimic        Type = iota
+	Syptimic        Type = iota
+	Ponimic         Type = iota
+	Kadimic         Type = iota
+	Gynimic         Type = iota
+	Thydimic        Type = iota
+	Polimic         Type = iota
+	Thanimic        Type = iota
+	Lathimic        Type = iota
+	Aeralimic       Type = iota
+	Kynimic         Type = iota
+	Stynimic        Type = iota
+	Epytimic        Type = iota
+	Katoptimic      Type = iota
+	Galimic         Type = iota
+	Kathimic        Type = iota
+	Lylimic         Type = iota
+	Epalimic        Type = iota
+	Epacrimic       Type = iota
+	Sathimic        Type = iota
+	Katanimic       Type = iota
+	Katyrimic       Type = iota
+	Rynimic         Type = iota
+	Pogimic         Type = iota
+	Aeraptimic      Type = iota
+	Epylimic        Type = iota
+	Manimic         Type = iota
+	Marimic         Type = iota
+	Locrimic        Type = iota
+	Rylimic         Type = iota
+	Epatimic        Type = iota
+	Byrimic         Type = iota
+	Kocrimic        Type = iota
+	Korimic         Type = iota
+	Lynimic         Type = iota
+	Malimic         Type = iota
+	Synimic         Type = iota
+	Phragimic       Type = iota
+	Mycrimic        Type = iota
+	Ionorimic       Type = iota
+	Phrydimic       Type = iota
+	Zyptimic        Type = iota
+	Katothimic      Type = iota
+	Phrylimic       Type = iota
+	Aerothimic      Type = iota
+	Stagimic        Type = iota
+	Dorimic         Type = iota
+	Phrycrimic      Type = iota
+	Kyptimic        Type = iota
+	Ionylimic       Type = iota
+	Epynimic        Type = iota
+	Ionogimic       Type = iota
+	Kydimic         Type = iota
+	Gaptimic        Type = iota
+	Tharimic        Type = iota
+	Ionaphimic      Type = iota
+	Thoptimic       Type = iota
+	Bagimic         Type = iota
+	Kyrimic         Type = iota
+	Sonimic         Type = iota
+	Aeolonimic      Type = iota
+	Rygimic         Type = iota
+	Thagimic        Type = iota
+	Kolimic         Type = iota
+	Dycrimic        Type = iota
+	Epycrimic       Type = iota
+	Gocrimic        Type = iota
+	Katolimic       Type = iota
+	Dagimic         Type = iota
+	Aeolydimic      Type = iota
+	Parimic         Type = iota
+	Ionaptimic      Type = iota
+	Thylimic        Type = iota
+	Lolimic         Type = iota
+	Thalimic        Type = iota
+	Stygimic        Type = iota
+	Aeolygimic      Type = iota
+	Aerogimic       Type = iota
+	Dacrimic        Type = iota
+	Baptimic        Type = iota
+	Stythimic       Type = iota
+	Kothimic        Type = iota
+	Pygimic         Type = iota
+	Rodimic         Type = iota
+	Sorimic         Type = iota
+	Monimic         Type = iota
+	Aeragimic       Type = iota
+	Epothimic       Type = iota
+	Salimic         Type = iota
+	Lyptimic        Type = iota
+	Katonimic       Type = iota
+	Gygimic         Type = iota
+	Aeradimic       Type = iota
+	Zyrimic         Type = iota
+	Stylimic        Type = iota
+	Lythimic        Type = iota
+	Dodimic         Type = iota
+	Katalimic       Type = iota
+	Boptimic        Type = iota
+	Stogimic        Type = iota
+	Thynimic        Type = iota
+	Aeolathimic     Type = iota
+	Bythimic        Type = iota
+	Padimic         Type = iota
+	Dathimic        Type = iota
+	Epagimic        Type = iota
+	Raptimic        Type = iota
+	Epolimic        Type = iota
+	Sythimic        Type = iota
+	Sydimic         Type = iota
+	Gacrimic        Type = iota
+	Borimic         Type = iota
+	Sycrimic        Type = iota
+	Gadimic         Type = iota
+	Aeolocrimic     Type = iota
+	Phrygimic       Type = iota
+	WholeTone       Type = iota
+	Lydian          Type = iota
+	Mixolydian      Type = iota
+	Aeolian         Type = iota
+	Locrian         Type = iota
+	Ionian          Type = iota
+	Dorian          Type = iota
+	Phrygian        Type = iota
+	Ionythian       Type = iota
+	Aeolyrian       Type = iota
+	Gorian          Type = iota
+	Aeolodian       Type = iota
+	Doptian         Type = iota
+	Aeraphian       Type = iota
+	Zacrian         Type = iota
+	Ionarian        Type = iota
+	Dynian          Type = iota
+	Zydian          Type = iota
+	Zathian         Type = iota
+	Radian          Type = iota
+	Stonian         Type = iota
+	Syptian         Type = iota
+	Aeolacrian      Type = iota
+	Zythian         Type = iota
+	Dyrian          Type = iota
+	Koptian         Type = iota
+	Thocrian        Type = iota
+	Aeolanian       Type = iota
+	Danian          Type = iota
+	Zogian          Type = iota
+	Epyrian         Type = iota
+	Lycrian         Type = iota
+	Daptian         Type = iota
+	Kygian          Type = iota
+	Mocrian         Type = iota
+	Zynian          Type = iota
+	Phrolian        Type = iota
+	Ionagian        Type = iota
+	Aeodian         Type = iota
+	Kycrian         Type = iota
+	Epygian         Type = iota
+	Zaptian         Type = iota
+	Kagian          Type = iota
+	Soptian         Type = iota
+	Ionyptian       Type = iota
+	Gyrian          Type = iota
+	Zalian          Type = iota
+	Stolian         Type = iota
+	Bylian          Type = iota
+	Zothian         Type = iota
+	Thonian         Type = iota
+	Phrorian        Type = iota
+	Stadian         Type = iota
+	Thodian         Type = iota
+	Dogian          Type = iota
+	Mixopyrian      Type = iota
+	Garian          Type = iota
+	Epathian        Type = iota
+	Mythian         Type = iota
+	Sogian          Type = iota
+	Gogian          Type = iota
+	Rothian         Type = iota
+	Katarian        Type = iota
+	Stylian         Type = iota
+	Stathian        Type = iota
+	Mixonyphian     Type = iota
+	Magian          Type = iota
+	Dadian          Type = iota
+	Aeolylian       Type = iota
+	Gycrian         Type = iota
+	Pyrian          Type = iota
+	Epogian         Type = iota
+	Lanian          Type = iota
+	Paptian         Type = iota
+	Ionacrian       Type = iota
+	Gathian         Type = iota
+	Ionyphian       Type = iota
+	Phrynian        Type = iota
+	Ionycrian       Type = iota
+	Phradian        Type = iota
+	Aeolorian       Type = iota
+	Gonian          Type = iota
+	Dalian          Type = iota
+	Dygian          Type = iota
+	Zolian          Type = iota
+	Aerathian       Type = iota
+	Sarian          Type = iota
+	Zoptian         Type = iota
+	Aeracrian       Type = iota
+	Byptian         Type = iota
+	Darian          Type = iota
+	Lonian          Type = iota
+	Aeopian         Type = iota
+	Rygian          Type = iota
+	Epynian         Type = iota
+	Ionogian        Type = iota
+	Kydian          Type = iota
+	Gaptian         Type = iota
+	Tharian         Type = iota
+	Epycrian        Type = iota
+	Gocrian         Type = iota
+	Katolian        Type = iota
+	Thoptian        Type = iota
+	Bagian          Type = iota
+	Kyrian          Type = iota
+	Sonian          Type = iota
+	Parian          Type = iota
+	Ionaptian       Type = iota
+	Thylian         Type = iota
+	Lolian          Type = iota
+	Thagian         Type = iota
+	Kolian          Type = iota
+	Dycrian         Type = iota
+	Stygian         Type = iota
+	Aeolygian       Type = iota
+	Aerogian        Type = iota
+	Dacrian         Type = iota
+	Baptian         Type = iota
+	Dagian          Type = iota
+	Aeolydian       Type = iota
+	Stythian        Type = iota
+	Kothian         Type = iota
+	Pygian          Type = iota
+	Rodian          Type = iota
+	Sorian          Type = iota
+	Monian          Type = iota
+	Thalian         Type = iota
+	Zorian          Type = iota
+	Aeragian        Type = iota
+	Epothian        Type = iota
+	Salian          Type = iota
+	Lyptian         Type = iota
+	Katonian        Type = iota
+	Gyphian         Type = iota
+	Thacrian        Type = iota
+	Dodian          Type = iota
+	Aeolyptian      Type = iota
+	Aeolonian       Type = iota
+	Aeradian        Type = iota
+	Aeolagian       Type = iota
+	Zyrian          Type = iota
+	Aeolathian      Type = iota
+	Bythian         Type = iota
+	Padian          Type = iota
+	Rolian          Type = iota
+	Pydian          Type = iota
+	Thygian         Type = iota
+	Katalian        Type = iota
+	Saptian         Type = iota
+	Aerodian        Type = iota
+	Macrian         Type = iota
+	Rogian          Type = iota
+	Boptian         Type = iota
+	Stogian         Type = iota
+	Thynian         Type = iota
+	Thycrian        Type = iota
+	Aeoladian       Type = iota
+	Dylian          Type = iota
+	Eponian         Type = iota
+	Katygian        Type = iota
+	Starian         Type = iota
+	Phrathian       Type = iota
+	Stalian         Type = iota
+	Stoptian        Type = iota
+	Zygian          Type = iota
+	Kataptian       Type = iota
+	Aeolaptian      Type = iota
+	Pothian         Type = iota
+	Bygian          Type = iota
+	Morian          Type = iota
+	Rycrian         Type = iota
+	Ronian          Type = iota
+	Stycrian        Type = iota
+	Katorian        Type = iota
+	Epythian        Type = iota
+	Kaptian         Type = iota
+	Phraptian       Type = iota
+	Bacrian         Type = iota
+	Katythian       Type = iota
+	Madian          Type = iota
+	Aerygian        Type = iota
+	Pylian          Type = iota
+	Ionathian       Type = iota
+	Katocrian       Type = iota
+	Phryptian       Type = iota
+	Katynian        Type = iota
+	Aerycrian       Type = iota
+	Ganian          Type = iota
+	Eparian         Type = iota
+	Lyrian          Type = iota
+	Ionopian        Type = iota
+	Aeologian       Type = iota
+	Zadian          Type = iota
+	Sygian          Type = iota
+	Phralian        Type = iota
+	Phrogian        Type = iota
+	Rathian         Type = iota
+	Rythian         Type = iota
+	Donian          Type = iota
+	Aeoloptian      Type = iota
+	Panian          Type = iota
+	Lodian          Type = iota
+	Solian          Type = iota
+	Ionolian        Type = iota
+	Laptian         Type = iota
+	Lygian          Type = iota
+	Logian          Type = iota
+	Lalian          Type = iota
+	Sothian         Type = iota
+	Phrocrian       Type = iota
+	Thogian         Type = iota
+	Katathian       Type = iota
+	Modian          Type = iota
+	Barian          Type = iota
+	Mixolocrian     Type = iota
+	Sagian          Type = iota
+	Aeolothian      Type = iota
+	Socrian         Type = iota
+	Tholian         Type = iota
+	Ralian          Type = iota
+	Syrian          Type = iota
+	Stodian         Type = iota
+	Ionocrian       Type = iota
+	Zycrian         Type = iota
+	Ionygian        Type = iota
+	Zarian          Type = iota
+	Phrythian       Type = iota
+	Rorian          Type = iota
+	Bolian          Type = iota
+	Bothian         Type = iota
+	Katadian        Type = iota
+	Kodian          Type = iota
+	Ranian          Type = iota
+	Ladian          Type = iota
+	Podian          Type = iota
+	Ionothian       Type = iota
+	Kanian          Type = iota
+	Zylian          Type = iota
+	Zodian          Type = iota
+	Golian          Type = iota
+	Dyptian         Type = iota
+	Ryphian         Type = iota
+	Gylian          Type = iota
+	Aeolycrian      Type = iota
+	Pynian          Type = iota
+	Zanian          Type = iota
+	Palian          Type = iota
+	Stothian        Type = iota
+	Aerorian        Type = iota
+	Katagian        Type = iota
+	Phronian        Type = iota
+	Banian          Type = iota
+	Aeronian        Type = iota
+	Loptian         Type = iota
+	Ionodian        Type = iota
+	Bogian          Type = iota
+	Mogian          Type = iota
+	Docrian         Type = iota
+	Epadian         Type = iota
+	Aerynian        Type = iota
+	Bycrian         Type = iota
+	Pathian         Type = iota
+	Mydian          Type = iota
+	Thyptian        Type = iota
+	Phrothian       Type = iota
+	Katycrian       Type = iota
+	Ionalian        Type = iota
+	Dolian          Type = iota
+	Porian          Type = iota
+	Aerylian        Type = iota
+	Zagian          Type = iota
+	Lagian          Type = iota
+	Tyrian          Type = iota
+	Mixonorian      Type = iota
+	Pagian          Type = iota
+	Aeolythian      Type = iota
+	Molian          Type = iota
+	Staptian        Type = iota
+	Mothian         Type = iota
+	Aeranian        Type = iota
+	Ragian          Type = iota
+	Larian          Type = iota
+	Lythian         Type = iota
+	Stydian         Type = iota
+	Lorian          Type = iota
+	Ionadian        Type = iota
+	Bocrian         Type = iota
+	Mixolythian     Type = iota
+	Thadian         Type = iota
+	Sanian          Type = iota
+	Ionydian        Type = iota
+	Epydian         Type = iota
+	Katydian        Type = iota
+	Mathian         Type = iota
+	Aeryptian       Type = iota
+	Pythian         Type = iota
+	Katylian        Type = iota
+	Bydian          Type = iota
+	Bynian          Type = iota
+	Galian          Type = iota
+	Zonian          Type = iota
+	Myrian          Type = iota
+	Katogian        Type = iota
+	Stacrian        Type = iota
+	Styrian         Type = iota
+	Ionyrian        Type = iota
+	Phrodian        Type = iota
+	Pycrian         Type = iota
+	Gyptian         Type = iota
+	Katacrian       Type = iota
+	Sodian          Type = iota
+	Bathian         Type = iota
+	Mylian          Type = iota
+	Godian          Type = iota
+	Thorian         Type = iota
+	Zocrian         Type = iota
+	Stanian         Type = iota
+	Epanian         Type = iota
+	Konian          Type = iota
+	Stocrian        Type = iota
+	Kalian          Type = iota
+	Phroptian       Type = iota
+	Dydian          Type = iota
+	Katyptian       Type = iota
+	Epodian         Type = iota
+	Mygian          Type = iota
+	Pacrian         Type = iota
+	Aerocrian       Type = iota
+	Aeolarian       Type = iota
+	Kythian         Type = iota
+	Bonian          Type = iota
+	Badian          Type = iota
+	Katodian        Type = iota
+	Sadian          Type = iota
+	Dothian         Type = iota
+	Moptian         Type = iota
+	Aeryrian        Type = iota
+	Epagian         Type = iota
+	Raptian         Type = iota
+	Epolian         Type = iota
+	Sythian         Type = iota
+	Sydian          Type = iota
+	Epocrian        Type = iota
+	Kylian          Type = iota
+	Gacrian         Type = iota
+	Borian          Type = iota
+	Sycrian         Type = iota
+	Gadian          Type = iota
+	Aeolocrian      Type = iota
+	Mixodorian      Type = iota
+	Dathian         Type = iota
+	Katoptian       Type = iota
+	Ponian          Type = iota
+	Kadian          Type = iota
+	Gynian          Type = iota
+	Thyphian        Type = iota
+	Polian          Type = iota
+	Thanian         Type = iota
+	Epacrian        Type = iota
+	Sathian         Type = iota
+	Lathian         Type = iota
+	Aeralian        Type = iota
+	Kynian          Type = iota
+	Stynian         Type = iota
+	Epyphian        Type = iota
+	Pogian          Type = iota
+	Aeraptian       Type = iota
+	Epylian         Type = iota
+	Gamian          Type = iota
+	Kathian         Type = iota
+	Lylian          Type = iota
+	Epalian         Type = iota
+	Eporian         Type = iota
+	Rylian          Type = iota
+	Epaptian        Type = iota
+	Byrian          Type = iota
+	Katanian        Type = iota
+	Katyrian        Type = iota
+	Rynian          Type = iota
+	Korian          Type = iota
+	Lynian          Type = iota
+	Malian          Type = iota
+	Synian          Type = iota
+	Phragian        Type = iota
+	Manian          Type = iota
+	Marian          Type = iota
+	Mycrian         Type = iota
+	Ionorian        Type = iota
+	Phrydian        Type = iota
+	Zyptian         Type = iota
+	Katothian       Type = iota
+	Phrylian        Type = iota
+	Kocrian         Type = iota
+	Ionanian        Type = iota
+	Aerothian       Type = iota
+	Stagian         Type = iota
+	Lothian         Type = iota
+	Phrycrian       Type = iota
+	Kyptian         Type = iota
+	Ionylian        Type = iota
+	Gydian          Type = iota
+	Kogian          Type = iota
+	Rarian          Type = iota
+	Aerolian        Type = iota
+	Karian          Type = iota
+	Myptian         Type = iota
+	Rydian          Type = iota
+	Aeolynian       Type = iota
+	Aeroptian       Type = iota
+	Phryrian        Type = iota
+	Gothian         Type = iota
+	Storian         Type = iota
+	Pyptian         Type = iota
+	Thydian         Type = iota
+	Aerycryllic     Type = iota
+	Gadyllic        Type = iota
+	Solyllic        Type = iota
+	Zylyllic        Type = iota
+	Mixodyllic      Type = iota
+	Soryllic        Type = iota
+	Godyllic        Type = iota
+	Epiphyllic      Type = iota
+	Pynyllic        Type = iota
+	Bocryllic       Type = iota
+	Kogyllic        Type = iota
+	Raryllic        Type = iota
+	Zycryllic       Type = iota
+	Mycryllic       Type = iota
+	Laptyllic       Type = iota
+	Pylyllic        Type = iota
+	Pothyllic       Type = iota
+	Phronyllic      Type = iota
+	Stynyllic       Type = iota
+	Rathyllic       Type = iota
+	Aeryptyllic     Type = iota
+	Zydyllic        Type = iota
+	Katolyllic      Type = iota
+	Rythyllic       Type = iota
+	Locryllic       Type = iota
+	Bylyllic        Type = iota
+	Sogyllic        Type = iota
+	Ionycryllic     Type = iota
+	Koptyllic       Type = iota
+	Epyryllic       Type = iota
+	Soptyllic       Type = iota
+	Aeolylyllic     Type = iota
+	Aeracryllic     Type = iota
+	Epygyllic       Type = iota
+	Thonyllic       Type = iota
+	Lanyllic        Type = iota
+	Phrynyllic      Type = iota
+	Lycryllic       Type = iota
+	Ionyptyllic     Type = iota
+	Epathyllic      Type = iota
+	Dydyllic        Type = iota
+	Thogyllic       Type = iota
+	Rygyllic        Type = iota
+	Bycryllic       Type = iota
+	Zacryllic       Type = iota
+	Panyllic        Type = iota
+	Dyryllic        Type = iota
+	Zathyllic       Type = iota
+	Dagyllic        Type = iota
+	Katalyllic      Type = iota
+	Katoryllic      Type = iota
+	Dodyllic        Type = iota
+	Zogyllic        Type = iota
+	Madyllic        Type = iota
+	Dycryllic       Type = iota
+	Aeologyllic     Type = iota
+	Sydyllic        Type = iota
+	Katogyllic      Type = iota
+	Zygyllic        Type = iota
+	Aeralyllic      Type = iota
+	Bacryllic       Type = iota
+	Aerygyllic      Type = iota
+	Dathyllic       Type = iota
+	Boptyllic       Type = iota
+	Bagyllic        Type = iota
+	Mathyllic       Type = iota
+	Styptyllic      Type = iota
+	Zolyllic        Type = iota
+	Rocryllic       Type = iota
+	Zyryllic        Type = iota
+	Sagyllic        Type = iota
+	Epinyllic       Type = iota
+	Katagyllic      Type = iota
+	Ragyllic        Type = iota
+	Gothyllic       Type = iota
+	Lythyllic       Type = iota
+	Ionocryllic     Type = iota
+	Gocryllic       Type = iota
+	Epiryllic       Type = iota
+	Aeradyllic      Type = iota
+	Staptyllic      Type = iota
+	Danyllic        Type = iota
+	Goptyllic       Type = iota
+	Epocryllic      Type = iota
+	Ionoptyllic     Type = iota
+	Aeoloryllic     Type = iota
+	Thydyllic       Type = iota
+	Gycryllic       Type = iota
+	Lyryllic        Type = iota
+	Mogyllic        Type = iota
+	Katodyllic      Type = iota
+	Moptyllic       Type = iota
+	Dolyllic        Type = iota
+	Moryllic        Type = iota
+	Bydyllic        Type = iota
+	Pocryllic       Type = iota
+	Phracryllic     Type = iota
+	Gyryllic        Type = iota
+	Phrygyllic      Type = iota
+	Dogyllic        Type = iota
+	Thagyllic       Type = iota
+	Thoptyllic      Type = iota
+	Phraptyllic     Type = iota
+	Gylyllic        Type = iota
+	Phralyllic      Type = iota
+	Dygyllic        Type = iota
+	Ronyllic        Type = iota
+	Epogyllic       Type = iota
+	Aeoladyllic     Type = iota
+	Kocryllic       Type = iota
+	Lodyllic        Type = iota
+	Bynyllic        Type = iota
+	Kydyllic        Type = iota
+	Bygyllic        Type = iota
+	Phryptyllic     Type = iota
+	Ionayllic       Type = iota
+	Phroryllic      Type = iota
+	Thyphyllic      Type = iota
+	Poptyllic       Type = iota
+	Mixonyllic      Type = iota
+	Paptyllic       Type = iota
+	Storyllic       Type = iota
+	Phrycryllic     Type = iota
+	Palyllic        Type = iota
+	Phranyllic      Type = iota
+	Stydyllic       Type = iota
+	Zadyllic        Type = iota
+	Zalyllic        Type = iota
+	Zocryllic       Type = iota
+	Katocryllic     Type = iota
+	Aerathyllic     Type = iota
+	Stoptyllic      Type = iota
+	Lydyllic        Type = iota
+	Radyllic        Type = iota
+	Stagyllic       Type = iota
+	Ionoryllic      Type = iota
+	Phrodyllic      Type = iota
+	Aeragyllic      Type = iota
+	Banyllic        Type = iota
+	Epothyllic      Type = iota
+	Zoryllic        Type = iota
+	Phrolyllic      Type = iota
+	Kolyllic        Type = iota
+	Thodyllic       Type = iota
+	Socryllic       Type = iota
+	Aeolyllic       Type = iota
+	Zythyllic       Type = iota
+	Aeoryllic       Type = iota
+	Mixolydyllic    Type = iota
+	Mixonyphyllic   Type = iota
+	Aeolanyllic     Type = iota
+	Thocryllic      Type = iota
+	Kygyllic        Type = iota
+	Ionagyllic      Type = iota
+	Gogyllic        Type = iota
+	Phradyllic      Type = iota
+	Ioniptyllic     Type = iota
+	Kycryllic       Type = iota
+	Aeolaptyllic    Type = iota
+	Rodyllic        Type = iota
+	Ionathyllic     Type = iota
+	Pythyllic       Type = iota
+	Zonyllic        Type = iota
+	Ryryllic        Type = iota
+	Aeolothyllic    Type = iota
+	Ionyryllic      Type = iota
+	Rydyllic        Type = iota
+	Gonyllic        Type = iota
+	Rolyllic        Type = iota
+	Katydyllic      Type = iota
+	Zyptyllic       Type = iota
+	Modyllic        Type = iota
+	Maptyllic       Type = iota
+	Aeraptyllic     Type = iota
+	Katadyllic      Type = iota
+	Magyllic        Type = iota
+	Phrylyllic      Type = iota
+	Epigyllic       Type = iota
+	Molyllic        Type = iota
+	Ponyllic        Type = iota
+	Thyptyllic      Type = iota
+	Ionogyllic      Type = iota
+	Aeolaryllic     Type = iota
+	Katygyllic      Type = iota
+	Ganyllic        Type = iota
+	Kyptyllic       Type = iota
+	Salyllic        Type = iota
+	Sanyllic        Type = iota
+	Doptyllic       Type = iota
+	Ionilyllic      Type = iota
+	Manyllic        Type = iota
+	Polyllic        Type = iota
+	Stanyllic       Type = iota
+	Mixotharyllic   Type = iota
+	Eporyllic       Type = iota
+	Aerynyllic      Type = iota
+	Lonyllic        Type = iota
+	Sathyllic       Type = iota
+	Layllic         Type = iota
+	Saryllic        Type = iota
+	Thacryllic      Type = iota
+	Aeolynyllic     Type = iota
+	Thadyllic       Type = iota
+	Lynyllic        Type = iota
+	Aeolathyllic    Type = iota
+	Aeolocryllic    Type = iota
+	Phroptyllic     Type = iota
+	Kodyllic        Type = iota
+	Epaptyllic      Type = iota
+	Ionoyllic       Type = iota
+	Gyptyllic       Type = iota
+	Aerythyllic     Type = iota
+	Zagyllic        Type = iota
+	Epacryllic      Type = iota
+	Thorcryllic     Type = iota
+	Loptyllic       Type = iota
+	Katylyllic      Type = iota
+	Malyllic        Type = iota
+	Mydyllic        Type = iota
+	Thycryllic      Type = iota
+	Gythyllic       Type = iota
+	Pyryllic        Type = iota
+	Rycryllic       Type = iota
+	Phrathyllic     Type = iota
+	Badyllic        Type = iota
+	Phrocryllic     Type = iota
+	Staryllic       Type = iota
+	Zothyllic       Type = iota
+	Tharyllic       Type = iota
+	Sylyllic        Type = iota
+	Lothyllic       Type = iota
+	Daryllic        Type = iota
+	Monyllic        Type = iota
+	Styryllic       Type = iota
+	Aeolacryllic    Type = iota
+	Raptyllic       Type = iota
+	Kataryllic      Type = iota
+	Aerocryllic     Type = iota
+	Zanyllic        Type = iota
+	Aeolonyllic     Type = iota
+	Aeonyllic       Type = iota
+	Kyryllic        Type = iota
+	Sythyllic       Type = iota
+	Katycryllic     Type = iota
+	Stogyllic       Type = iota
+	Ionidyllic      Type = iota
+	Stonyllic       Type = iota
+	Stalyllic       Type = iota
+	Poryllic        Type = iota
+	Mocryllic       Type = iota
+	Aeolyryllic     Type = iota
+	Baryllic        Type = iota
+	Dalyllic        Type = iota
+	Ionyphyllic     Type = iota
+	Zaptyllic       Type = iota
+	Garyllic        Type = iota
+	Gathyllic       Type = iota
+	Mixopyryllic    Type = iota
+	Ionacryllic     Type = iota
+	Stylyllic       Type = iota
+	Stycryllic      Type = iota
+	Ionothyllic     Type = iota
+	Mythyllic       Type = iota
+	Aerylyllic      Type = iota
+	Bonyllic        Type = iota
+	Tholyllic       Type = iota
+	Katyryllic      Type = iota
+	Sadyllic        Type = iota
+	Stolyllic       Type = iota
+	Logyllic        Type = iota
+	Dacryllic       Type = iota
+	Thynyllic       Type = iota
+	Gydyllic        Type = iota
+	Eparyllic       Type = iota
+	Dynyllic        Type = iota
+	Ionyllic        Type = iota
+	Zaryllic        Type = iota
+	Dythyllic       Type = iota
+	Ionaryllic      Type = iota
+	Laryllic        Type = iota
+	Kataptyllic     Type = iota
+	Sonyllic        Type = iota
+	Pathyllic       Type = iota
+	Loryllic        Type = iota
+	Aeronyllic      Type = iota
+	Pycryllic       Type = iota
+	Mygyllic        Type = iota
+	Lylyllic        Type = iota
+	Daptyllic       Type = iota
+	Ioninyllic      Type = iota
+	Epaphyllic      Type = iota
+	Lolyllic        Type = iota
+	Stacryllic      Type = iota
+	Doryllic        Type = iota
+	Kadyllic        Type = iota
+	Rynyllic        Type = iota
+	Aerogyllic      Type = iota
+	Rothyllic       Type = iota
+	Kagyllic        Type = iota
+	Stathyllic      Type = iota
+	Thyryllic       Type = iota
+	Gygyllic        Type = iota
+	Sodyllic        Type = iota
+	Goryllic        Type = iota
+	Bothyllic       Type = iota
+	Gynyllic        Type = iota
+	Ionaptyllic     Type = iota
+	Phryryllic      Type = iota
+	Racryllic       Type = iota
+	Epicryllic      Type = iota
+	Stygyllic       Type = iota
+	Syryllic        Type = iota
+	Stythyllic      Type = iota
+	Aerothyllic     Type = iota
+	Mixoryllic      Type = iota
+	Thanyllic       Type = iota
+	Roryllic        Type = iota
+	Epotyllic       Type = iota
+	Epidyllic       Type = iota
+	Kaptyllic       Type = iota
+	MajorDiminished Type = iota
+	MinorDiminished Type = iota
 )
 
 // AllScales return all scales
@@ -1894,6 +2216,330 @@ func AllScales() []Type {
 		Storian,
 		Pyptian,
 		Thydian,
+
+		// 8 notes
+		Aerycryllic,
+		Gadyllic,
+		Solyllic,
+		Zylyllic,
+		Mixodyllic,
+		Soryllic,
+		Godyllic,
+		Epiphyllic,
+		Pynyllic,
+		Bocryllic,
+		Kogyllic,
+		Raryllic,
+		Zycryllic,
+		Mycryllic,
+		Laptyllic,
+		Pylyllic,
+		Pothyllic,
+		Phronyllic,
+		Stynyllic,
+		Rathyllic,
+		Aeryptyllic,
+		Zydyllic,
+		Katolyllic,
+		Rythyllic,
+		Locryllic,
+		Bylyllic,
+		Sogyllic,
+		Ionycryllic,
+		Koptyllic,
+		Epyryllic,
+		Soptyllic,
+		Aeolylyllic,
+		Aeracryllic,
+		Epygyllic,
+		Thonyllic,
+		Lanyllic,
+		Phrynyllic,
+		Lycryllic,
+		Ionyptyllic,
+		Epathyllic,
+		Dydyllic,
+		Thogyllic,
+		Rygyllic,
+		Bycryllic,
+		Zacryllic,
+		Panyllic,
+		Dyryllic,
+		Zathyllic,
+		Dagyllic,
+		Katalyllic,
+		Katoryllic,
+		Dodyllic,
+		Zogyllic,
+		Madyllic,
+		Dycryllic,
+		Aeologyllic,
+		Sydyllic,
+		Katogyllic,
+		Zygyllic,
+		Aeralyllic,
+		Bacryllic,
+		Aerygyllic,
+		Dathyllic,
+		Boptyllic,
+		Bagyllic,
+		Mathyllic,
+		Styptyllic,
+		Zolyllic,
+		Rocryllic,
+		Zyryllic,
+		Sagyllic,
+		Epinyllic,
+		Katagyllic,
+		Ragyllic,
+		Gothyllic,
+		Lythyllic,
+		Ionocryllic,
+		Gocryllic,
+		Epiryllic,
+		Aeradyllic,
+		Staptyllic,
+		Danyllic,
+		Goptyllic,
+		Epocryllic,
+		Ionoptyllic,
+		Aeoloryllic,
+		Thydyllic,
+		Gycryllic,
+		Lyryllic,
+		Mogyllic,
+		Katodyllic,
+		Moptyllic,
+		Dolyllic,
+		Moryllic,
+		Bydyllic,
+		Pocryllic,
+		Phracryllic,
+		Gyryllic,
+		Phrygyllic,
+		Dogyllic,
+		Thagyllic,
+		Thoptyllic,
+		Phraptyllic,
+		Gylyllic,
+		Phralyllic,
+		Dygyllic,
+		Ronyllic,
+		Epogyllic,
+		Aeoladyllic,
+		Kocryllic,
+		Lodyllic,
+		Bynyllic,
+		Kydyllic,
+		Bygyllic,
+		Phryptyllic,
+		Ionayllic,
+		Phroryllic,
+		Thyphyllic,
+		Poptyllic,
+		Mixonyllic,
+		Paptyllic,
+		Storyllic,
+		Phrycryllic,
+		Palyllic,
+		Phranyllic,
+		Stydyllic,
+		Zadyllic,
+		Zalyllic,
+		Zocryllic,
+		Katocryllic,
+		Aerathyllic,
+		Stoptyllic,
+		Lydyllic,
+		Radyllic,
+		Stagyllic,
+		Ionoryllic,
+		Phrodyllic,
+		Aeragyllic,
+		Banyllic,
+		Epothyllic,
+		Zoryllic,
+		Phrolyllic,
+		Kolyllic,
+		Thodyllic,
+		Socryllic,
+		Aeolyllic,
+		Zythyllic,
+		Aeoryllic,
+		Mixolydyllic,
+		Mixonyphyllic,
+		Aeolanyllic,
+		Thocryllic,
+		Kygyllic,
+		Ionagyllic,
+		Gogyllic,
+		Phradyllic,
+		Ioniptyllic,
+		Kycryllic,
+		Aeolaptyllic,
+		Rodyllic,
+		Ionathyllic,
+		Pythyllic,
+		Zonyllic,
+		Ryryllic,
+		Aeolothyllic,
+		Ionyryllic,
+		Rydyllic,
+		Gonyllic,
+		Rolyllic,
+		Katydyllic,
+		Zyptyllic,
+		Modyllic,
+		Maptyllic,
+		Aeraptyllic,
+		Katadyllic,
+		Magyllic,
+		Phrylyllic,
+		Epigyllic,
+		Molyllic,
+		Ponyllic,
+		Thyptyllic,
+		Ionogyllic,
+		Aeolaryllic,
+		Katygyllic,
+		Ganyllic,
+		Kyptyllic,
+		Salyllic,
+		Sanyllic,
+		Doptyllic,
+		Ionilyllic,
+		Manyllic,
+		Polyllic,
+		Stanyllic,
+		Mixotharyllic,
+		Eporyllic,
+		Aerynyllic,
+		Lonyllic,
+		Sathyllic,
+		Layllic,
+		Saryllic,
+		Thacryllic,
+		Aeolynyllic,
+		Thadyllic,
+		Lynyllic,
+		Aeolathyllic,
+		Aeolocryllic,
+		Phroptyllic,
+		Kodyllic,
+		Epaptyllic,
+		Ionoyllic,
+		Gyptyllic,
+		Aerythyllic,
+		Zagyllic,
+		Epacryllic,
+		Thorcryllic,
+		Loptyllic,
+		Katylyllic,
+		Malyllic,
+		Mydyllic,
+		Thycryllic,
+		Gythyllic,
+		Pyryllic,
+		Rycryllic,
+		Phrathyllic,
+		Badyllic,
+		Phrocryllic,
+		Staryllic,
+		Zothyllic,
+		Tharyllic,
+		Sylyllic,
+		Lothyllic,
+		Daryllic,
+		Monyllic,
+		Styryllic,
+		Aeolacryllic,
+		Raptyllic,
+		Kataryllic,
+		Aerocryllic,
+		Zanyllic,
+		Aeolonyllic,
+		Aeonyllic,
+		Kyryllic,
+		Sythyllic,
+		Katycryllic,
+		Stogyllic,
+		Ionidyllic,
+		Stonyllic,
+		Stalyllic,
+		Poryllic,
+		Mocryllic,
+		Aeolyryllic,
+		Baryllic,
+		Dalyllic,
+		Ionyphyllic,
+		Zaptyllic,
+		Garyllic,
+		Gathyllic,
+		Mixopyryllic,
+		Ionacryllic,
+		Stylyllic,
+		Stycryllic,
+		Ionothyllic,
+		Mythyllic,
+		Aerylyllic,
+		Bonyllic,
+		Tholyllic,
+		Katyryllic,
+		Sadyllic,
+		Stolyllic,
+		Logyllic,
+		Dacryllic,
+		Thynyllic,
+		Gydyllic,
+		Eparyllic,
+		Dynyllic,
+		Ionyllic,
+		Zaryllic,
+		Dythyllic,
+		Ionaryllic,
+		Laryllic,
+		Kataptyllic,
+		Sonyllic,
+		Pathyllic,
+		Loryllic,
+		Aeronyllic,
+		Pycryllic,
+		Mygyllic,
+		Lylyllic,
+		Daptyllic,
+		Ioninyllic,
+		Epaphyllic,
+		Lolyllic,
+		Stacryllic,
+		Doryllic,
+		Kadyllic,
+		Rynyllic,
+		Aerogyllic,
+		Rothyllic,
+		Kagyllic,
+		Stathyllic,
+		Thyryllic,
+		Gygyllic,
+		Sodyllic,
+		Goryllic,
+		Bothyllic,
+		Gynyllic,
+		Ionaptyllic,
+		Phryryllic,
+		Racryllic,
+		Epicryllic,
+		Stygyllic,
+		Syryllic,
+		Stythyllic,
+		Aerothyllic,
+		Mixoryllic,
+		Thanyllic,
+		Roryllic,
+		Epotyllic,
+		Epidyllic,
+		Kaptyllic,
+		MajorDiminished,
+		MinorDiminished,
 	}
 }
 
@@ -1916,6 +2562,7 @@ type Perfection struct {
 	Imperfection int
 }
 
+// Perfection return prefection profile
 func (s Type) Perfection() Perfection {
 	pitchMap := make(map[pitch.Type]struct{})
 	pitches := s.Pitches(pitch.CNatural)
