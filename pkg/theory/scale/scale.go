@@ -1766,6 +1766,30 @@ func (s Type) Pitches(tonic pitch.Type) []pitch.Type {
 	return pitches
 }
 
+// PitchClass returns scale pitch class where 0 is CNatural all the way to 11 (BNatural)
+func (s Type) PitchClass() []int {
+	class := make([]int, 0)
+	for _, v := range s.Pitches(pitch.CNatural) {
+		class = append(class, int(v-1))
+	}
+	return class
+}
+
+// IntervalPattern returns scale interval pattern in semitones
+func (s Type) IntervalPattern() []int {
+	class := append(s.PitchClass(), 12)
+
+	var previous int
+	pattern := make([]int, 0)
+	for i, v := range class {
+		if i > 0 {
+			pattern = append(pattern, v-previous)
+		}
+		previous = v
+	}
+	return pattern
+}
+
 // Perfection stores perfection profile
 type Perfection struct {
 	Perfection   int
