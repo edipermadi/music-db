@@ -11,12 +11,14 @@ CREATE UNIQUE INDEX ON pitches (number);
 
 CREATE TABLE scales
 (
-    id           BIGSERIAL PRIMARY KEY,
-    name         TEXT    NOT NULL,
-    cardinality  INTEGER NOT NULL,
-    number       INTEGER NOT NULL,
-    perfection   INTEGER NOT NULL,
-    imperfection INTEGER NOT NULL
+    id               BIGSERIAL PRIMARY KEY,
+    name             TEXT    NOT NULL,
+    cardinality      INTEGER NOT NULL,
+    number           INTEGER NOT NULL,
+    perfection       INTEGER NOT NULL,
+    imperfection     INTEGER NOT NULL,
+    pitch_class      JSONB   NOT NULL,
+    interval_pattern JSONB   NOT NULL
 );
 
 CREATE UNIQUE INDEX ON scales (name);
