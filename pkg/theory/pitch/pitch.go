@@ -191,3 +191,35 @@ func (p Type) PreviousFifth() Type {
 		return Invalid
 	}
 }
+
+// Tritone returns a tritone away from given pitch
+func (p Type) Tritone() Type {
+	switch p {
+	case CNatural:
+		return FSharp
+	case CSharp:
+		return GNatural
+	case DNatural:
+		return GSharp
+	case DSharp:
+		return ANatural
+	case ENatural:
+		return ASharp
+	case FNatural:
+		return BNatural
+	case FSharp:
+		return CNatural
+	case GNatural:
+		return CSharp
+	case GSharp:
+		return DNatural
+	case ANatural:
+		return DSharp
+	case ASharp:
+		return ENatural
+	case BNatural:
+		return FNatural
+	default:
+		return Invalid
+	}
+}

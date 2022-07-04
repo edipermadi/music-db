@@ -113,6 +113,62 @@ func TestScale_Pitches(t *testing.T) {
 	}
 }
 
+func TestType_RationalSymmetric(t *testing.T) {
+	assert.True(t, scale.Chromatic.RotationalSymmetric())
+	assert.True(t, scale.WholeTone.RotationalSymmetric())
+	assert.True(t, scale.Phrynic.RotationalSymmetric())
+	assert.False(t, scale.Ionian.RotationalSymmetric())
+}
+
 func TestAllScales(t *testing.T) {
 	assert.NotEmpty(t, scale.AllScales())
+}
+
+func TestType_RotationalSymmetryLevel(t *testing.T) {
+	assert.Equal(t, 1, scale.Chromatic.RotationalSymmetryLevel())
+	assert.Equal(t, 2, scale.WholeTone.RotationalSymmetryLevel())
+
+	assert.Equal(t, 3, scale.Phrynic.RotationalSymmetryLevel())
+	assert.Equal(t, 3, scale.MinorDiminished.RotationalSymmetryLevel())
+	assert.Equal(t, 3, scale.MajorDiminished.RotationalSymmetryLevel())
+
+	assert.Equal(t, 4, scale.Minoric.RotationalSymmetryLevel())
+	assert.Equal(t, 4, scale.Aerythimic.RotationalSymmetryLevel())
+	assert.Equal(t, 4, scale.Stynygic.RotationalSymmetryLevel())
+	assert.Equal(t, 4, scale.Ionythimic.RotationalSymmetryLevel())
+	assert.Equal(t, 4, scale.Zydygic.RotationalSymmetryLevel())
+	assert.Equal(t, 4, scale.Phronygic.RotationalSymmetryLevel())
+
+	assert.Equal(t, 6, scale.Dadic.RotationalSymmetryLevel())
+	assert.Equal(t, 6, scale.Stadimic.RotationalSymmetryLevel())
+	assert.Equal(t, 6, scale.Dodimic.RotationalSymmetryLevel())
+	assert.Equal(t, 6, scale.Zyrimic.RotationalSymmetryLevel())
+	assert.Equal(t, 6, scale.Katogyllic.RotationalSymmetryLevel())
+	assert.Equal(t, 6, scale.Stathic.RotationalSymmetryLevel())
+	assert.Equal(t, 6, scale.Stylimic.RotationalSymmetryLevel())
+	assert.Equal(t, 6, scale.Epidyllic.RotationalSymmetryLevel())
+}
+
+func TestType_ReflectiveSymmetric(t *testing.T) {
+	type testCase struct {
+		Scale scale.Type
+		Axes  []int
+	}
+
+	testCases := []testCase{
+		{Scale: scale.Minoric, Axes: []int{0, 2, 4, 6, 8, 10}},
+		{Scale: scale.Koptic, Axes: []int{0, 6}},
+		{Scale: scale.Poritonic, Axes: []int{0, 6}},
+		{Scale: scale.Kadimic, Axes: []int{0, 6}},
+		{Scale: scale.Phrynic, Axes: []int{0, 3, 6, 9}},
+		{Scale: scale.Sylitonic, Axes: []int{0, 6}},
+		{Scale: scale.Mocritonic, Axes: []int{0, 6}},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.Scale.String(), func(t *testing.T) {
+			assert.True(t, tc.Scale.ReflectiveSymmetric())
+			assert.Equal(t, tc.Axes, tc.Scale.ReflectiveSymmetryAxes())
+		})
+	}
 }

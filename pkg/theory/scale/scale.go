@@ -1775,6 +1775,16 @@ func (s Type) PitchClass() []int {
 	return class
 }
 
+// PitchFlags returns a slice of positional pitch status, from CNatural to BNatural
+func (s Type) PitchFlags() []bool {
+	flags := make([]bool, 12)
+	for _, v := range s.PitchClass() {
+		flags[v] = true
+	}
+
+	return flags
+}
+
 // IntervalPattern returns scale interval pattern in semitones
 func (s Type) IntervalPattern() []int {
 	class := append(s.PitchClass(), 12)
@@ -1798,12 +1808,8 @@ type Perfection struct {
 
 // Perfection return perfection profile
 func (s Type) Perfection() Perfection {
-	pitchMap := make(map[pitch.Type]struct{})
 	pitches := s.Pitches(pitch.CNatural)
-
-	for _, v := range pitches {
-		pitchMap[v] = struct{}{}
-	}
+	pitchMap := makePitchMap(pitches)
 
 	var result Perfection
 	for _, v := range pitches {
@@ -1828,4 +1834,71 @@ func (s Type) Cardinality() int {
 	}
 
 	return cardinality
+}
+
+// RotationalSymmetric returns true when each note has its tritone
+func (s Type) RotationalSymmetric() bool {
+	return s.RotationalSymmetryLevel() > 0
+}
+
+// Palindromic returns true when scale is reflective symmetric at it's root
+func (s Type) Palindromic() bool {
+	return s.reflectiveSymmetricAt(0)
+}
+
+// ReflectiveSymmetric returns true when scale is reflective symmetric
+func (s Type) ReflectiveSymmetric() bool {
+	for i := 0; i < 12; i++ {
+		if s.reflectiveSymmetricAt(i) {
+			return true
+		}
+	}
+
+	return false
+}
+
+// ReflectiveSymmetryAxes returns axes where the scale is reflective symmetric
+func (s Type) ReflectiveSymmetryAxes() []int {
+	axes := make([]int, 0)
+	for i := 0; i < 12; i++ {
+		if s.reflectiveSymmetricAt(i) {
+			axes = append(axes, i)
+		}
+	}
+
+	return axes
+}
+
+// ReflectiveSymmetry returns true when scale is reflective symmetry
+func (s Type) reflectiveSymmetricAt(axis int) bool {
+	pitchFlags := s.PitchFlags()
+
+	r := axis % 12
+	rotated := append(pitchFlags[r:], pitchFlags[:r]...)
+	return rotated[5] == rotated[7] &&
+		rotated[4] == rotated[8] &&
+		rotated[3] == rotated[9] &&
+		rotated[2] == rotated[10] &&
+		rotated[1] == rotated[11]
+}
+
+// RotationalSymmetryLevel returns number of semitone to the next symmetry
+func (s Type) RotationalSymmetryLevel() int {
+	slice := pitch.Slice(s.Pitches(pitch.CNatural))
+	for i := 1; i < 12; i++ {
+		if slice.Equal(slice.Transpose(i)) {
+			return i
+		}
+	}
+
+	return 0
+}
+
+func makePitchMap(pitches []pitch.Type) map[pitch.Type]struct{} {
+	pitchMap := make(map[pitch.Type]struct{})
+	for _, v := range pitches {
+		pitchMap[v] = struct{}{}
+	}
+
+	return pitchMap
 }
