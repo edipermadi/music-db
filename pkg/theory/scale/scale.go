@@ -1,6 +1,9 @@
 package scale
 
-import "github.com/edipermadi/music-db/pkg/theory/pitch"
+import (
+	"github.com/edipermadi/music-db/pkg/theory/pitch"
+	"math"
+)
 
 // Type is a type for scale
 type Type int
@@ -1892,6 +1895,46 @@ func (s Type) RotationalSymmetryLevel() int {
 	}
 
 	return 0
+}
+
+// CenterOfGravity returns scale
+func (s Type) CenterOfGravity(tonic pitch.Type) (float64, float64) {
+	type coordinate struct {
+		X float64
+		Y float64
+	}
+
+	valueMap := map[int]coordinate{
+		0:  {0, 1},
+		1:  {0.5, 0.8660},
+		2:  {0.8660, 0.5},
+		3:  {1.0, 0},
+		4:  {0.8660, -0.5},
+		5:  {0.5, -0.8660},
+		6:  {0, -1.0},
+		7:  {-0.5, -0.8660},
+		8:  {-0.8660, -0.5},
+		9:  {-1.0, 0},
+		10: {-0.8660, 0.5},
+		11: {-0.5, 0.8660},
+	}
+
+	x, y := 0.0, 0.0
+	for _, v := range s.PitchClass() {
+		x += valueMap[v].X
+		y += valueMap[v].Y
+	}
+
+	x = math.Round(x*10000) / 10000
+	y = math.Round(y*10000) / 10000
+
+	return x, y
+}
+
+// Balanced returns true when scale is balanced
+func (s Type) Balanced() bool {
+	x, y := s.CenterOfGravity(pitch.CNatural)
+	return x == float64(0) && y == float64(0)
 }
 
 func makePitchMap(pitches []pitch.Type) map[pitch.Type]struct{} {

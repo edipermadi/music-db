@@ -23,6 +23,7 @@ type scaleEntry struct {
 	Palindromic              bool
 	ReflectionalSymmetric    bool
 	ReflectionalSymmetryAxes []int
+	Balanced                 bool
 }
 
 var scaleEntries []scaleEntry
@@ -32,7 +33,7 @@ func buildScale(logger *zap.Logger, writer io.Writer) error {
 	max := len(allScales)
 
 	logger.Info("generating scale seed")
-	_, _ = fmt.Fprintf(writer, "INSERT INTO scales (name, cardinality, number, perfection, imperfection, pitch_class, interval_pattern, rotational_symmetric, rotational_symmetry_level, palindromic, reflectional_symmetric, reflectional_symmetry_axes)\nVALUES\n")
+	_, _ = fmt.Fprintf(writer, "INSERT INTO scales (name, cardinality, number, perfection, imperfection, pitch_class, interval_pattern, rotational_symmetric, rotational_symmetry_level, palindromic, reflectional_symmetric, reflectional_symmetry_axes, balanced)\nVALUES\n")
 	for i, v := range allScales {
 		result := v.Perfection()
 		pitchClass := v.PitchClass()
@@ -45,6 +46,7 @@ func buildScale(logger *zap.Logger, writer io.Writer) error {
 		reflectiveSymmetric := v.ReflectiveSymmetric()
 		reflectiveSymmetryAxes := v.ReflectiveSymmetryAxes()
 		encodedReflectiveSymmetryAxes, _ := json.Marshal(reflectiveSymmetryAxes)
+		balanced := v.Balanced()
 		scaleEntries = append(scaleEntries, scaleEntry{
 			ID:                       int64(i + 1),
 			Name:                     v.String(),
@@ -59,12 +61,13 @@ func buildScale(logger *zap.Logger, writer io.Writer) error {
 			Palindromic:              palindromic,
 			ReflectionalSymmetric:    reflectiveSymmetric,
 			ReflectionalSymmetryAxes: reflectiveSymmetryAxes,
+			Balanced:                 balanced,
 		})
 
 		if i < max-1 {
-			_, _ = fmt.Fprintf(writer, "\t('%s', %d, %d, %d, %d, '%s', '%s', %t, %d, %t, %t, '%s'),\n", v.String(), v.Cardinality(), v.Number(), result.Perfection, result.Imperfection, encodedPitchClass, encodedIntervalPattern, rotationalSymmetric, rotationalSymmetryLevel, palindromic, reflectiveSymmetric, encodedReflectiveSymmetryAxes)
+			_, _ = fmt.Fprintf(writer, "\t('%s', %d, %d, %d, %d, '%s', '%s', %t, %d, %t, %t, '%s', %t),\n", v.String(), v.Cardinality(), v.Number(), result.Perfection, result.Imperfection, encodedPitchClass, encodedIntervalPattern, rotationalSymmetric, rotationalSymmetryLevel, palindromic, reflectiveSymmetric, encodedReflectiveSymmetryAxes, balanced)
 		} else {
-			_, _ = fmt.Fprintf(writer, "\t('%s', %d, %d, %d, %d, '%s', '%s', %t, %d, %t, %t, '%s');\n\n", v.String(), v.Cardinality(), v.Number(), result.Perfection, result.Imperfection, encodedPitchClass, encodedIntervalPattern, rotationalSymmetric, rotationalSymmetryLevel, palindromic, reflectiveSymmetric, encodedReflectiveSymmetryAxes)
+			_, _ = fmt.Fprintf(writer, "\t('%s', %d, %d, %d, %d, '%s', '%s', %t, %d, %t, %t, '%s', %t);\n\n", v.String(), v.Cardinality(), v.Number(), result.Perfection, result.Imperfection, encodedPitchClass, encodedIntervalPattern, rotationalSymmetric, rotationalSymmetryLevel, palindromic, reflectiveSymmetric, encodedReflectiveSymmetryAxes, balanced)
 		}
 	}
 

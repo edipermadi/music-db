@@ -41,4 +41,9 @@ func main() {
 	if err := buildScalePitches(logger, file); err != nil {
 		logger.With(zap.String("file", outFile)).Fatal("failed to build scale pitches seed")
 	}
+
+	// build scale centers
+	if err := buildScaleCenters(logger, file); err != nil {
+		logger.With(zap.String("file", outFile)).Fatal("failed to build scale centers seed")
+	}
 }
