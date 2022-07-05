@@ -172,3 +172,20 @@ func TestType_ReflectiveSymmetric(t *testing.T) {
 		})
 	}
 }
+
+func TestType_Balanced(t *testing.T) {
+	assert.True(t, scale.Minoric.Balanced())
+	assert.True(t, scale.Dadic.Balanced())
+	assert.True(t, scale.Daptitonic.Balanced())
+	assert.True(t, scale.Stadimic.Balanced())
+	assert.True(t, scale.Phrynic.Balanced())
+	assert.True(t, scale.Zynitonic.Balanced())
+	assert.True(t, scale.Dodimic.Balanced())
+	assert.True(t, scale.Mocritonic.Balanced())
+	assert.True(t, scale.Aerythimic.Balanced())
+	assert.True(t, scale.Zyrimic.Balanced())
+	assert.True(t, scale.Epadian.Balanced())
+	assert.True(t, scale.Ionodian.Balanced())
+	assert.True(t, scale.Katogyllic.Balanced())
+	assert.True(t, scale.Chromatic.Balanced())
+}

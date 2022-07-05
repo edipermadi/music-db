@@ -23,7 +23,8 @@ CREATE TABLE scales
     rotational_symmetry_level  INTEGER NOT NULL,
     palindromic                BOOLEAN NOT NULL,
     reflectional_symmetric     BOOLEAN NOT NULL,
-    reflectional_symmetry_axes JSONB   NOT NULL
+    reflectional_symmetry_axes JSONB   NOT NULL,
+    balanced                   BOOLEAN NOT NULL
 );
 
 CREATE UNIQUE INDEX ON scales (name);
@@ -39,3 +40,15 @@ CREATE TABLE scale_pitches
 );
 
 CREATE UNIQUE INDEX ON scale_pitches (scale_id, tonic_id, pitch_id);
+
+CREATE TABLE scale_centers
+(
+    id           BIGSERIAL PRIMARY KEY,
+    scale_id     BIGINT  NOT NULL REFERENCES scales (id),
+    tonic_id     BIGINT  NOT NULL REFERENCES pitches (id),
+    balanced     BOOLEAN NOT NULL,
+    coordinate_x FLOAT   NOT NULL,
+    coordinate_y FLOAT   NOT NULL
+);
+
+CREATE UNIQUE INDEX ON scale_centers (scale_id, tonic_id);
