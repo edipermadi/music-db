@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/edipermadi/music-db/pkg/theory/pitch"
 	"io"
 
 	"github.com/edipermadi/music-db/pkg/theory/chord"
+	"github.com/edipermadi/music-db/pkg/theory/pitch"
 	"go.uber.org/zap"
 )
 
