@@ -1,8 +1,9 @@
 package scale
 
 import (
-	"github.com/edipermadi/music-db/pkg/theory/pitch"
 	"math"
+
+	"github.com/edipermadi/music-db/pkg/theory/pitch"
 )
 
 // Type is a type for scale
