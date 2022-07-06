@@ -32,6 +32,16 @@ func main() {
 		logger.With(zap.String("file", outFile)).Fatal("failed to build pitch seed")
 	}
 
+	// build chord
+	if err := buildChord(logger, file); err != nil {
+		logger.With(zap.String("file", outFile)).Fatal("failed to build chord seed")
+	}
+
+	// build chord pitches
+	if err := buildChordPitches(logger, file); err != nil {
+		logger.With(zap.String("file", outFile)).Fatal("failed to build chord pitche seed")
+	}
+
 	// build scale
 	if err := buildScale(logger, file); err != nil {
 		logger.With(zap.String("file", outFile)).Fatal("failed to build scale seed")

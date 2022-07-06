@@ -9,6 +9,29 @@ CREATE TABLE pitches
 CREATE UNIQUE INDEX ON pitches (name);
 CREATE UNIQUE INDEX ON pitches (number);
 
+CREATE TABLE chords
+(
+    id               BIGSERIAL PRIMARY KEY,
+    name             TEXT    NOT NULL,
+    cardinality      INTEGER NOT NULL,
+    number           INTEGER NOT NULL,
+    pitch_class      JSONB   NOT NULL,
+    interval_pattern JSONB   NOT NULL
+);
+
+CREATE UNIQUE INDEX ON chords (name);
+CREATE UNIQUE INDEX ON chords (number);
+
+CREATE TABLE chord_pitches
+(
+    id       BIGSERIAL PRIMARY KEY,
+    chord_id BIGINT NOT NULL REFERENCES chords (id),
+    root_id  BIGINT NOT NULL REFERENCES pitches (id),
+    pitch_id BIGINT NOT NULL REFERENCES pitches (id)
+);
+
+CREATE UNIQUE INDEX ON chord_pitches(chord_id, root_id, pitch_id);
+
 CREATE TABLE scales
 (
     id                         BIGSERIAL PRIMARY KEY,
