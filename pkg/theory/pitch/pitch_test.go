@@ -17,18 +17,18 @@ func TestPitchType_Value(t *testing.T) {
 	}
 
 	testCases := []testCase{
-		{pitch.CNatural, "C", 2048, 261.63},
-		{pitch.CSharp, "C#", 1024, 277.18},
-		{pitch.DNatural, "D", 512, 293.66},
-		{pitch.DSharp, "D#", 256, 311.13},
-		{pitch.ENatural, "E", 128, 329.63},
-		{pitch.FNatural, "F", 64, 349.23},
-		{pitch.FSharp, "F#", 32, 369.99},
-		{pitch.GNatural, "G", 16, 392.00},
-		{pitch.GSharp, "G#", 8, 415.30},
-		{pitch.ANatural, "A", 4, 440.00},
-		{pitch.ASharp, "A#", 2, 466.16},
-		{pitch.BNatural, "B", 1, 493.88},
+		{pitch.CNatural, "CNatural", 2048, 261.63},
+		{pitch.CSharp, "CSharp", 1024, 277.18},
+		{pitch.DNatural, "DNatural", 512, 293.66},
+		{pitch.DSharp, "DSharp", 256, 311.13},
+		{pitch.ENatural, "ENatural", 128, 329.63},
+		{pitch.FNatural, "FNatural", 64, 349.23},
+		{pitch.FSharp, "FSharp", 32, 369.99},
+		{pitch.GNatural, "GNatural", 16, 392.00},
+		{pitch.GSharp, "GSharp", 8, 415.30},
+		{pitch.ANatural, "ANatural", 4, 440.00},
+		{pitch.ASharp, "ASharp", 2, 466.16},
+		{pitch.BNatural, "BNatural", 1, 493.88},
 	}
 
 	for _, tc := range testCases {
@@ -362,7 +362,14 @@ func TestType_Transpose(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		t.Run(fmt.Sprintf("%sTransposedBy%d", tc.Given, tc.Amount), func(t *testing.T) {
+		var title string
+		if tc.Amount < 0 {
+			title = fmt.Sprintf("%sTransposedByNegative%d", tc.Given, tc.Amount*-1)
+		} else {
+			title = fmt.Sprintf("%sTransposedBy%d", tc.Given, tc.Amount)
+		}
+
+		t.Run(title, func(t *testing.T) {
 			assert.Equal(t, tc.Expected, tc.Given.Transpose(tc.Amount))
 		})
 	}

@@ -41,18 +41,18 @@ func AllPitches() []Type {
 func (p Type) String() string {
 	return [...]string{
 		"Invalid",
-		"C",
-		"C#",
-		"D",
-		"D#",
-		"E",
-		"F",
-		"F#",
-		"G",
-		"G#",
-		"A",
-		"A#",
-		"B",
+		"CNatural",
+		"CSharp",
+		"DNatural",
+		"DSharp",
+		"ENatural",
+		"FNatural",
+		"FSharp",
+		"GNatural",
+		"GSharp",
+		"ANatural",
+		"ASharp",
+		"BNatural",
 	}[p]
 }
 
