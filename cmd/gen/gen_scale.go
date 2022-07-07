@@ -28,7 +28,7 @@ type scaleEntry struct {
 
 var scaleEntries []scaleEntry
 
-func buildScale(logger *zap.Logger, writer io.Writer) error {
+func buildScalesTableSeed(logger *zap.Logger, writer io.Writer) error {
 	allScales := scale.AllScales()
 	max := len(allScales)
 

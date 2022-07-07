@@ -17,11 +17,11 @@ type pitchEntry struct {
 
 var pitchEntries []pitchEntry
 
-func buildPitch(logger *zap.Logger, writer io.Writer) error {
+func buildPitchesTableSeed(logger *zap.Logger, writer io.Writer) error {
 	allPitches := pitch.AllPitches()
 	max := len(allPitches)
 
-	logger.Info("generating pitch seed")
+	logger.Info("generating pitches table seed")
 	_, _ = fmt.Fprintf(writer, "INSERT INTO pitches (name, number, frequency)\nVALUES\n")
 	for i, v := range allPitches {
 		pitchEntries = append(pitchEntries, pitchEntry{ID: int64(i + 1), Name: v.String(), Number: v.Number(), Frequency: v.Frequency()})
