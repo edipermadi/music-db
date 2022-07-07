@@ -75,3 +75,15 @@ CREATE TABLE scale_centers
 );
 
 CREATE UNIQUE INDEX ON scale_centers (scale_id, tonic_id);
+
+CREATE TABLE scale_pitch_chords
+(
+    id       BIGSERIAL PRIMARY KEY,
+    scale_id BIGINT NOT NULL REFERENCES scales (id),
+    tonic_id BIGINT NOT NULL REFERENCES pitches (id),
+    pitch_id BIGINT NOT NULL REFERENCES pitches (id),
+    chord_id BIGINT NOT NULL REFERENCES chords (id),
+    root_id  BIGINT NOT NULL REFERENCES pitches (id)
+);
+
+CREATE UNIQUE INDEX ON scale_pitch_chords (scale_id, tonic_id, pitch_id, chord_id, root_id);

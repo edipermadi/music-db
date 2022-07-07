@@ -19,30 +19,26 @@ type chordPitchEntry struct {
 var chordPitchEntries []chordPitchEntry
 
 func buildChordPitches(logger *zap.Logger, writer io.Writer) error {
+	logger.Info("generating chord_pitches seed")
+
 	id := int64(1)
-
-	allChords := chord.AllChords()
-	allPitches := pitch.AllPitches()
-	maxAllChords := len(allChords)
-	maxAllPitches := len(allPitches)
-
-	_, _ = fmt.Fprintf(writer, "INSERT INTO chord_pitches (chord_id, root_id, pitch_id)\nVALUES\n")
-	for i, v := range allChords {
-		chordID := chordID(v)
-		for j, w := range allPitches {
-			rootID := pitchID(w)
-			pitches := v.Pitches(w)
-			maxPitches := len(pitches)
-			for k, x := range pitches {
-				pitchID := pitchID(x)
-				chordPitchEntries = append(chordPitchEntries, chordPitchEntry{ID: id, ChordID: chordID, RootID: rootID, PitchID: pitchID})
-				if i == maxAllChords-1 && j == maxAllPitches-1 && k == maxPitches-1 {
-					_, _ = fmt.Fprintf(writer, "(%d, %d, %d);\n\n", chordID, rootID, pitchID)
-				} else {
-					_, _ = fmt.Fprintf(writer, "(%d, %d, %d),\n", chordID, rootID, pitchID)
-				}
+	for _, v := range chord.AllChords() {
+		chordID := findChordID(v)
+		for _, w := range pitch.AllPitches() {
+			rootID := findPitchID(w)
+			for _, x := range v.Pitches(w) {
+				chordPitchEntries = append(chordPitchEntries, chordPitchEntry{ID: id, ChordID: chordID, RootID: rootID, PitchID: findPitchID(x)})
 				id++
 			}
+		}
+	}
+
+	_, _ = fmt.Fprintf(writer, "INSERT INTO chord_pitches (chord_id, root_id, pitch_id)\nVALUES\n")
+	for i, v := range chordPitchEntries {
+		if i < len(chordPitchEntries)-1 {
+			_, _ = fmt.Fprintf(writer, "(%d, %d, %d),\n", v.ChordID, v.RootID, v.PitchID)
+		} else {
+			_, _ = fmt.Fprintf(writer, "(%d, %d, %d);\n\n", v.ChordID, v.RootID, v.PitchID)
 		}
 	}
 

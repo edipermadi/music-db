@@ -20,35 +20,42 @@ type scalePitchEntry struct {
 var scalePitchEntries []scalePitchEntry
 
 func buildScalePitches(logger *zap.Logger, writer io.Writer) error {
-	allScales := scale.AllScales()
-	allPitches := pitch.AllPitches()
-
 	logger.Info("generating scale_pitches seed")
 
 	var id int64 = 1
-	_, _ = fmt.Fprintf(writer, "INSERT INTO scale_pitches (scale_id, tonic_id, pitch_id, is_perfect)\nVALUES\n")
-	for i, v := range allScales {
-		for j, w := range allPitches {
+	for _, v := range scale.AllScales() {
+		for _, w := range pitch.AllPitches() {
 			pitchMap := make(map[pitch.Type]struct{})
 			pitches := v.Pitches(w)
 			for _, p := range pitches {
 				pitchMap[p] = struct{}{}
 			}
 
-			for k, x := range pitches {
+			for _, x := range pitches {
 				_, perfect := pitchMap[x.NextFifth()]
-				v1, v2, v3 := scaleID(v), pitchID(w), pitchID(x)
+				scaleID := findScaleID(v)
+				tonicID := findPitchID(w)
+				pitchID := findPitchID(x)
 
-				scalePitchEntries = append(scalePitchEntries, scalePitchEntry{ID: id, ScaleID: v1, TonicID: v2, PitchID: v3, IsPerfect: perfect})
-
-				if i == len(allScales)-1 && j == len(allPitches)-1 && k == len(pitches)-1 {
-					_, _ = fmt.Fprintf(writer, "\t(%d, %d, %d, %t);\n\n", v1, v2, v3, perfect)
-				} else {
-					_, _ = fmt.Fprintf(writer, "\t(%d, %d, %d, %t),\n", v1, v2, v3, perfect)
-				}
+				scalePitchEntries = append(scalePitchEntries, scalePitchEntry{
+					ID:        id,
+					ScaleID:   scaleID,
+					TonicID:   tonicID,
+					PitchID:   pitchID,
+					IsPerfect: perfect,
+				})
 
 				id++
 			}
+		}
+	}
+
+	_, _ = fmt.Fprintf(writer, "INSERT INTO scale_pitches (scale_id, tonic_id, pitch_id, is_perfect)\nVALUES\n")
+	for i, v := range scalePitchEntries {
+		if i < len(scalePitchEntries)-1 {
+			_, _ = fmt.Fprintf(writer, "\t(%d, %d, %d, %t),\n", v.ScaleID, v.TonicID, v.PitchID, v.IsPerfect)
+		} else {
+			_, _ = fmt.Fprintf(writer, "\t(%d, %d, %d, %t);\n\n", v.ScaleID, v.TonicID, v.PitchID, v.IsPerfect)
 		}
 	}
 
