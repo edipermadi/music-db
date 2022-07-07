@@ -41,3 +41,30 @@ FROM key_pitch_chords spc
          JOIN pitches p ON spc.pitch_id = p.id
 WHERE k.name = 'CNaturalIonian';
 ```
+
+## Query by API
+
+### Listing Pitches
+```shell
+$ curl localhost:3000/api/v1/theory/pitches
+[{"id":1,"name":"CNatural","number":"2048","frequency":261.63},{"id":2,"name":"CSharp","number":"1024","frequency":277.18},{"id":3,"name":"DNatural","number":"512","frequency":293.66},{"id":4,"name":"DSharp","number":"256","frequency":311.13},{"id":5,"name":"ENatural","number":"128","frequency":329.63},{"id":6,"name":"FNatural","number":"64","frequency":349.23},{"id":7,"name":"FSharp","number":"32","frequency":369.99},{"id":8,"name":"GNatural","number":"16","frequency":392},{"id":9,"name":"GSharp","number":"8","frequency":415.3},{"id":10,"name":"ANatural","number":"4","frequency":440},{"id":11,"name":"ASharp","number":"2","frequency":466.16},{"id":12,"name":"BNatural","number":"1","frequency":493.88}]
+```
+
+## Query by API
+
+API is accessible at port 3000
+
+Pagination via query string `page` and `per_page`
+
+| Method | Path                                | Description      |
+|--------|-------------------------------------|------------------|
+| GET    | `/api/v1/theory/pitches`            | List pitches     |
+| GET    | `/api/v1/theory/chords`             | List chords      |
+| GET    | `/api/v1/theory/scales`             | List scales      |
+| GET    | `/api/v1/theory/scales/{:id}`       | Get scale detail |
+| GET    | `/api/v1/theory/scales/{:id}/keys`  | List scale keys  |
+| GET    | `/api/v1/theory/keys`               | List keys        |
+| GET    | `/api/v1/theory/keys/{:id}/modes`   | List key modes   |
+| GET    | `/api/v1/theory/keys/{:id}/chords`  | List key chords  |
+| GET    | `/api/v1/theory/keys/{:id}/pitches` | List key pitches |
+| GET    | `/api/v1/theory/keys/{:id}`         | Get key detail   |
