@@ -56,4 +56,9 @@ func main() {
 	if err := buildScaleCenters(logger, file); err != nil {
 		logger.With(zap.String("file", outFile)).Fatal("failed to build scale centers seed")
 	}
+
+	// build scale pitch chords
+	if err := buildScalePitchChords(logger, file); err != nil {
+		logger.With(zap.String("file", outFile)).Fatal("failed to build scale pitch chords seed")
+	}
 }

@@ -36,7 +36,7 @@ func buildPitch(logger *zap.Logger, writer io.Writer) error {
 	return nil
 }
 
-func pitchID(wanted pitch.Type) int64 {
+func findPitchID(wanted pitch.Type) int64 {
 	for _, entry := range pitchEntries {
 		if entry.Number == wanted.Number() {
 			return entry.ID

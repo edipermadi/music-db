@@ -21,28 +21,31 @@ type scaleCenterEntry struct {
 var scaleCenterEntries []scaleCenterEntry
 
 func buildScaleCenters(logger *zap.Logger, writer io.Writer) error {
-	allScales := scale.AllScales()
-	allPitches := pitch.AllPitches()
-
 	logger.Info("generating scale_centers seed")
 
 	var id int64 = 1
-	_, _ = fmt.Fprintf(writer, "INSERT INTO scale_centers (scale_id, tonic_id, balanced, coordinate_x, coordinate_y)\nVALUES\n")
-	for i, v := range allScales {
-		scaleID := scaleID(v)
+	for _, v := range scale.AllScales() {
+		scaleID := findScaleID(v)
 		balanced := v.Balanced()
-		for j, w := range allPitches {
-			tonicID := pitchID(w)
+		for _, w := range pitch.AllPitches() {
 			x, y := v.CenterOfGravity(w)
-			scaleCenterEntries = append(scaleCenterEntries, scaleCenterEntry{ID: id, ScaleID: scaleID, TonicID: tonicID, Balanced: balanced, CoordinateX: x, CoordinateY: y})
-
-			if i == len(allScales)-1 && j == len(allPitches)-1 {
-				_, _ = fmt.Fprintf(writer, "\t(%d, %d, %t, %.4f, %.4f);\n\n", scaleID, tonicID, balanced, x, y)
-			} else {
-				_, _ = fmt.Fprintf(writer, "\t(%d, %d, %t, %.4f, %.4f),\n", scaleID, tonicID, balanced, x, y)
-			}
-
+			scaleCenterEntries = append(scaleCenterEntries, scaleCenterEntry{
+				ID:          id,
+				ScaleID:     scaleID,
+				TonicID:     findPitchID(w),
+				Balanced:    balanced,
+				CoordinateX: x, CoordinateY: y,
+			})
 			id++
+		}
+	}
+
+	_, _ = fmt.Fprintf(writer, "INSERT INTO scale_centers (scale_id, tonic_id, balanced, coordinate_x, coordinate_y)\nVALUES\n")
+	for i, v := range scaleCenterEntries {
+		if i < len(scaleCenterEntries)-1 {
+			_, _ = fmt.Fprintf(writer, "\t(%d, %d, %t, %.4f, %.4f),\n", v.ScaleID, v.TonicID, v.Balanced, v.CoordinateX, v.CoordinateY)
+		} else {
+			_, _ = fmt.Fprintf(writer, "\t(%d, %d, %t, %.4f, %.4f);\n\n", v.ScaleID, v.TonicID, v.Balanced, v.CoordinateX, v.CoordinateY)
 		}
 	}
 

@@ -74,7 +74,7 @@ func buildScale(logger *zap.Logger, writer io.Writer) error {
 	return nil
 }
 
-func scaleID(wanted scale.Type) int64 {
+func findScaleID(wanted scale.Type) int64 {
 	for _, entry := range scaleEntries {
 		if entry.Number == wanted.Number() {
 			return entry.ID
