@@ -27,38 +27,43 @@ func main() {
 
 	defer func() { _ = file.Close() }()
 
-	// build pitch
-	if err := buildPitch(logger, file); err != nil {
-		logger.With(zap.String("file", outFile)).Fatal("failed to build pitch seed")
+	// build pitches table seed
+	if err := buildPitchesTableSeed(logger, file); err != nil {
+		logger.With(zap.String("file", outFile)).Fatal("failed to build pitches table seed")
 	}
 
-	// build chord
-	if err := buildChord(logger, file); err != nil {
-		logger.With(zap.String("file", outFile)).Fatal("failed to build chord seed")
+	// build chord_qualities seed
+	if err := buildChordQualitiesTableSeed(logger, file); err != nil {
+		logger.With(zap.String("file", outFile)).Fatal("failed to build chord_qualities table seed")
 	}
 
-	// build chord pitches
-	if err := buildChordPitches(logger, file); err != nil {
-		logger.With(zap.String("file", outFile)).Fatal("failed to build chord pitche seed")
+	// build chords table seed
+	if err := buildChordsTableSeed(logger, file); err != nil {
+		logger.With(zap.String("file", outFile)).Fatal("failed to build chords table seed")
 	}
 
-	// build scale
-	if err := buildScale(logger, file); err != nil {
-		logger.With(zap.String("file", outFile)).Fatal("failed to build scale seed")
+	// build chord_pitches table seed
+	if err := buildChordPitchesTableSeed(logger, file); err != nil {
+		logger.With(zap.String("file", outFile)).Fatal("failed to build chord_pitches table seed")
 	}
 
-	// build scale pitches
-	if err := buildScalePitches(logger, file); err != nil {
-		logger.With(zap.String("file", outFile)).Fatal("failed to build scale pitches seed")
+	// build scales table seed
+	if err := buildScalesTableSeed(logger, file); err != nil {
+		logger.With(zap.String("file", outFile)).Fatal("failed to build scale table seed")
 	}
 
-	// build scale centers
-	if err := buildScaleCenters(logger, file); err != nil {
-		logger.With(zap.String("file", outFile)).Fatal("failed to build scale centers seed")
+	// build keys table seed
+	if err := buildKeysTableSeed(logger, file); err != nil {
+		logger.With(zap.String("file", outFile)).Fatal("failed to build keys table seed")
+	}
+
+	// build key_pitches table seed
+	if err := buildKeyPitchesTableSeed(logger, file); err != nil {
+		logger.With(zap.String("file", outFile)).Fatal("failed to build key_pitches table seed")
 	}
 
 	// build scale pitch chords
-	if err := buildScalePitchChords(logger, file); err != nil {
+	if err := buildKeyPitchChordsTableSeed(logger, file); err != nil {
 		logger.With(zap.String("file", outFile)).Fatal("failed to build scale pitch chords seed")
 	}
 }
