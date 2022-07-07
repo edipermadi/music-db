@@ -9,8 +9,6 @@ RUN go mod download
 
 COPY . .
 
-RUN go test -race -v ./... -coverprofile=coverage.out
-RUN go tool cover -func=coverage.out
 RUN CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -a -o gen ./cmd/gen/
 RUN /build/gen -output=seed.sql
 

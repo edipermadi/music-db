@@ -5,6 +5,7 @@ import "github.com/edipermadi/music-db/pkg/theory/pitch"
 // Quality is a type for chord quality
 type Quality int
 
+// Chord quality enumerations
 const (
 	Invalid                                           Quality = iota
 	Major                                             Quality = iota

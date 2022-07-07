@@ -7,3 +7,14 @@ services:
       dockerfile: db/Dockerfile
     ports:
       - "5433:5432"
+
+  music-api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - MODE=docker
+    depends_on:
+      - music-db

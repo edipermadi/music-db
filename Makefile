@@ -8,11 +8,11 @@ GOSEC		:= $(GOBIN)/gosec
 COVERAGE_FILE	:= coverage.out
 
 .PHONY: build
-build:  clean format lint vet sec coverage seed.sql
+build:  clean format lint vet sec coverage seed.sql music-api
 
 .PHONY: clean
 clean:
-	rm -f seed.sql
+	rm -f seed.sql music-api
 
 .PHONY: sec-install
 sec-install:
@@ -48,3 +48,6 @@ coverage: test
 
 seed.sql:
 	$(GO) run ./cmd/gen -output=$(CURDIR)/seed.sql
+
+music-api:
+	$(GO) build -o music-api ./cmd/api

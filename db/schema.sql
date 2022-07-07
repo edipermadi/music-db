@@ -32,6 +32,8 @@ CREATE TABLE chords
 );
 
 CREATE UNIQUE INDEX ON chords (chord_quality_id, root_id);
+CREATE INDEX ON chords (chord_quality_id);
+CREATE INDEX ON chords (root_id);
 
 CREATE TABLE chord_pitches
 (
@@ -41,6 +43,8 @@ CREATE TABLE chord_pitches
 );
 
 CREATE UNIQUE INDEX ON chord_pitches(chord_id, pitch_id);
+CREATE INDEX ON chord_pitches(chord_id);
+CREATE INDEX ON chord_pitches(pitch_id);
 
 CREATE TABLE scales
 (
@@ -76,6 +80,9 @@ CREATE TABLE keys
 );
 
 CREATE UNIQUE INDEX ON keys (scale_id, tonic_id);
+CREATE INDEX ON keys (scale_id);
+CREATE INDEX ON keys (tonic_id);
+CREATE INDEX ON keys (number);
 
 CREATE TABLE key_pitches
 (
@@ -86,6 +93,8 @@ CREATE TABLE key_pitches
 );
 
 CREATE UNIQUE INDEX ON key_pitches (key_id, pitch_id);
+CREATE INDEX ON key_pitches (key_id);
+CREATE INDEX ON key_pitches (pitch_id);
 
 CREATE TABLE key_pitch_chords
 (
@@ -96,3 +105,6 @@ CREATE TABLE key_pitch_chords
 );
 
 CREATE UNIQUE INDEX ON key_pitch_chords (key_id, pitch_id, chord_id);
+CREATE INDEX ON key_pitch_chords (key_id);
+CREATE INDEX ON key_pitch_chords (pitch_id);
+CREATE INDEX ON key_pitch_chords (chord_id);
