@@ -2,6 +2,29 @@
 
 Music Database is an attempt to make an encyclopedic database of scales based on [William Zeitler](https://allthescales.org) classification.
 
+This project consists of:
+- postgres database seed generator
+- music theory data API
+
+The project is bundled as a docker cluster containing
+- postgres 14 database prefilled with music data
+- HTTP REST API server
+
+Features:
+- 12 semitones per octave
+- Supports 1490 scales
+- Supports 17880 keys
+- Supports 936 chords
+- Keys mode detection
+- Scale balance detection and center of gravity
+- Scale perfections and imperfections detection
+- List chords of a note of a given key
+- List keys that are applicable to that chord
+- Scale rotational symmetry detection
+- Scale reflective symmetry detection
+- Scale cardinality
+- Chord cardinality
+
 ## Running test
 
 ```shell
@@ -56,15 +79,19 @@ API is accessible at port 3000
 
 Pagination via query string `page` and `per_page`
 
-| Method | Path                                | Description      |
-|--------|-------------------------------------|------------------|
-| GET    | `/api/v1/theory/pitches`            | List pitches     |
-| GET    | `/api/v1/theory/chords`             | List chords      |
-| GET    | `/api/v1/theory/scales`             | List scales      |
-| GET    | `/api/v1/theory/scales/{:id}`       | Get scale detail |
-| GET    | `/api/v1/theory/scales/{:id}/keys`  | List scale keys  |
-| GET    | `/api/v1/theory/keys`               | List keys        |
-| GET    | `/api/v1/theory/keys/{:id}/modes`   | List key modes   |
-| GET    | `/api/v1/theory/keys/{:id}/chords`  | List key chords  |
-| GET    | `/api/v1/theory/keys/{:id}/pitches` | List key pitches |
-| GET    | `/api/v1/theory/keys/{:id}`         | Get key detail   |
+| Method | Path                                  | Description        |
+|--------|---------------------------------------|--------------------|
+| GET    | `/api/v1/theory/pitches`              | List pitches       |
+| GET    | `/api/v1/theory/chords`               | List chords        |
+| GET    | `/api/v1/theory/chords/{:id}`         | Get chord          |
+| GET    | `/api/v1/theory/chords/{:id}/quality` | Get chord quality  |
+| GET    | `/api/v1/theory/chords/{:id}/pitches` | List chord pitches |
+| GET    | `/api/v1/theory/chords/{:id}/keys`    | List chord keys    |
+| GET    | `/api/v1/theory/scales`               | List scales        |
+| GET    | `/api/v1/theory/scales/{:id}`         | Get scale detail   |
+| GET    | `/api/v1/theory/scales/{:id}/keys`    | List scale keys    |
+| GET    | `/api/v1/theory/keys`                 | List keys          |
+| GET    | `/api/v1/theory/keys/{:id}/modes`     | List key modes     |
+| GET    | `/api/v1/theory/keys/{:id}/chords`    | List key chords    |
+| GET    | `/api/v1/theory/keys/{:id}/pitches`   | List key pitches   |
+| GET    | `/api/v1/theory/keys/{:id}`           | Get key detail     |

@@ -60,6 +60,14 @@ func main() {
 
 	theoryV2Router.HandleFunc("/chords", handlerHandler.ListChords).
 		Methods(http.MethodGet).Name("LIST_CHORDS")
+	theoryV2Router.HandleFunc("/chords/{id:[0-9]+}", handlerHandler.GetChord).
+		Methods(http.MethodGet).Name("GET_CHORD")
+	theoryV2Router.HandleFunc("/chords/{id:[0-9]+}/quality", handlerHandler.GetChordQuality).
+		Methods(http.MethodGet).Name("GET_CHORD_QUALITY")
+	theoryV2Router.HandleFunc("/chords/{id:[0-9]+}/pitches", handlerHandler.ListChordPitches).
+		Methods(http.MethodGet).Name("GET_CHORD_PITCHES")
+	theoryV2Router.HandleFunc("/chords/{id:[0-9]+}/keys", handlerHandler.ListChordKeys).
+		Methods(http.MethodGet).Name("GET_CHORD_KEYS")
 
 	theoryV2Router.HandleFunc("/scales", handlerHandler.ListScales).
 		Methods(http.MethodGet).Name("LIST_SCALES")
