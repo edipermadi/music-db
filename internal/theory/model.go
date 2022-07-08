@@ -48,6 +48,7 @@ type DetailedChord struct {
 	Root    SimplifiedPitch        `json:"root" db:"root"`
 	Name    string                 `json:"name" db:"name"`
 	Number  int                    `json:"number" db:"number"`
+	Pitches []SimplifiedPitch      `json:"pitches,omitempty" db:"-"`
 }
 
 // SimplifiedScale is simplified scale object
@@ -77,15 +78,15 @@ type DetailedScale struct {
 
 // DetailedKey is detailed key object
 type DetailedKey struct {
-	ID       int             `json:"id" db:"id"`
-	Scale    SimplifiedScale `json:"scale" db:"scale"`
-	Tonic    SimplifiedPitch `json:"tonic" db:"tonic"`
-	Name     string          `json:"name" db:"name"`
-	Number   int             `json:"number" db:"number"`
-	Balanced bool            `json:"balanced" db:"balanced"`
-	CenterX  float64         `json:"center_x" db:"center_x"`
-	CenterY  float64         `json:"center_y" db:"center_y"`
-	Pitches  []DetailedPitch `json:"pitches,omitempty" db:"-"`
+	ID       int               `json:"id" db:"id"`
+	Scale    SimplifiedScale   `json:"scale" db:"scale"`
+	Tonic    SimplifiedPitch   `json:"tonic" db:"tonic"`
+	Name     string            `json:"name" db:"name"`
+	Number   int               `json:"number" db:"number"`
+	Balanced bool              `json:"balanced" db:"balanced"`
+	CenterX  float64           `json:"center_x" db:"center_x"`
+	CenterY  float64           `json:"center_y" db:"center_y"`
+	Pitches  []SimplifiedPitch `json:"pitches,omitempty" db:"-"`
 }
 
 // SliceInt implements array of int jsonb

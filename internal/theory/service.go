@@ -2,6 +2,7 @@ package theory
 
 import (
 	"context"
+
 	"github.com/edipermadi/music-db/internal/platform/api"
 	"go.uber.org/zap"
 )
@@ -11,6 +12,10 @@ type Service interface {
 	ListPitches(ctx context.Context) ([]DetailedPitch, error)
 
 	ListChords(ctx context.Context, pagination api.Pagination) ([]DetailedChord, *api.Pagination, error)
+	ListChordPitches(ctx context.Context, chordID int64) ([]DetailedPitch, error)
+	ListChordKeys(ctx context.Context, chordID int64, pagination api.Pagination) ([]DetailedKey, *api.Pagination, error)
+	GetChord(ctx context.Context, chordID int64) (*DetailedChord, error)
+	GetChordQuality(ctx context.Context, chordID int64) (*DetailedChordQuality, error)
 
 	ListScales(ctx context.Context, pagination api.Pagination) ([]DetailedScale, *api.Pagination, error)
 	ListScaleKeys(ctx context.Context, scaleID int64) ([]DetailedKey, error)
@@ -43,6 +48,23 @@ func (s theoryService) ListPitches(ctx context.Context) ([]DetailedPitch, error)
 func (s theoryService) ListChords(ctx context.Context, pagination api.Pagination) ([]DetailedChord, *api.Pagination, error) {
 	return s.repository.ListChords(ctx, pagination)
 }
+
+func (s theoryService) ListChordPitches(ctx context.Context, chordID int64) ([]DetailedPitch, error) {
+	return s.repository.ListChordPitches(ctx, chordID)
+}
+
+func (s theoryService) ListChordKeys(ctx context.Context, chordID int64, pagination api.Pagination) ([]DetailedKey, *api.Pagination, error) {
+	return s.repository.ListChordKeys(ctx, chordID, pagination)
+}
+
+func (s theoryService) GetChord(ctx context.Context, chordID int64) (*DetailedChord, error) {
+	return s.repository.GetChord(ctx, chordID)
+}
+
+func (s theoryService) GetChordQuality(ctx context.Context, chordID int64) (*DetailedChordQuality, error) {
+	return s.repository.GetChordQuality(ctx, chordID)
+}
+
 func (s theoryService) ListScales(ctx context.Context, pagination api.Pagination) ([]DetailedScale, *api.Pagination, error) {
 	return s.repository.ListScales(ctx, pagination)
 }
