@@ -14,6 +14,8 @@ import (
 
 // Handler is theory handler
 type Handler interface {
+	InstallEndpoints(router *mux.Router)
+
 	ListPitches(writer http.ResponseWriter, request *http.Request)
 
 	ListChords(writer http.ResponseWriter, request *http.Request)
@@ -46,6 +48,40 @@ type theoryHandler struct {
 	handler.Base
 	service Service
 	decoder *form.Decoder
+}
+
+func (h theoryHandler) InstallEndpoints(router *mux.Router) {
+	router.HandleFunc("/pitches", h.ListPitches).
+		Methods(http.MethodGet).Name("LIST_PITCHES")
+
+	router.HandleFunc("/chords", h.ListChords).
+		Methods(http.MethodGet).Name("LIST_CHORDS")
+	router.HandleFunc("/chords/{id:[0-9]+}", h.GetChord).
+		Methods(http.MethodGet).Name("GET_CHORD")
+	router.HandleFunc("/chords/{id:[0-9]+}/quality", h.GetChordQuality).
+		Methods(http.MethodGet).Name("GET_CHORD_QUALITY")
+	router.HandleFunc("/chords/{id:[0-9]+}/pitches", h.ListChordPitches).
+		Methods(http.MethodGet).Name("GET_CHORD_PITCHES")
+	router.HandleFunc("/chords/{id:[0-9]+}/keys", h.ListChordKeys).
+		Methods(http.MethodGet).Name("GET_CHORD_KEYS")
+
+	router.HandleFunc("/scales", h.ListScales).
+		Methods(http.MethodGet).Name("LIST_SCALES")
+	router.HandleFunc("/scales/{id:[0-9]+}", h.GetScale).
+		Methods(http.MethodGet).Name("GET_SCALE")
+	router.HandleFunc("/scales/{id:[0-9]+}/keys", h.ListScaleKeys).
+		Methods(http.MethodGet).Name("LIST_KEYS_FROM_SCALE")
+
+	router.HandleFunc("/keys", h.ListKeys).
+		Methods(http.MethodGet).Name("LIST_KEYS")
+	router.HandleFunc("/keys/{id:[0-9]+}/modes", h.ListKeyModes).
+		Methods(http.MethodGet).Name("LIST_KEY_MODES")
+	router.HandleFunc("/keys/{id:[0-9]+}/chords", h.ListKeyChords).
+		Methods(http.MethodGet).Name("LIST_KEY_CHORDS")
+	router.HandleFunc("/keys/{id:[0-9]+}/pitches", h.ListKeyPitches).
+		Methods(http.MethodGet).Name("LIST_KEY_PITCHES")
+	router.HandleFunc("/keys/{id:[0-9]+}", h.GetKey).
+		Methods(http.MethodGet).Name("GET_KEY")
 }
 
 func (h theoryHandler) ListPitches(writer http.ResponseWriter, request *http.Request) {
@@ -122,7 +158,7 @@ func (h theoryHandler) GetChord(writer http.ResponseWriter, request *http.Reques
 	chord, err := h.service.GetChord(ctx, chordID)
 	switch {
 	case errors.Is(err, ErrChordNotFound):
-		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrResourceNotFound)
+		h.ReplyJSON(writer, http.StatusNotFound, api.ErrResourceNotFound)
 	case err != nil:
 		h.Logger().With(zap.Error(err)).Error("failed to get chord")
 		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
@@ -137,8 +173,8 @@ func (h theoryHandler) GetChordQuality(writer http.ResponseWriter, request *http
 	chordID, _ := strconv.ParseInt(mux.Vars(request)["id"], 10, 64)
 	chord, err := h.service.GetChordQuality(ctx, chordID)
 	switch {
-	case errors.Is(err, ErrChordNotFound):
-		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrResourceNotFound)
+	case errors.Is(err, ErrChordQualityNotFound):
+		h.ReplyJSON(writer, http.StatusNotFound, api.ErrResourceNotFound)
 	case err != nil:
 		h.Logger().With(zap.Error(err)).Error("failed to get chord quality")
 		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
@@ -272,7 +308,7 @@ func (h theoryHandler) GetKey(writer http.ResponseWriter, request *http.Request)
 	keyID, _ := strconv.ParseInt(mux.Vars(request)["id"], 10, 64)
 	key, err := h.service.GetKey(ctx, keyID)
 	switch {
-	case errors.Is(err, ErrScaleNotFound):
+	case errors.Is(err, ErrKeyNotFound):
 		h.ReplyJSON(writer, http.StatusNotFound, api.ErrResourceNotFound)
 	case err != nil:
 		h.Logger().With(zap.Error(err)).Error("failed to get key")

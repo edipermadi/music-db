@@ -15,7 +15,7 @@ type SimplifiedPitch struct {
 type DetailedPitch struct {
 	ID        int64   `json:"id" db:"id"`
 	Name      string  `json:"name" db:"name"`
-	Number    string  `json:"number" db:"number"`
+	Number    int     `json:"number" db:"number"`
 	Frequency float64 `json:"frequency" db:"frequency"`
 }
 
@@ -29,7 +29,7 @@ type SimplifiedChordQuality struct {
 type DetailedChordQuality struct {
 	ID              int64    `json:"id" db:"id"`
 	Name            string   `json:"name" db:"name"`
-	Number          string   `json:"number" db:"number"`
+	Number          int      `json:"number" db:"number"`
 	Cardinality     int      `json:"cardinality" db:"cardinality"`
 	PitchClass      SliceInt `json:"pitch_class" db:"pitch_class"`
 	IntervalPattern SliceInt `json:"interval_pattern" db:"interval_pattern"`
@@ -62,7 +62,7 @@ type DetailedScale struct {
 	ID                       int64         `json:"id" db:"id"`
 	Name                     string        `json:"name" db:"name"`
 	Cardinality              int           `json:"cardinality" db:"cardinality"`
-	Number                   string        `json:"number" db:"number"`
+	Number                   int           `json:"number" db:"number"`
 	Perfection               int           `json:"perfection" db:"perfection"`
 	Imperfection             int           `json:"imperfection" db:"imperfection"`
 	PitchClass               SliceInt      `json:"pitch_class" db:"pitch_class"`
