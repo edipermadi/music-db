@@ -243,7 +243,7 @@ func (r theoryRepository) GetChordQuality(ctx context.Context, chordID int64) (*
 	var quality DetailedChordQuality
 	if err := r.db.GetContext(ctx, &quality, query, chordID); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return nil, ErrChordNotFound
+			return nil, ErrChordQualityNotFound
 		}
 		return nil, err
 	}

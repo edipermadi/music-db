@@ -46,6 +46,10 @@ test:
 coverage: test
 	$(GO) tool cover -func=$(COVERAGE_FILE)
 
+.PHONY: coverage-html
+coverage-html: test
+	$(GO) tool cover -html=$(COVERAGE_FILE)
+
 seed.sql:
 	$(GO) run ./cmd/gen -output=$(CURDIR)/seed.sql
 

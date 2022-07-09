@@ -54,38 +54,7 @@ func main() {
 	theoryRepository := theory.NewRepository(logger, db)
 	theoryService := theory.NewService(logger, theoryRepository)
 	handlerHandler := theory.NewHandler(logger, theoryService)
-
-	theoryV2Router.HandleFunc("/pitches", handlerHandler.ListPitches).
-		Methods(http.MethodGet).Name("LIST_PITCHES")
-
-	theoryV2Router.HandleFunc("/chords", handlerHandler.ListChords).
-		Methods(http.MethodGet).Name("LIST_CHORDS")
-	theoryV2Router.HandleFunc("/chords/{id:[0-9]+}", handlerHandler.GetChord).
-		Methods(http.MethodGet).Name("GET_CHORD")
-	theoryV2Router.HandleFunc("/chords/{id:[0-9]+}/quality", handlerHandler.GetChordQuality).
-		Methods(http.MethodGet).Name("GET_CHORD_QUALITY")
-	theoryV2Router.HandleFunc("/chords/{id:[0-9]+}/pitches", handlerHandler.ListChordPitches).
-		Methods(http.MethodGet).Name("GET_CHORD_PITCHES")
-	theoryV2Router.HandleFunc("/chords/{id:[0-9]+}/keys", handlerHandler.ListChordKeys).
-		Methods(http.MethodGet).Name("GET_CHORD_KEYS")
-
-	theoryV2Router.HandleFunc("/scales", handlerHandler.ListScales).
-		Methods(http.MethodGet).Name("LIST_SCALES")
-	theoryV2Router.HandleFunc("/scales/{id:[0-9]+}", handlerHandler.GetScale).
-		Methods(http.MethodGet).Name("GET_SCALE")
-	theoryV2Router.HandleFunc("/scales/{id:[0-9]+}/keys", handlerHandler.ListScaleKeys).
-		Methods(http.MethodGet).Name("LIST_KEYS_FROM_SCALE")
-
-	theoryV2Router.HandleFunc("/keys", handlerHandler.ListKeys).
-		Methods(http.MethodGet).Name("LIST_KEYS")
-	theoryV2Router.HandleFunc("/keys/{id:[0-9]+}/modes", handlerHandler.ListKeyModes).
-		Methods(http.MethodGet).Name("LIST_KEY_MODES")
-	theoryV2Router.HandleFunc("/keys/{id:[0-9]+}/chords", handlerHandler.ListKeyChords).
-		Methods(http.MethodGet).Name("LIST_KEY_CHORDS")
-	theoryV2Router.HandleFunc("/keys/{id:[0-9]+}/pitches", handlerHandler.ListKeyPitches).
-		Methods(http.MethodGet).Name("LIST_KEY_PITCHES")
-	theoryV2Router.HandleFunc("/keys/{id:[0-9]+}", handlerHandler.GetKey).
-		Methods(http.MethodGet).Name("GET_KEY")
+	handlerHandler.InstallEndpoints(theoryV2Router)
 
 	srv := &http.Server{
 		Handler:           handlers.RecoveryHandler(handlers.PrintRecoveryStack(true))(router),
