@@ -221,11 +221,11 @@ func TestTheoryService_ListChordKeys(t *testing.T) {
 			require.NoError(t, err)
 
 			repository := &MockRepository{}
-			repository.On("ListChordKeys", mock.Anything, mock.Anything, mock.Anything).
+			repository.On("ListChordKeys", mock.Anything, mock.Anything, mock.Anything, mock.Anything).
 				Return(tc.MockRepositoryReturnValues.ListChordKeys...)
 
 			service := theory.NewService(logger, repository)
-			entries, _, err := service.ListChordKeys(context.Background(), 1, api.Pagination{})
+			entries, _, err := service.ListChordKeys(context.Background(), 1, theory.KeyFilter{}, api.Pagination{})
 			if strings.HasPrefix(tc.Title, "ReturnsError") {
 				require.Error(t, err)
 				require.Empty(t, entries)
@@ -307,11 +307,11 @@ func TestTheoryService_ListChords(t *testing.T) {
 			require.NoError(t, err)
 
 			repository := &MockRepository{}
-			repository.On("ListChords", mock.Anything, mock.Anything).
+			repository.On("ListChords", mock.Anything, mock.Anything, mock.Anything).
 				Return(tc.MockRepositoryReturnValues.ListChords...)
 
 			service := theory.NewService(logger, repository)
-			entries, _, err := service.ListChords(context.Background(), api.Pagination{})
+			entries, _, err := service.ListChords(context.Background(), theory.ChordFilter{}, api.Pagination{})
 			if strings.HasPrefix(tc.Title, "ReturnsError") {
 				require.Error(t, err)
 				require.Empty(t, entries)
@@ -350,11 +350,11 @@ func TestTheoryService_ListKeyChords(t *testing.T) {
 			require.NoError(t, err)
 
 			repository := &MockRepository{}
-			repository.On("ListKeyChords", mock.Anything, mock.Anything, mock.Anything).
+			repository.On("ListKeyChords", mock.Anything, mock.Anything, mock.Anything, mock.Anything).
 				Return(tc.MockRepositoryReturnValues.ListKeyChords...)
 
 			service := theory.NewService(logger, repository)
-			entries, _, err := service.ListKeyChords(context.Background(), 1, api.Pagination{})
+			entries, _, err := service.ListKeyChords(context.Background(), 1, theory.ChordFilter{}, api.Pagination{})
 			if strings.HasPrefix(tc.Title, "ReturnsError") {
 				require.Error(t, err)
 				require.Empty(t, entries)
@@ -393,11 +393,11 @@ func TestTheoryService_ListKeyModes(t *testing.T) {
 			require.NoError(t, err)
 
 			repository := &MockRepository{}
-			repository.On("ListKeyModes", mock.Anything, mock.Anything).
+			repository.On("ListKeyModes", mock.Anything, mock.Anything, mock.Anything).
 				Return(tc.MockRepositoryReturnValues.ListKeyModes...)
 
 			service := theory.NewService(logger, repository)
-			entries, err := service.ListKeyModes(context.Background(), 1)
+			entries, err := service.ListKeyModes(context.Background(), 1, theory.KeyFilter{})
 			if strings.HasPrefix(tc.Title, "ReturnsError") {
 				require.Error(t, err)
 				require.Empty(t, entries)
@@ -479,11 +479,11 @@ func TestTheoryService_ListKeys(t *testing.T) {
 			require.NoError(t, err)
 
 			repository := &MockRepository{}
-			repository.On("ListKeys", mock.Anything, mock.Anything).
+			repository.On("ListKeys", mock.Anything, mock.Anything, mock.Anything).
 				Return(tc.MockRepositoryReturnValues.ListKeys...)
 
 			service := theory.NewService(logger, repository)
-			entries, _, err := service.ListKeys(context.Background(), api.Pagination{})
+			entries, _, err := service.ListKeys(context.Background(), theory.KeyFilter{}, api.Pagination{})
 			if strings.HasPrefix(tc.Title, "ReturnsError") {
 				require.Error(t, err)
 				require.Empty(t, entries)
@@ -663,8 +663,8 @@ func (m *MockService) ListPitches(ctx context.Context) ([]theory.DetailedPitch, 
 }
 
 // ListChords mocks theory.Service#ListChords
-func (m *MockService) ListChords(ctx context.Context, pagination api.Pagination) ([]theory.DetailedChord, *api.Pagination, error) {
-	args := m.Called(ctx, pagination)
+func (m *MockService) ListChords(ctx context.Context, filter theory.ChordFilter, pagination api.Pagination) ([]theory.DetailedChord, *api.Pagination, error) {
+	args := m.Called(ctx, filter, pagination)
 
 	var entries []theory.DetailedChord
 	if v, ok := args.Get(0).([]theory.DetailedChord); ok {
@@ -692,8 +692,8 @@ func (m *MockService) ListChordPitches(ctx context.Context, chordID int64) ([]th
 }
 
 // ListChordKeys mocks theory.Service#ListChordKeys
-func (m *MockService) ListChordKeys(ctx context.Context, chordID int64, pagination api.Pagination) ([]theory.DetailedKey, *api.Pagination, error) {
-	args := m.Called(ctx, chordID, pagination)
+func (m *MockService) ListChordKeys(ctx context.Context, chordID int64, filter theory.KeyFilter, pagination api.Pagination) ([]theory.DetailedKey, *api.Pagination, error) {
+	args := m.Called(ctx, chordID, filter, pagination)
 
 	var entries []theory.DetailedKey
 	if v, ok := args.Get(0).([]theory.DetailedKey); ok {
@@ -774,8 +774,8 @@ func (m *MockService) GetScale(ctx context.Context, scaleID int64) (*theory.Deta
 }
 
 // ListKeys mocks theory.Service#ListKeys
-func (m *MockService) ListKeys(ctx context.Context, pagination api.Pagination) ([]theory.DetailedKey, *api.Pagination, error) {
-	args := m.Called(ctx, pagination)
+func (m *MockService) ListKeys(ctx context.Context, filter theory.KeyFilter, pagination api.Pagination) ([]theory.DetailedKey, *api.Pagination, error) {
+	args := m.Called(ctx, filter, pagination)
 
 	var entries []theory.DetailedKey
 	if v, ok := args.Get(0).([]theory.DetailedKey); ok {
@@ -791,8 +791,8 @@ func (m *MockService) ListKeys(ctx context.Context, pagination api.Pagination) (
 }
 
 // ListKeyModes mocks theory.Service#ListKeyModes
-func (m *MockService) ListKeyModes(ctx context.Context, keyID int64) ([]theory.DetailedKey, error) {
-	args := m.Called(ctx, keyID)
+func (m *MockService) ListKeyModes(ctx context.Context, keyID int64, filter theory.KeyFilter) ([]theory.DetailedKey, error) {
+	args := m.Called(ctx, keyID, filter)
 
 	var entries []theory.DetailedKey
 	if v, ok := args.Get(0).([]theory.DetailedKey); ok {
@@ -803,8 +803,8 @@ func (m *MockService) ListKeyModes(ctx context.Context, keyID int64) ([]theory.D
 }
 
 // ListKeyChords mocks theory.Service#ListKeyChords
-func (m *MockService) ListKeyChords(ctx context.Context, keyID int64, pagination api.Pagination) ([]theory.DetailedChord, *api.Pagination, error) {
-	args := m.Called(ctx, keyID, pagination)
+func (m *MockService) ListKeyChords(ctx context.Context, keyID int64, filter theory.ChordFilter, pagination api.Pagination) ([]theory.DetailedChord, *api.Pagination, error) {
+	args := m.Called(ctx, keyID, filter, pagination)
 
 	var entries []theory.DetailedChord
 	if v, ok := args.Get(0).([]theory.DetailedChord); ok {

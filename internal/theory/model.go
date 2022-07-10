@@ -51,6 +51,14 @@ type DetailedChord struct {
 	Pitches []SimplifiedPitch      `json:"pitches,omitempty" db:"-"`
 }
 
+// ChordFilter represents chord filter
+type ChordFilter struct {
+	ChordQualityID int64 `form:"chord_quality_id"`
+	RootID         int64 `form:"root_id"`
+	Number         int   `form:"number"`
+	Cardinality    int   `form:"cardinality"`
+}
+
 // SimplifiedScale is simplified scale object
 type SimplifiedScale struct {
 	ID   int64  `json:"id" db:"id"`
@@ -87,6 +95,21 @@ type DetailedKey struct {
 	CenterX  float64           `json:"center_x" db:"center_x"`
 	CenterY  float64           `json:"center_y" db:"center_y"`
 	Pitches  []SimplifiedPitch `json:"pitches,omitempty" db:"-"`
+}
+
+// KeyFilter is key filter
+type KeyFilter struct {
+	ScaleID                 int64 `form:"scale_id"`
+	TonicID                 int64 `form:"tonic_id"`
+	Number                  int   `form:"number"`
+	Perfection              *int  `form:"perfection"`
+	Imperfection            *int  `form:"imperfection"`
+	Balanced                *bool `form:"balanced"`
+	RotationalSymmetric     *bool `form:"rotational_symmetric"`
+	RotationalSymmetryLevel int   `form:"rotational_symmetry_level"`
+	ReflectionalSymmetric   *bool `form:"reflectional_symmetric"`
+	Palindromic             *bool `form:"palindromic"`
+	Cardinality             int   `form:"cardinality"`
 }
 
 // SliceInt implements array of int jsonb

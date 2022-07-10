@@ -98,15 +98,19 @@ func (h theoryHandler) ListPitches(writer http.ResponseWriter, request *http.Req
 func (h theoryHandler) ListChords(writer http.ResponseWriter, request *http.Request) {
 	ctx := request.Context()
 
-	var pagination api.Pagination
-	if err := h.decoder.Decode(&pagination, request.URL.Query()); err != nil {
+	type params struct {
+		ChordFilter
+		api.Pagination
+	}
+
+	var data params
+	if err := h.decoder.Decode(&data, request.URL.Query()); err != nil {
 		h.Logger().With(zap.Error(err)).Error("failed to list chords")
 		h.ReplyJSON(writer, http.StatusBadRequest, api.ErrBadQueryParameter)
 		return
 	}
 
-	pagination.Sanitize()
-	chords, paginationOut, err := h.service.ListChords(ctx, pagination)
+	chords, paginationOut, err := h.service.ListChords(ctx, data.ChordFilter, data.Pagination)
 	if err != nil {
 		h.Logger().With(zap.Error(err)).Error("failed to list chords")
 		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
@@ -132,16 +136,20 @@ func (h theoryHandler) ListChordPitches(writer http.ResponseWriter, request *htt
 func (h theoryHandler) ListChordKeys(writer http.ResponseWriter, request *http.Request) {
 	ctx := request.Context()
 
-	var pagination api.Pagination
-	if err := h.decoder.Decode(&pagination, request.URL.Query()); err != nil {
+	type params struct {
+		KeyFilter
+		api.Pagination
+	}
+
+	var data params
+	if err := h.decoder.Decode(&data, request.URL.Query()); err != nil {
 		h.Logger().With(zap.Error(err)).Error("failed to list chords")
 		h.ReplyJSON(writer, http.StatusBadRequest, api.ErrBadQueryParameter)
 		return
 	}
-
-	pagination.Sanitize()
+	
 	chordID, _ := strconv.ParseInt(mux.Vars(request)["id"], 10, 64)
-	chords, paginationOut, err := h.service.ListChordKeys(ctx, chordID, pagination)
+	chords, paginationOut, err := h.service.ListChordKeys(ctx, chordID, data.KeyFilter, data.Pagination)
 	if err != nil {
 		h.Logger().With(zap.Error(err)).Error("failed to list chord keys")
 		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
@@ -236,15 +244,19 @@ func (h theoryHandler) GetScale(writer http.ResponseWriter, request *http.Reques
 func (h theoryHandler) ListKeys(writer http.ResponseWriter, request *http.Request) {
 	ctx := request.Context()
 
-	var pagination api.Pagination
-	if err := h.decoder.Decode(&pagination, request.URL.Query()); err != nil {
+	type params struct {
+		KeyFilter
+		api.Pagination
+	}
+
+	var data params
+	if err := h.decoder.Decode(&data, request.URL.Query()); err != nil {
 		h.Logger().With(zap.Error(err)).Error("failed to list keys")
 		h.ReplyJSON(writer, http.StatusBadRequest, api.ErrBadQueryParameter)
 		return
 	}
 
-	pagination.Sanitize()
-	keys, paginationOut, err := h.service.ListKeys(ctx, pagination)
+	keys, paginationOut, err := h.service.ListKeys(ctx, data.KeyFilter, data.Pagination)
 	if err != nil {
 		h.Logger().With(zap.Error(err)).Error("failed to list keys")
 		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
@@ -257,8 +269,15 @@ func (h theoryHandler) ListKeys(writer http.ResponseWriter, request *http.Reques
 func (h theoryHandler) ListKeyModes(writer http.ResponseWriter, request *http.Request) {
 	ctx := request.Context()
 
+	var data KeyFilter
+	if err := h.decoder.Decode(&data, request.URL.Query()); err != nil {
+		h.Logger().With(zap.Error(err)).Error("failed to list modes")
+		h.ReplyJSON(writer, http.StatusBadRequest, api.ErrBadQueryParameter)
+		return
+	}
+
 	keyID, _ := strconv.ParseInt(mux.Vars(request)["id"], 10, 64)
-	keys, err := h.service.ListKeyModes(ctx, keyID)
+	keys, err := h.service.ListKeyModes(ctx, keyID, data)
 	if err != nil {
 		h.Logger().With(zap.Error(err)).Error("failed to list key modes")
 		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
@@ -270,16 +289,20 @@ func (h theoryHandler) ListKeyModes(writer http.ResponseWriter, request *http.Re
 func (h theoryHandler) ListKeyChords(writer http.ResponseWriter, request *http.Request) {
 	ctx := request.Context()
 
-	var pagination api.Pagination
-	if err := h.decoder.Decode(&pagination, request.URL.Query()); err != nil {
+	type params struct {
+		ChordFilter
+		api.Pagination
+	}
+
+	var data params
+	if err := h.decoder.Decode(&data, request.URL.Query()); err != nil {
 		h.Logger().With(zap.Error(err)).Error("failed to list keys")
 		h.ReplyJSON(writer, http.StatusBadRequest, api.ErrBadQueryParameter)
 		return
 	}
 
-	pagination.Sanitize()
 	keyID, _ := strconv.ParseInt(mux.Vars(request)["id"], 10, 64)
-	keys, paginationOut, err := h.service.ListKeyChords(ctx, keyID, pagination)
+	keys, paginationOut, err := h.service.ListKeyChords(ctx, keyID, data.ChordFilter, data.Pagination)
 	if err != nil {
 		h.Logger().With(zap.Error(err)).Error("failed to list key chords")
 		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
