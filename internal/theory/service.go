@@ -11,9 +11,9 @@ import (
 type Service interface {
 	ListPitches(ctx context.Context) ([]DetailedPitch, error)
 
-	ListChords(ctx context.Context, pagination api.Pagination) ([]DetailedChord, *api.Pagination, error)
+	ListChords(ctx context.Context, filter ChordFilter, pagination api.Pagination) ([]DetailedChord, *api.Pagination, error)
 	ListChordPitches(ctx context.Context, chordID int64) ([]DetailedPitch, error)
-	ListChordKeys(ctx context.Context, chordID int64, pagination api.Pagination) ([]DetailedKey, *api.Pagination, error)
+	ListChordKeys(ctx context.Context, chordID int64, filter KeyFilter, pagination api.Pagination) ([]DetailedKey, *api.Pagination, error)
 	GetChord(ctx context.Context, chordID int64) (*DetailedChord, error)
 	GetChordQuality(ctx context.Context, chordID int64) (*DetailedChordQuality, error)
 
@@ -21,9 +21,9 @@ type Service interface {
 	ListScaleKeys(ctx context.Context, scaleID int64) ([]DetailedKey, error)
 	GetScale(ctx context.Context, scaleID int64) (*DetailedScale, error)
 
-	ListKeys(ctx context.Context, pagination api.Pagination) ([]DetailedKey, *api.Pagination, error)
-	ListKeyModes(ctx context.Context, keyID int64) ([]DetailedKey, error)
-	ListKeyChords(ctx context.Context, keyID int64, pagination api.Pagination) ([]DetailedChord, *api.Pagination, error)
+	ListKeys(ctx context.Context, filter KeyFilter, pagination api.Pagination) ([]DetailedKey, *api.Pagination, error)
+	ListKeyModes(ctx context.Context, keyID int64, filter KeyFilter) ([]DetailedKey, error)
+	ListKeyChords(ctx context.Context, keyID int64, filter ChordFilter, pagination api.Pagination) ([]DetailedChord, *api.Pagination, error)
 	ListKeyPitches(ctx context.Context, keyID int64) ([]DetailedPitch, error)
 	GetKey(ctx context.Context, keyID int64) (*DetailedKey, error)
 }
@@ -45,16 +45,16 @@ func (s theoryService) ListPitches(ctx context.Context) ([]DetailedPitch, error)
 	return s.repository.ListPitches(ctx)
 }
 
-func (s theoryService) ListChords(ctx context.Context, pagination api.Pagination) ([]DetailedChord, *api.Pagination, error) {
-	return s.repository.ListChords(ctx, pagination)
+func (s theoryService) ListChords(ctx context.Context, filter ChordFilter, pagination api.Pagination) ([]DetailedChord, *api.Pagination, error) {
+	return s.repository.ListChords(ctx, filter, pagination)
 }
 
 func (s theoryService) ListChordPitches(ctx context.Context, chordID int64) ([]DetailedPitch, error) {
 	return s.repository.ListChordPitches(ctx, chordID)
 }
 
-func (s theoryService) ListChordKeys(ctx context.Context, chordID int64, pagination api.Pagination) ([]DetailedKey, *api.Pagination, error) {
-	return s.repository.ListChordKeys(ctx, chordID, pagination)
+func (s theoryService) ListChordKeys(ctx context.Context, chordID int64, filter KeyFilter, pagination api.Pagination) ([]DetailedKey, *api.Pagination, error) {
+	return s.repository.ListChordKeys(ctx, chordID, filter, pagination)
 }
 
 func (s theoryService) GetChord(ctx context.Context, chordID int64) (*DetailedChord, error) {
@@ -77,16 +77,16 @@ func (s theoryService) GetScale(ctx context.Context, scaleID int64) (*DetailedSc
 	return s.repository.GetScale(ctx, scaleID)
 }
 
-func (s theoryService) ListKeys(ctx context.Context, pagination api.Pagination) ([]DetailedKey, *api.Pagination, error) {
-	return s.repository.ListKeys(ctx, pagination)
+func (s theoryService) ListKeys(ctx context.Context, filter KeyFilter, pagination api.Pagination) ([]DetailedKey, *api.Pagination, error) {
+	return s.repository.ListKeys(ctx, filter, pagination)
 }
 
-func (s theoryService) ListKeyModes(ctx context.Context, keyID int64) ([]DetailedKey, error) {
-	return s.repository.ListKeyModes(ctx, keyID)
+func (s theoryService) ListKeyModes(ctx context.Context, keyID int64, filter KeyFilter) ([]DetailedKey, error) {
+	return s.repository.ListKeyModes(ctx, keyID, filter)
 }
 
-func (s theoryService) ListKeyChords(ctx context.Context, keyID int64, pagination api.Pagination) ([]DetailedChord, *api.Pagination, error) {
-	return s.repository.ListKeyChords(ctx, keyID, pagination)
+func (s theoryService) ListKeyChords(ctx context.Context, keyID int64, filter ChordFilter, pagination api.Pagination) ([]DetailedChord, *api.Pagination, error) {
+	return s.repository.ListKeyChords(ctx, keyID, filter, pagination)
 }
 
 func (s theoryService) ListKeyPitches(ctx context.Context, keyID int64) ([]DetailedPitch, error) {

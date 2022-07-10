@@ -21,6 +21,7 @@ CREATE TABLE chord_qualities
 
 CREATE UNIQUE INDEX ON chord_qualities (name);
 CREATE UNIQUE INDEX ON chord_qualities (number);
+CREATE INDEX ON chord_qualities(cardinality);
 
 CREATE TABLE chords
 (
@@ -34,6 +35,7 @@ CREATE TABLE chords
 CREATE UNIQUE INDEX ON chords (chord_quality_id, root_id);
 CREATE INDEX ON chords (chord_quality_id);
 CREATE INDEX ON chords (root_id);
+CREATE INDEX ON chords (number);
 
 CREATE TABLE chord_pitches
 (
@@ -66,6 +68,14 @@ CREATE TABLE scales
 
 CREATE UNIQUE INDEX ON scales (name);
 CREATE UNIQUE INDEX ON scales (number);
+CREATE INDEX ON scales (cardinality);
+CREATE INDEX ON scales (perfection);
+CREATE INDEX ON scales (imperfection);
+CREATE INDEX ON scales (rotational_symmetric);
+CREATE INDEX ON scales (rotational_symmetry_level);
+CREATE INDEX ON scales (palindromic);
+CREATE INDEX ON scales (reflectional_symmetric);
+CREATE INDEX ON scales (balanced);
 
 CREATE TABLE keys
 (
@@ -83,6 +93,7 @@ CREATE UNIQUE INDEX ON keys (scale_id, tonic_id);
 CREATE INDEX ON keys (scale_id);
 CREATE INDEX ON keys (tonic_id);
 CREATE INDEX ON keys (number);
+CREATE INDEX ON keys (balanced);
 
 CREATE TABLE key_pitches
 (
