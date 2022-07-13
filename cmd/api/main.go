@@ -56,8 +56,12 @@ func main() {
 	handlerHandler := theory.NewHandler(logger, theoryService)
 	handlerHandler.InstallEndpoints(theoryV2Router)
 
+	cors := handlers.CORS(
+		handlers.AllowedOrigins([]string{"http://localhost"}),
+	)
+
 	srv := &http.Server{
-		Handler:           handlers.RecoveryHandler(handlers.PrintRecoveryStack(true))(router),
+		Handler:           handlers.RecoveryHandler(handlers.PrintRecoveryStack(true))(cors(router)),
 		Addr:              fmt.Sprintf(":%d", apiPort),
 		WriteTimeout:      15 * time.Second,
 		ReadTimeout:       15 * time.Second,

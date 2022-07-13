@@ -1,0 +1,116 @@
+openapi: 3.0.3
+info:
+    title: Music API
+    description: Music Theory API
+    version: 1.0.0
+
+servers:
+    - url: http://localhost:3000
+      description: Development
+
+components:
+    schemas:
+        simplified_pitch:
+            type: object
+            required:
+                - id
+                - na
+            properties:
+                id:
+                    type: integer
+                    description: Pitch identifier
+                    minimum: 1
+                    maximum: 12
+                    example: 1
+                name:
+                    type: string
+                    description: Pitch name
+                    example: 'CNatural'
+        detailed_pitch:
+            type: object
+            required:
+                - id
+                - name
+                - number
+                - frequency
+            properties:
+                id:
+                    type: integer
+                    description: Pitch identifier
+                    minimum: 1
+                    maximum: 12
+                    example: 1
+                name:
+                    type: string
+                    description: Pitch name
+                    example: 'CNatural'
+                number:
+                    type: integer
+                    description: Pitch number
+                    minimum: 1
+                    maximum: 2048
+                    example: 2048
+                frequency:
+                    type: number
+                    description: Pitch frequency
+                    minimum: 261.63
+                    example: 261.63
+        simplified_chord:
+            type: object
+            required:
+                - id
+                - name
+            properties:
+                id:
+                    type: integer
+                    description: Chord identifier
+                    minimum: 1
+                    maximum: 936
+                    example: 1
+                name:
+                    type: string
+                    description: Chord name
+                    example: 'CNaturalMajor'
+        detailed_chord:
+            type: object
+            required:
+                - id
+                - name
+            properties:
+                id:
+                    type: integer
+                    description: Chord identifier
+                    minimum: 1
+                    maximum: 936
+                    example: 1
+                name:
+                    type: string
+                    description: Chord name
+                    example: 'CNaturalMajor'
+paths:
+    /api/v1/theory/pitches:
+        get:
+            summary: List pitches
+            description: Return list of all pitches
+            responses:
+                '200':
+                    description: Successfully retrieved all pitches
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/detailed_pitch'
+    /api/v1/theory/chords:
+        get:
+            summary: List chords
+            description: Return list of paginated chords
+            responses:
+                '200:
+                    description: Successfully retrieved paginated list of chord
+                    content: 
+                        application/json:
+                            schema: 
+                                type: array
+                                items: 
+                                    $ref: '#/components/schemas/detailed_chord'
