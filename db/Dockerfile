@@ -9,7 +9,7 @@ RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -a -o gen ./cmd/gen/
+RUN CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -o gen -a ./cmd/gen
 RUN /build/gen -output=seed.sql
 
 FROM postgres:14 AS final

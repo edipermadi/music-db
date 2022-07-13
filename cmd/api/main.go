@@ -6,6 +6,7 @@ import (
 	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/stdlib"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -58,10 +59,11 @@ func main() {
 
 	cors := handlers.CORS(
 		handlers.AllowedOrigins([]string{"http://localhost"}),
+		handlers.AllowedOrigins([]string{"https://editor.swagger.io"}),
 	)
 
 	srv := &http.Server{
-		Handler:           handlers.RecoveryHandler(handlers.PrintRecoveryStack(true))(cors(router)),
+		Handler:           handlers.RecoveryHandler(handlers.PrintRecoveryStack(true))(handlers.LoggingHandler(os.Stderr, cors(router))),
 		Addr:              fmt.Sprintf(":%d", apiPort),
 		WriteTimeout:      15 * time.Second,
 		ReadTimeout:       15 * time.Second,

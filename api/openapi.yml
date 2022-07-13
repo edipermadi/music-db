@@ -106,7 +106,7 @@ paths:
             summary: List chords
             description: Return list of paginated chords
             responses:
-                '200:
+                '200':
                     description: Successfully retrieved paginated list of chord
                     content: 
                         application/json:

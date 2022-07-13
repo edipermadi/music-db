@@ -26,6 +26,7 @@ func (b Base) Logger() *zap.Logger {
 
 // ReplyJSON reply request with JSON
 func (b Base) ReplyJSON(writer http.ResponseWriter, status int, data interface{}) {
+	writer.Header().Set("Content-Type", "application/json")
 	writer.WriteHeader(status)
 	if err := json.NewEncoder(writer).Encode(data); err != nil {
 		b.logger.With(zap.Error(err)).Error("failed to reply json")
