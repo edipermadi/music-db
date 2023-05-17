@@ -142,3 +142,46 @@ func TestTheoryService_ListPitchChords(t *testing.T) {
 		})
 	}
 }
+
+func TestTheoryService_ListPitchKeys(t *testing.T) {
+	type testCase struct {
+		Title                  string
+		RepositoryReturnValues mock.RepositoryReturnValues
+	}
+
+	testCases := []testCase{
+		{
+			Title: "ReturnsChordsWhenSucceeded",
+			RepositoryReturnValues: mock.RepositoryReturnValues{
+				ListPitchKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			},
+		},
+		{
+			Title: "ReturnsErrorWhenFailed",
+			RepositoryReturnValues: mock.RepositoryReturnValues{
+				ListPitchKeys: []interface{}{nil, nil, errors.New("error")},
+			},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.Title, func(t *testing.T) {
+			logger, err := zap.NewProduction()
+			require.NoError(t, err)
+
+			repository := &mock.TheoryRepository{}
+			repository.On("ListPitchKeys", mock2.Anything, mock2.Anything, mock2.Anything, mock2.Anything).
+				Return(tc.RepositoryReturnValues.ListPitchKeys...)
+
+			service := theory.NewService(logger, repository)
+			entry, _, err := service.ListPitchKeys(context.Background(), 1, theory.KeyFilter{}, api.Pagination{})
+			if strings.HasPrefix(tc.Title, "ReturnsError") {
+				require.Error(t, err)
+				require.Empty(t, entry)
+			} else {
+				require.NoError(t, err)
+				require.NotEmpty(t, entry)
+			}
+		})
+	}
+}

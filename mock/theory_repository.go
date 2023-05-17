@@ -12,6 +12,7 @@ import (
 type RepositoryReturnValues struct {
 	GetPitch        []interface{}
 	ListPitchChords []interface{}
+	ListPitchKeys   []interface{}
 	ListPitches     []interface{}
 
 	ListChords       []interface{}
@@ -66,6 +67,23 @@ func (m *TheoryRepository) ListPitchChords(ctx context.Context, pitchID int64, f
 
 	var entries []theory.SimplifiedChord
 	if v, ok := args.Get(0).([]theory.SimplifiedChord); ok {
+		entries = v
+	}
+
+	var paginationOut *api.Pagination
+	if v, ok := args.Get(1).(*api.Pagination); ok {
+		paginationOut = v
+	}
+
+	return entries, paginationOut, args.Error(2)
+}
+
+// ListPitchKeys mock theory.Repository#ListPitchKeys
+func (m *TheoryRepository) ListPitchKeys(ctx context.Context, pitchID int64, filter theory.KeyFilter, pagination api.Pagination) ([]theory.SimplifiedKey, *api.Pagination, error) {
+	args := m.Called(ctx, pitchID, filter, pagination)
+
+	var entries []theory.SimplifiedKey
+	if v, ok := args.Get(0).([]theory.SimplifiedKey); ok {
 		entries = v
 	}
 
