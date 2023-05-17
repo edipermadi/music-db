@@ -59,11 +59,17 @@ func (r theoryRepository) ListPitchChords(ctx context.Context, pitchID int64, fi
 		args = append(args, filter.Number)
 	}
 
+	if filter.Cardinality > 0 {
+		where = append(where, "cq.cardinality = ?")
+		args = append(args, filter.Cardinality)
+	}
+
 	queryCount := fmt.Sprintf(`
 		SELECT 
 			COUNT(DISTINCT c.id)
 		FROM chord_pitches cp
-			JOIN chords c on cp.chord_id = c.id
+			JOIN chords c ON cp.chord_id = c.id
+			JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 		WHERE %s
 		GROUP BY
 		    cp.pitch_id;`, strings.Join(where, " AND "))
@@ -88,7 +94,8 @@ func (r theoryRepository) ListPitchChords(ctx context.Context, pitchID int64, fi
 			c.id, 
 			c.name
 		FROM chord_pitches cp
-			JOIN chords c on cp.chord_id = c.id
+			JOIN chords c ON cp.chord_id = c.id
+			JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 		WHERE
 		    %s
 		ORDER BY

@@ -96,7 +96,8 @@ func TestTheoryRepository_ListPitchChords(t *testing.T) {
 		SELECT 
 			COUNT(DISTINCT c.id)
 		FROM chord_pitches cp
-			JOIN chords c on cp.chord_id = c.id
+			JOIN chords c ON cp.chord_id = c.id
+			JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 		WHERE cp.pitch_id = $1
 		GROUP BY
 		    cp.pitch_id;`
@@ -106,7 +107,8 @@ func TestTheoryRepository_ListPitchChords(t *testing.T) {
 			c.id, 
 			c.name
 		FROM chord_pitches cp
-			JOIN chords c on cp.chord_id = c.id
+			JOIN chords c ON cp.chord_id = c.id
+			JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 		WHERE
 		    cp.pitch_id = $1
 		ORDER
