@@ -8,4 +8,5 @@ var (
 	ErrKeyNotFound          = errors.New("key not found")
 	ErrChordNotFound        = errors.New("chord not found")
 	ErrChordQualityNotFound = errors.New("chord quality not found")
+	ErrPitchNotFound        = errors.New("pitch not found")
 )

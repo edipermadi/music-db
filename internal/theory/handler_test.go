@@ -11,8 +11,9 @@ import (
 
 	"github.com/edipermadi/music-db/internal/platform/api"
 	"github.com/edipermadi/music-db/internal/theory"
+	"github.com/edipermadi/music-db/mock"
 	"github.com/gorilla/mux"
-	"github.com/stretchr/testify/mock"
+	mock2 "github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 )
@@ -21,36 +22,36 @@ func TestNewHandler(t *testing.T) {
 	logger, err := zap.NewProduction()
 	require.NoError(t, err)
 
-	service := &MockService{}
+	service := &mock.TheoryService{}
 	instance := theory.NewHandler(logger, service)
 	require.Implements(t, (*theory.Handler)(nil), instance)
 }
 
 func TestTheoryHandler_GetChord(t *testing.T) {
 	type testCase struct {
-		Title                   string
-		MockServiceReturnValues MockServiceReturnValues
-		ExpectedStatus          int
+		Title               string
+		ServiceReturnValues mock.ServiceReturnValues
+		ExpectedStatus      int
 	}
 
 	testCases := []testCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				GetChord: []interface{}{&theory.DetailedChord{ID: 1, Name: "name"}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns404WhenNotFound",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				GetChord: []interface{}{nil, theory.ErrChordNotFound},
 			},
 			ExpectedStatus: http.StatusNotFound,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				GetChord: []interface{}{nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -65,9 +66,9 @@ func TestTheoryHandler_GetChord(t *testing.T) {
 			server, router := mockServer()
 			defer server.Close()
 
-			service := &MockService{}
-			service.On("GetChord", mock.Anything, mock.Anything).
-				Return(tc.MockServiceReturnValues.GetChord...)
+			service := &mock.TheoryService{}
+			service.On("GetChord", mock2.Anything, mock2.Anything).
+				Return(tc.ServiceReturnValues.GetChord...)
 
 			theory.NewHandler(logger, service).InstallEndpoints(router)
 
@@ -88,29 +89,29 @@ func TestTheoryHandler_GetChord(t *testing.T) {
 
 func TestTheoryHandler_GetChordQuality(t *testing.T) {
 	type testCase struct {
-		Title                   string
-		MockServiceReturnValues MockServiceReturnValues
-		ExpectedStatus          int
+		Title               string
+		ServiceReturnValues mock.ServiceReturnValues
+		ExpectedStatus      int
 	}
 
 	testCases := []testCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				GetChordQuality: []interface{}{&theory.DetailedChordQuality{ID: 1, Name: "name"}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns404WhenNotFound",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				GetChordQuality: []interface{}{nil, theory.ErrChordQualityNotFound},
 			},
 			ExpectedStatus: http.StatusNotFound,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				GetChordQuality: []interface{}{nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -125,9 +126,9 @@ func TestTheoryHandler_GetChordQuality(t *testing.T) {
 			server, router := mockServer()
 			defer server.Close()
 
-			service := &MockService{}
-			service.On("GetChordQuality", mock.Anything, mock.Anything).
-				Return(tc.MockServiceReturnValues.GetChordQuality...)
+			service := &mock.TheoryService{}
+			service.On("GetChordQuality", mock2.Anything, mock2.Anything).
+				Return(tc.ServiceReturnValues.GetChordQuality...)
 
 			theory.NewHandler(logger, service).InstallEndpoints(router)
 
@@ -148,29 +149,29 @@ func TestTheoryHandler_GetChordQuality(t *testing.T) {
 
 func TestTheoryHandler_GetKey(t *testing.T) {
 	type testCase struct {
-		Title                   string
-		MockServiceReturnValues MockServiceReturnValues
-		ExpectedStatus          int
+		Title               string
+		ServiceReturnValues mock.ServiceReturnValues
+		ExpectedStatus      int
 	}
 
 	testCases := []testCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				GetKey: []interface{}{&theory.DetailedKey{ID: 1, Name: "name"}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns404WhenNotFound",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				GetKey: []interface{}{nil, theory.ErrKeyNotFound},
 			},
 			ExpectedStatus: http.StatusNotFound,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				GetKey: []interface{}{nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -185,9 +186,9 @@ func TestTheoryHandler_GetKey(t *testing.T) {
 			server, router := mockServer()
 			defer server.Close()
 
-			service := &MockService{}
-			service.On("GetKey", mock.Anything, mock.Anything).
-				Return(tc.MockServiceReturnValues.GetKey...)
+			service := &mock.TheoryService{}
+			service.On("GetKey", mock2.Anything, mock2.Anything).
+				Return(tc.ServiceReturnValues.GetKey...)
 
 			theory.NewHandler(logger, service).InstallEndpoints(router)
 
@@ -208,29 +209,29 @@ func TestTheoryHandler_GetKey(t *testing.T) {
 
 func TestTheoryHandler_GetScale(t *testing.T) {
 	type testCase struct {
-		Title                   string
-		MockServiceReturnValues MockServiceReturnValues
-		ExpectedStatus          int
+		Title               string
+		ServiceReturnValues mock.ServiceReturnValues
+		ExpectedStatus      int
 	}
 
 	testCases := []testCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				GetScale: []interface{}{&theory.DetailedScale{ID: 1, Name: "name"}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns404WhenNotFound",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				GetScale: []interface{}{nil, theory.ErrScaleNotFound},
 			},
 			ExpectedStatus: http.StatusNotFound,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				GetScale: []interface{}{nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -245,9 +246,9 @@ func TestTheoryHandler_GetScale(t *testing.T) {
 			server, router := mockServer()
 			defer server.Close()
 
-			service := &MockService{}
-			service.On("GetScale", mock.Anything, mock.Anything).
-				Return(tc.MockServiceReturnValues.GetScale...)
+			service := &mock.TheoryService{}
+			service.On("GetScale", mock2.Anything, mock2.Anything).
+				Return(tc.ServiceReturnValues.GetScale...)
 
 			theory.NewHandler(logger, service).InstallEndpoints(router)
 
@@ -268,11 +269,11 @@ func TestTheoryHandler_GetScale(t *testing.T) {
 
 func TestTheoryHandler_ListChordKeys(t *testing.T) {
 	type testCase struct {
-		Title                   string
-		GivenQueryString        url.Values
-		MockServiceReturnValues MockServiceReturnValues
-		ExpectedFilter          theory.KeyFilter
-		ExpectedStatus          int
+		Title               string
+		GivenQueryString    url.Values
+		ServiceReturnValues mock.ServiceReturnValues
+		ExpectedFilter      theory.KeyFilter
+		ExpectedStatus      int
 	}
 
 	intValue := 1
@@ -280,7 +281,7 @@ func TestTheoryHandler_ListChordKeys(t *testing.T) {
 	testCases := []testCase{
 		{
 			Title: "Returns200WhenSucceededWithoutFilter",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
@@ -290,7 +291,7 @@ func TestTheoryHandler_ListChordKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"scale_id": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{ScaleID: 1},
@@ -301,7 +302,7 @@ func TestTheoryHandler_ListChordKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"tonic_id": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{TonicID: 1},
@@ -312,7 +313,7 @@ func TestTheoryHandler_ListChordKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"number": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Number: 1},
@@ -323,7 +324,7 @@ func TestTheoryHandler_ListChordKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"perfection": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Perfection: &intValue},
@@ -334,7 +335,7 @@ func TestTheoryHandler_ListChordKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"imperfection": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Imperfection: &intValue},
@@ -345,7 +346,7 @@ func TestTheoryHandler_ListChordKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"balanced": []string{"true"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Balanced: &boolValue},
@@ -356,7 +357,7 @@ func TestTheoryHandler_ListChordKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"rotational_symmetric": []string{"true"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{RotationalSymmetric: &boolValue},
@@ -367,7 +368,7 @@ func TestTheoryHandler_ListChordKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"rotational_symmetry_level": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{RotationalSymmetryLevel: 1},
@@ -378,7 +379,7 @@ func TestTheoryHandler_ListChordKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"reflectional_symmetric": []string{"true"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{ReflectionalSymmetric: &boolValue},
@@ -389,7 +390,7 @@ func TestTheoryHandler_ListChordKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"palindromic": []string{"true"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Palindromic: &boolValue},
@@ -400,7 +401,7 @@ func TestTheoryHandler_ListChordKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"cardinality": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Cardinality: 1},
@@ -408,7 +409,7 @@ func TestTheoryHandler_ListChordKeys(t *testing.T) {
 		},
 		{
 			Title: "Returns500WhenFailed",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChordKeys: []interface{}{nil, nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -423,9 +424,9 @@ func TestTheoryHandler_ListChordKeys(t *testing.T) {
 			server, router := mockServer()
 			defer server.Close()
 
-			service := &MockService{}
-			service.On("ListChordKeys", mock.Anything, mock.Anything, tc.ExpectedFilter, mock.Anything).
-				Return(tc.MockServiceReturnValues.ListChordKeys...)
+			service := &mock.TheoryService{}
+			service.On("ListChordKeys", mock2.Anything, mock2.Anything, tc.ExpectedFilter, mock2.Anything).
+				Return(tc.ServiceReturnValues.ListChordKeys...)
 
 			theory.NewHandler(logger, service).InstallEndpoints(router)
 
@@ -453,22 +454,22 @@ func TestTheoryHandler_ListChordKeys(t *testing.T) {
 
 func TestTheoryHandler_ListChordPitches(t *testing.T) {
 	type testCase struct {
-		Title                   string
-		MockServiceReturnValues MockServiceReturnValues
-		ExpectedStatus          int
+		Title               string
+		ServiceReturnValues mock.ServiceReturnValues
+		ExpectedStatus      int
 	}
 
 	testCases := []testCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChordPitches: []interface{}{[]theory.DetailedPitch{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChordPitches: []interface{}{nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -483,9 +484,9 @@ func TestTheoryHandler_ListChordPitches(t *testing.T) {
 			server, router := mockServer()
 			defer server.Close()
 
-			service := &MockService{}
-			service.On("ListChordPitches", mock.Anything, mock.Anything).
-				Return(tc.MockServiceReturnValues.ListChordPitches...)
+			service := &mock.TheoryService{}
+			service.On("ListChordPitches", mock2.Anything, mock2.Anything).
+				Return(tc.ServiceReturnValues.ListChordPitches...)
 
 			theory.NewHandler(logger, service).InstallEndpoints(router)
 
@@ -506,17 +507,17 @@ func TestTheoryHandler_ListChordPitches(t *testing.T) {
 
 func TestTheoryHandler_ListChords(t *testing.T) {
 	type testCase struct {
-		Title                   string
-		GivenQueryStrings       url.Values
-		MockServiceReturnValues MockServiceReturnValues
-		ExpectedFilter          theory.ChordFilter
-		ExpectedStatus          int
+		Title               string
+		GivenQueryStrings   url.Values
+		ServiceReturnValues mock.ServiceReturnValues
+		ExpectedFilter      theory.ChordFilter
+		ExpectedStatus      int
 	}
 
 	testCases := []testCase{
 		{
 			Title: "Returns200WhenSucceededWithoutFilter",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChords: []interface{}{[]theory.DetailedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
@@ -526,7 +527,7 @@ func TestTheoryHandler_ListChords(t *testing.T) {
 			GivenQueryStrings: url.Values{
 				"chord_quality_id": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChords: []interface{}{[]theory.DetailedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.ChordFilter{ChordQualityID: 1},
@@ -537,7 +538,7 @@ func TestTheoryHandler_ListChords(t *testing.T) {
 			GivenQueryStrings: url.Values{
 				"root_id": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChords: []interface{}{[]theory.DetailedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.ChordFilter{RootID: 1},
@@ -548,7 +549,7 @@ func TestTheoryHandler_ListChords(t *testing.T) {
 			GivenQueryStrings: url.Values{
 				"number": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChords: []interface{}{[]theory.DetailedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.ChordFilter{Number: 1},
@@ -559,7 +560,7 @@ func TestTheoryHandler_ListChords(t *testing.T) {
 			GivenQueryStrings: url.Values{
 				"cardinality": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChords: []interface{}{[]theory.DetailedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.ChordFilter{Cardinality: 1},
@@ -567,7 +568,7 @@ func TestTheoryHandler_ListChords(t *testing.T) {
 		},
 		{
 			Title: "Returns500WhenFailed",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListChords: []interface{}{nil, nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -582,9 +583,9 @@ func TestTheoryHandler_ListChords(t *testing.T) {
 			server, router := mockServer()
 			defer server.Close()
 
-			service := &MockService{}
-			service.On("ListChords", mock.Anything, tc.ExpectedFilter, mock.Anything).
-				Return(tc.MockServiceReturnValues.ListChords...)
+			service := &mock.TheoryService{}
+			service.On("ListChords", mock2.Anything, tc.ExpectedFilter, mock2.Anything).
+				Return(tc.ServiceReturnValues.ListChords...)
 
 			theory.NewHandler(logger, service).InstallEndpoints(router)
 
@@ -612,17 +613,17 @@ func TestTheoryHandler_ListChords(t *testing.T) {
 
 func TestTheoryHandler_ListKeyChords(t *testing.T) {
 	type testCase struct {
-		Title                   string
-		GivenQueryStrings       url.Values
-		MockServiceReturnValues MockServiceReturnValues
-		ExpectedFilter          theory.ChordFilter
-		ExpectedStatus          int
+		Title               string
+		GivenQueryStrings   url.Values
+		ServiceReturnValues mock.ServiceReturnValues
+		ExpectedFilter      theory.ChordFilter
+		ExpectedStatus      int
 	}
 
 	testCases := []testCase{
 		{
 			Title: "Returns200WhenSucceededWithoutFilter",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyChords: []interface{}{[]theory.DetailedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
@@ -632,7 +633,7 @@ func TestTheoryHandler_ListKeyChords(t *testing.T) {
 			GivenQueryStrings: url.Values{
 				"chord_quality_id": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyChords: []interface{}{[]theory.DetailedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.ChordFilter{ChordQualityID: 1},
@@ -643,7 +644,7 @@ func TestTheoryHandler_ListKeyChords(t *testing.T) {
 			GivenQueryStrings: url.Values{
 				"root_id": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyChords: []interface{}{[]theory.DetailedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.ChordFilter{RootID: 1},
@@ -654,7 +655,7 @@ func TestTheoryHandler_ListKeyChords(t *testing.T) {
 			GivenQueryStrings: url.Values{
 				"number": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyChords: []interface{}{[]theory.DetailedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.ChordFilter{Number: 1},
@@ -665,7 +666,7 @@ func TestTheoryHandler_ListKeyChords(t *testing.T) {
 			GivenQueryStrings: url.Values{
 				"cardinality": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyChords: []interface{}{[]theory.DetailedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.ChordFilter{Cardinality: 1},
@@ -673,7 +674,7 @@ func TestTheoryHandler_ListKeyChords(t *testing.T) {
 		},
 		{
 			Title: "Returns500WhenFailed",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyChords: []interface{}{nil, nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -688,9 +689,9 @@ func TestTheoryHandler_ListKeyChords(t *testing.T) {
 			server, router := mockServer()
 			defer server.Close()
 
-			service := &MockService{}
-			service.On("ListKeyChords", mock.Anything, mock.Anything, tc.ExpectedFilter, mock.Anything).
-				Return(tc.MockServiceReturnValues.ListKeyChords...)
+			service := &mock.TheoryService{}
+			service.On("ListKeyChords", mock2.Anything, mock2.Anything, tc.ExpectedFilter, mock2.Anything).
+				Return(tc.ServiceReturnValues.ListKeyChords...)
 
 			theory.NewHandler(logger, service).InstallEndpoints(router)
 
@@ -718,11 +719,11 @@ func TestTheoryHandler_ListKeyChords(t *testing.T) {
 
 func TestTheoryHandler_ListKeyModes(t *testing.T) {
 	type testCase struct {
-		Title                   string
-		GivenQueryString        url.Values
-		MockServiceReturnValues MockServiceReturnValues
-		ExpectedFilter          theory.KeyFilter
-		ExpectedStatus          int
+		Title               string
+		GivenQueryString    url.Values
+		ServiceReturnValues mock.ServiceReturnValues
+		ExpectedFilter      theory.KeyFilter
+		ExpectedStatus      int
 	}
 
 	intValue := 1
@@ -730,7 +731,7 @@ func TestTheoryHandler_ListKeyModes(t *testing.T) {
 	testCases := []testCase{
 		{
 			Title: "Returns200WhenSucceededWithoutFilter",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyModes: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
@@ -740,7 +741,7 @@ func TestTheoryHandler_ListKeyModes(t *testing.T) {
 			GivenQueryString: url.Values{
 				"scale_id": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyModes: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{ScaleID: 1},
@@ -751,7 +752,7 @@ func TestTheoryHandler_ListKeyModes(t *testing.T) {
 			GivenQueryString: url.Values{
 				"tonic_id": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyModes: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{TonicID: 1},
@@ -762,7 +763,7 @@ func TestTheoryHandler_ListKeyModes(t *testing.T) {
 			GivenQueryString: url.Values{
 				"number": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyModes: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Number: 1},
@@ -773,7 +774,7 @@ func TestTheoryHandler_ListKeyModes(t *testing.T) {
 			GivenQueryString: url.Values{
 				"perfection": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyModes: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Perfection: &intValue},
@@ -784,7 +785,7 @@ func TestTheoryHandler_ListKeyModes(t *testing.T) {
 			GivenQueryString: url.Values{
 				"imperfection": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyModes: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Imperfection: &intValue},
@@ -795,7 +796,7 @@ func TestTheoryHandler_ListKeyModes(t *testing.T) {
 			GivenQueryString: url.Values{
 				"balanced": []string{"true"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyModes: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Balanced: &boolValue},
@@ -806,7 +807,7 @@ func TestTheoryHandler_ListKeyModes(t *testing.T) {
 			GivenQueryString: url.Values{
 				"rotational_symmetric": []string{"true"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyModes: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{RotationalSymmetric: &boolValue},
@@ -817,7 +818,7 @@ func TestTheoryHandler_ListKeyModes(t *testing.T) {
 			GivenQueryString: url.Values{
 				"rotational_symmetry_level": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyModes: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{RotationalSymmetryLevel: 1},
@@ -828,7 +829,7 @@ func TestTheoryHandler_ListKeyModes(t *testing.T) {
 			GivenQueryString: url.Values{
 				"reflectional_symmetric": []string{"true"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyModes: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{ReflectionalSymmetric: &boolValue},
@@ -839,7 +840,7 @@ func TestTheoryHandler_ListKeyModes(t *testing.T) {
 			GivenQueryString: url.Values{
 				"palindromic": []string{"true"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyModes: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Palindromic: &boolValue},
@@ -850,7 +851,7 @@ func TestTheoryHandler_ListKeyModes(t *testing.T) {
 			GivenQueryString: url.Values{
 				"cardinality": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyModes: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Cardinality: 1},
@@ -858,7 +859,7 @@ func TestTheoryHandler_ListKeyModes(t *testing.T) {
 		},
 		{
 			Title: "Returns500WhenFailed",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyModes: []interface{}{nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -873,9 +874,9 @@ func TestTheoryHandler_ListKeyModes(t *testing.T) {
 			server, router := mockServer()
 			defer server.Close()
 
-			service := &MockService{}
-			service.On("ListKeyModes", mock.Anything, mock.Anything, tc.ExpectedFilter).
-				Return(tc.MockServiceReturnValues.ListKeyModes...)
+			service := &mock.TheoryService{}
+			service.On("ListKeyModes", mock2.Anything, mock2.Anything, tc.ExpectedFilter).
+				Return(tc.ServiceReturnValues.ListKeyModes...)
 
 			theory.NewHandler(logger, service).InstallEndpoints(router)
 
@@ -903,22 +904,22 @@ func TestTheoryHandler_ListKeyModes(t *testing.T) {
 
 func TestTheoryHandler_ListKeyPitches(t *testing.T) {
 	type testCase struct {
-		Title                   string
-		MockServiceReturnValues MockServiceReturnValues
-		ExpectedStatus          int
+		Title               string
+		ServiceReturnValues mock.ServiceReturnValues
+		ExpectedStatus      int
 	}
 
 	testCases := []testCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyPitches: []interface{}{[]theory.DetailedPitch{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeyPitches: []interface{}{nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -933,9 +934,9 @@ func TestTheoryHandler_ListKeyPitches(t *testing.T) {
 			server, router := mockServer()
 			defer server.Close()
 
-			service := &MockService{}
-			service.On("ListKeyPitches", mock.Anything, mock.Anything).
-				Return(tc.MockServiceReturnValues.ListKeyPitches...)
+			service := &mock.TheoryService{}
+			service.On("ListKeyPitches", mock2.Anything, mock2.Anything).
+				Return(tc.ServiceReturnValues.ListKeyPitches...)
 
 			theory.NewHandler(logger, service).InstallEndpoints(router)
 
@@ -956,11 +957,11 @@ func TestTheoryHandler_ListKeyPitches(t *testing.T) {
 
 func TestTheoryHandler_ListKeys(t *testing.T) {
 	type testCase struct {
-		Title                   string
-		GivenQueryString        url.Values
-		MockServiceReturnValues MockServiceReturnValues
-		ExpectedFilter          theory.KeyFilter
-		ExpectedStatus          int
+		Title               string
+		GivenQueryString    url.Values
+		ServiceReturnValues mock.ServiceReturnValues
+		ExpectedFilter      theory.KeyFilter
+		ExpectedStatus      int
 	}
 
 	valueInt := 1
@@ -968,7 +969,7 @@ func TestTheoryHandler_ListKeys(t *testing.T) {
 	testCases := []testCase{
 		{
 			Title: "Returns200WhenSucceededWithoutFilter",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
@@ -978,7 +979,7 @@ func TestTheoryHandler_ListKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"scale_id": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{ScaleID: 1},
@@ -989,7 +990,7 @@ func TestTheoryHandler_ListKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"tonic_id": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{TonicID: 1},
@@ -1000,7 +1001,7 @@ func TestTheoryHandler_ListKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"number": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Number: 1},
@@ -1011,7 +1012,7 @@ func TestTheoryHandler_ListKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"perfection": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Perfection: &valueInt},
@@ -1022,7 +1023,7 @@ func TestTheoryHandler_ListKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"imperfection": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Imperfection: &valueInt},
@@ -1033,7 +1034,7 @@ func TestTheoryHandler_ListKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"balanced": []string{"true"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Balanced: &valueBool},
@@ -1044,7 +1045,7 @@ func TestTheoryHandler_ListKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"rotational_symmetric": []string{"true"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{RotationalSymmetric: &valueBool},
@@ -1055,7 +1056,7 @@ func TestTheoryHandler_ListKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"rotational_symmetry_level": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{RotationalSymmetryLevel: 1},
@@ -1066,7 +1067,7 @@ func TestTheoryHandler_ListKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"reflectional_symmetric": []string{"true"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{ReflectionalSymmetric: &valueBool},
@@ -1077,7 +1078,7 @@ func TestTheoryHandler_ListKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"palindromic": []string{"true"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Palindromic: &valueBool},
@@ -1088,7 +1089,7 @@ func TestTheoryHandler_ListKeys(t *testing.T) {
 			GivenQueryString: url.Values{
 				"cardinality": []string{"1"},
 			},
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedFilter: theory.KeyFilter{Cardinality: 1},
@@ -1096,7 +1097,7 @@ func TestTheoryHandler_ListKeys(t *testing.T) {
 		},
 		{
 			Title: "Returns500WhenFailed",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListKeys: []interface{}{nil, nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -1111,9 +1112,9 @@ func TestTheoryHandler_ListKeys(t *testing.T) {
 			server, router := mockServer()
 			defer server.Close()
 
-			service := &MockService{}
-			service.On("ListKeys", mock.Anything, tc.ExpectedFilter, mock.Anything).
-				Return(tc.MockServiceReturnValues.ListKeys...)
+			service := &mock.TheoryService{}
+			service.On("ListKeys", mock2.Anything, tc.ExpectedFilter, mock2.Anything).
+				Return(tc.ServiceReturnValues.ListKeys...)
 
 			theory.NewHandler(logger, service).InstallEndpoints(router)
 
@@ -1141,22 +1142,22 @@ func TestTheoryHandler_ListKeys(t *testing.T) {
 
 func TestTheoryHandler_ListPitches(t *testing.T) {
 	type testCase struct {
-		Title                   string
-		MockServiceReturnValues MockServiceReturnValues
-		ExpectedStatus          int
+		Title               string
+		ServiceReturnValues mock.ServiceReturnValues
+		ExpectedStatus      int
 	}
 
 	testCases := []testCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListPitches: []interface{}{[]theory.DetailedPitch{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListPitches: []interface{}{nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -1171,9 +1172,9 @@ func TestTheoryHandler_ListPitches(t *testing.T) {
 			server, router := mockServer()
 			defer server.Close()
 
-			service := &MockService{}
-			service.On("ListPitches", mock.Anything, mock.Anything).
-				Return(tc.MockServiceReturnValues.ListPitches...)
+			service := &mock.TheoryService{}
+			service.On("ListPitches", mock2.Anything, mock2.Anything).
+				Return(tc.ServiceReturnValues.ListPitches...)
 
 			theory.NewHandler(logger, service).InstallEndpoints(router)
 
@@ -1194,22 +1195,22 @@ func TestTheoryHandler_ListPitches(t *testing.T) {
 
 func TestTheoryHandler_ListScaleKeys(t *testing.T) {
 	type testCase struct {
-		Title                   string
-		MockServiceReturnValues MockServiceReturnValues
-		ExpectedStatus          int
+		Title               string
+		ServiceReturnValues mock.ServiceReturnValues
+		ExpectedStatus      int
 	}
 
 	testCases := []testCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListScaleKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListScaleKeys: []interface{}{nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -1224,9 +1225,9 @@ func TestTheoryHandler_ListScaleKeys(t *testing.T) {
 			server, router := mockServer()
 			defer server.Close()
 
-			service := &MockService{}
-			service.On("ListScaleKeys", mock.Anything, mock.Anything).
-				Return(tc.MockServiceReturnValues.ListScaleKeys...)
+			service := &mock.TheoryService{}
+			service.On("ListScaleKeys", mock2.Anything, mock2.Anything).
+				Return(tc.ServiceReturnValues.ListScaleKeys...)
 
 			theory.NewHandler(logger, service).InstallEndpoints(router)
 
@@ -1247,22 +1248,22 @@ func TestTheoryHandler_ListScaleKeys(t *testing.T) {
 
 func TestTheoryHandler_ListScales(t *testing.T) {
 	type testCase struct {
-		Title                   string
-		MockServiceReturnValues MockServiceReturnValues
-		ExpectedStatus          int
+		Title               string
+		ServiceReturnValues mock.ServiceReturnValues
+		ExpectedStatus      int
 	}
 
 	testCases := []testCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListScales: []interface{}{[]theory.DetailedScale{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			MockServiceReturnValues: MockServiceReturnValues{
+			ServiceReturnValues: mock.ServiceReturnValues{
 				ListScales: []interface{}{nil, nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -1277,9 +1278,9 @@ func TestTheoryHandler_ListScales(t *testing.T) {
 			server, router := mockServer()
 			defer server.Close()
 
-			service := &MockService{}
-			service.On("ListScales", mock.Anything, mock.Anything).
-				Return(tc.MockServiceReturnValues.ListScales...)
+			service := &mock.TheoryService{}
+			service.On("ListScales", mock2.Anything, mock2.Anything).
+				Return(tc.ServiceReturnValues.ListScales...)
 
 			theory.NewHandler(logger, service).InstallEndpoints(router)
 
@@ -1291,6 +1292,66 @@ func TestTheoryHandler_ListScales(t *testing.T) {
 			require.Equal(t, tc.ExpectedStatus, resp.StatusCode)
 			if tc.ExpectedStatus == http.StatusOK {
 				var decoded []theory.DetailedScale
+				require.NoError(t, json.NewDecoder(resp.Body).Decode(&decoded))
+				require.NotEmpty(t, decoded)
+			}
+		})
+	}
+}
+
+func TestTheoryHandler_GetPitch(t *testing.T) {
+	type testCase struct {
+		Title               string
+		ServiceReturnValues mock.ServiceReturnValues
+		ExpectedStatus      int
+	}
+
+	testCases := []testCase{
+		{
+			Title: "Returns200WhenSucceeded",
+			ServiceReturnValues: mock.ServiceReturnValues{
+				GetPitch: []interface{}{&theory.DetailedPitch{ID: 1, Name: "name"}, nil},
+			},
+			ExpectedStatus: http.StatusOK,
+		},
+		{
+			Title: "Returns404WhenNotFound",
+			ServiceReturnValues: mock.ServiceReturnValues{
+				GetPitch: []interface{}{nil, theory.ErrPitchNotFound},
+			},
+			ExpectedStatus: http.StatusNotFound,
+		},
+		{
+			Title: "Returns500WhenFailed",
+			ServiceReturnValues: mock.ServiceReturnValues{
+				GetPitch: []interface{}{nil, errors.New("error")},
+			},
+			ExpectedStatus: http.StatusInternalServerError,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.Title, func(t *testing.T) {
+			logger, err := zap.NewProduction()
+			require.NoError(t, err)
+
+			server, router := mockServer()
+			defer server.Close()
+
+			service := &mock.TheoryService{}
+			service.On("GetPitch", mock2.Anything, mock2.Anything).
+				Return(tc.ServiceReturnValues.GetPitch...)
+
+			theory.NewHandler(logger, service).InstallEndpoints(router)
+
+			resp, err := http.Get(fmt.Sprintf("%s/pitches/1", server.URL))
+			require.NoError(t, err)
+
+			defer func() { _ = resp.Body.Close() }()
+
+			require.Equal(t, tc.ExpectedStatus, resp.StatusCode)
+			if tc.ExpectedStatus == http.StatusOK {
+				var decoded theory.DetailedScale
 				require.NoError(t, json.NewDecoder(resp.Body).Decode(&decoded))
 				require.NotEmpty(t, decoded)
 			}

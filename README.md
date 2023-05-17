@@ -82,6 +82,7 @@ Pagination via query string `page` and `per_page`
 | Method | Path                                  | Description        |
 |--------|---------------------------------------|--------------------|
 | GET    | `/api/v1/theory/pitches`              | List pitches       |
+| GET    | `/api/v1/theory/pitches/{:id}`        | Get pitch          |
 | GET    | `/api/v1/theory/chords`               | List chords        |
 | GET    | `/api/v1/theory/chords/{:id}`         | Get chord          |
 | GET    | `/api/v1/theory/chords/{:id}/quality` | Get chord quality  |
