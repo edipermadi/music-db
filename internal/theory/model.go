@@ -67,34 +67,32 @@ type SimplifiedScale struct {
 
 // DetailedScale is detailed scale object
 type DetailedScale struct {
-	ID                       int64         `json:"id" db:"id"`
-	Name                     string        `json:"name" db:"name"`
-	Cardinality              int           `json:"cardinality" db:"cardinality"`
-	Number                   int           `json:"number" db:"number"`
-	Perfection               int           `json:"perfection" db:"perfection"`
-	Imperfection             int           `json:"imperfection" db:"imperfection"`
-	PitchClass               SliceInt      `json:"pitch_class" db:"pitch_class"`
-	IntervalPattern          SliceInt      `json:"interval_pattern" db:"interval_pattern"`
-	RotationalSymmetric      bool          `json:"rotational_symmetric" db:"rotational_symmetric"`
-	RotationalSymmetryLevel  int           `json:"rotational_symmetry_level" db:"rotational_symmetry_level"`
-	Palindromic              bool          `json:"palindromic" db:"palindromic"`
-	ReflectionalSymmetric    bool          `json:"reflectional_symmetric" db:"reflectional_symmetric"`
-	ReflectionalSymmetryAxes SliceInt      `json:"reflectional_symmetry_axes" db:"reflectional_symmetry_axes"`
-	Balanced                 bool          `json:"balanced" db:"balanced"`
-	Keys                     []DetailedKey `json:"keys,omitempty" db:"-"`
+	ID                       int64    `json:"id" db:"id"`
+	Name                     string   `json:"name" db:"name"`
+	Cardinality              int      `json:"cardinality" db:"cardinality"`
+	Number                   int      `json:"number" db:"number"`
+	Perfection               int      `json:"perfection" db:"perfection"`
+	Imperfection             int      `json:"imperfection" db:"imperfection"`
+	PitchClass               SliceInt `json:"pitch_class" db:"pitch_class"`
+	IntervalPattern          SliceInt `json:"interval_pattern" db:"interval_pattern"`
+	RotationalSymmetric      bool     `json:"rotational_symmetric" db:"rotational_symmetric"`
+	RotationalSymmetryLevel  int      `json:"rotational_symmetry_level" db:"rotational_symmetry_level"`
+	Palindromic              bool     `json:"palindromic" db:"palindromic"`
+	ReflectionalSymmetric    bool     `json:"reflectional_symmetric" db:"reflectional_symmetric"`
+	ReflectionalSymmetryAxes SliceInt `json:"reflectional_symmetry_axes" db:"reflectional_symmetry_axes"`
+	Balanced                 bool     `json:"balanced" db:"balanced"`
 }
 
 // DetailedKey is detailed key object
 type DetailedKey struct {
-	ID       int               `json:"id" db:"id"`
-	Scale    SimplifiedScale   `json:"scale" db:"scale"`
-	Tonic    SimplifiedPitch   `json:"tonic" db:"tonic"`
-	Name     string            `json:"name" db:"name"`
-	Number   int               `json:"number" db:"number"`
-	Balanced bool              `json:"balanced" db:"balanced"`
-	CenterX  float64           `json:"center_x" db:"center_x"`
-	CenterY  float64           `json:"center_y" db:"center_y"`
-	Pitches  []SimplifiedPitch `json:"pitches,omitempty" db:"-"`
+	ID       int             `json:"id" db:"id"`
+	Scale    SimplifiedScale `json:"scale" db:"scale"`
+	Tonic    SimplifiedPitch `json:"tonic" db:"tonic"`
+	Name     string          `json:"name" db:"name"`
+	Number   int             `json:"number" db:"number"`
+	Balanced bool            `json:"balanced" db:"balanced"`
+	CenterX  float64         `json:"center_x" db:"center_x"`
+	CenterY  float64         `json:"center_y" db:"center_y"`
 }
 
 // KeyFilter is key filter
