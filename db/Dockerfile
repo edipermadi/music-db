@@ -1,4 +1,4 @@
-FROM golang:1.18.3 AS builder
+FROM golang:1.20.4 AS builder
 
 WORKDIR /build
 
@@ -12,7 +12,7 @@ COPY . .
 RUN CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -a -o gen ./cmd/gen/
 RUN /build/gen -output=seed.sql
 
-FROM postgres:14 AS final
+FROM postgres:15 AS final
 
 ENV POSTGRES_DB music
 ENV POSTGRES_USER music
