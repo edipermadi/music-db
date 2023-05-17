@@ -5,5 +5,5 @@ db:
   user: music
   password: music
   database: music
-  host: music-db
+  host: db
   port: 5432

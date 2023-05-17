@@ -1,14 +1,22 @@
 version: "3.9"
+name: music
 
 services:
-  music-db:
+  db:
     build:
       context: .
       dockerfile: db/Dockerfile
     ports:
       - "5433:5432"
+    networks:
+      - music
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U music" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
-  music-api:
+  api:
     build:
       context: .
       dockerfile: api/Dockerfile
@@ -16,5 +24,13 @@ services:
       - "3000:3000"
     environment:
       - MODE=docker
+    networks:
+      - music
     depends_on:
-      - music-db
+      db:
+        condition: service_healthy
+
+networks:
+  music:
+    ipam:
+      driver: default

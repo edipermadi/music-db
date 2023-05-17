@@ -1,16 +1,25 @@
 package theory
 
-import "context"
+import (
+	"context"
+
+	"github.com/edipermadi/music-db/internal/platform/api"
+)
 
 type pitchService interface {
-	ListPitches(ctx context.Context) ([]DetailedPitch, error)
 	GetPitch(ctx context.Context, pitchID int64) (*DetailedPitch, error)
-}
-
-func (s theoryService) ListPitches(ctx context.Context) ([]DetailedPitch, error) {
-	return s.repository.ListPitches(ctx)
+	ListPitchChords(ctx context.Context, pitchID int64, filter ChordFilter, pagination api.Pagination) ([]SimplifiedChord, *api.Pagination, error)
+	ListPitches(ctx context.Context) ([]DetailedPitch, error)
 }
 
 func (s theoryService) GetPitch(ctx context.Context, pitchID int64) (*DetailedPitch, error) {
 	return s.repository.GetPitch(ctx, pitchID)
+}
+
+func (s theoryService) ListPitchChords(ctx context.Context, pitchID int64, filter ChordFilter, pagination api.Pagination) ([]SimplifiedChord, *api.Pagination, error) {
+	return s.repository.ListPitchChords(ctx, pitchID, filter, pagination)
+}
+
+func (s theoryService) ListPitches(ctx context.Context) ([]DetailedPitch, error) {
+	return s.repository.ListPitches(ctx)
 }
