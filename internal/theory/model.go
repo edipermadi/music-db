@@ -95,6 +95,12 @@ type DetailedKey struct {
 	CenterY  float64         `json:"center_y" db:"center_y"`
 }
 
+// SimplifiedKey is simplified key object
+type SimplifiedKey struct {
+	ID   int64  `json:"id" db:"id"`
+	Name string `json:"name" db:"name"`
+}
+
 // KeyFilter is key filter
 type KeyFilter struct {
 	ScaleID                 int64 `form:"scale_id"`

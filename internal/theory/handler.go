@@ -41,6 +41,8 @@ func (h theoryHandler) InstallEndpoints(router *mux.Router) {
 		Methods(http.MethodGet).Name("GET_PITCH")
 	router.HandleFunc("/pitches/{id:[0-9]+}/chords", h.ListPitchChords).
 		Methods(http.MethodGet).Name("LIST_PITCH_CHORDS")
+	router.HandleFunc("/pitches/{id:[0-9]+}/keys", h.ListPitchKeys).
+		Methods(http.MethodGet).Name("LIST_PITCH_KEYS")
 
 	router.HandleFunc("/chords", h.ListChords).
 		Methods(http.MethodGet).Name("LIST_CHORDS")
