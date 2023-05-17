@@ -10,8 +10,9 @@ import (
 
 // ServiceReturnValues stores return value of mocked theory.Service
 type ServiceReturnValues struct {
-	ListPitches []interface{}
-	GetPitch    []interface{}
+	GetPitch        []interface{}
+	ListPitchChords []interface{}
+	ListPitches     []interface{}
 
 	ListChords       []interface{}
 	ListChordPitches []interface{}
@@ -57,6 +58,23 @@ func (m *TheoryService) GetPitch(ctx context.Context, pitchID int64) (*theory.De
 	}
 
 	return entry, args.Error(1)
+}
+
+// ListPitchChords mock theory.Service#ListPitchChords
+func (m *TheoryService) ListPitchChords(ctx context.Context, pitchID int64, filter theory.ChordFilter, pagination api.Pagination) ([]theory.SimplifiedChord, *api.Pagination, error) {
+	args := m.Called(ctx, pitchID, filter, pagination)
+
+	var entries []theory.SimplifiedChord
+	if v, ok := args.Get(0).([]theory.SimplifiedChord); ok {
+		entries = v
+	}
+
+	var paginationOut *api.Pagination
+	if v, ok := args.Get(1).(*api.Pagination); ok {
+		paginationOut = v
+	}
+
+	return entries, paginationOut, args.Error(2)
 }
 
 // ListChords mock theory.Service#ListChords

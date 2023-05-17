@@ -11,19 +11,9 @@ import (
 )
 
 type pitchHandlers interface {
-	ListPitches(writer http.ResponseWriter, request *http.Request)
 	GetPitch(writer http.ResponseWriter, request *http.Request)
-}
-
-func (h theoryHandler) ListPitches(writer http.ResponseWriter, request *http.Request) {
-	ctx := request.Context()
-	pitches, err := h.service.ListPitches(ctx)
-	if err != nil {
-		h.Logger().With(zap.Error(err)).Error("failed to list pitches")
-		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
-	} else {
-		h.ReplyJSON(writer, http.StatusOK, pitches)
-	}
+	ListPitchChords(writer http.ResponseWriter, request *http.Request)
+	ListPitches(writer http.ResponseWriter, request *http.Request)
 }
 
 func (h theoryHandler) GetPitch(writer http.ResponseWriter, request *http.Request) {
@@ -39,5 +29,43 @@ func (h theoryHandler) GetPitch(writer http.ResponseWriter, request *http.Reques
 		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
 	default:
 		h.ReplyJSON(writer, http.StatusOK, pitch)
+	}
+}
+
+func (h theoryHandler) ListPitchChords(writer http.ResponseWriter, request *http.Request) {
+	ctx := request.Context()
+
+	type params struct {
+		ChordFilter
+		api.Pagination
+	}
+
+	var data params
+	if err := h.decoder.Decode(&data, request.URL.Query()); err != nil {
+		h.Logger().With(zap.Error(err)).Error("failed to list keys")
+		h.ReplyJSON(writer, http.StatusBadRequest, api.ErrBadQueryParameter)
+		return
+	}
+
+	pitchID, _ := strconv.ParseInt(mux.Vars(request)["id"], 10, 64)
+	pitch, paginationOut, err := h.service.ListPitchChords(ctx, pitchID, data.ChordFilter, data.Pagination)
+	switch {
+	case err != nil:
+		h.Logger().With(zap.Error(err)).Error("failed to list chords from pitch")
+		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
+	default:
+		h.SetPagination(writer, paginationOut)
+		h.ReplyJSON(writer, http.StatusOK, pitch)
+	}
+}
+
+func (h theoryHandler) ListPitches(writer http.ResponseWriter, request *http.Request) {
+	ctx := request.Context()
+	pitches, err := h.service.ListPitches(ctx)
+	if err != nil {
+		h.Logger().With(zap.Error(err)).Error("failed to list pitches")
+		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
+	} else {
+		h.ReplyJSON(writer, http.StatusOK, pitches)
 	}
 }

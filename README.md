@@ -79,20 +79,21 @@ API is accessible at port 3000
 
 Pagination via query string `page` and `per_page`
 
-| Method | Path                                  | Description        |
-|--------|---------------------------------------|--------------------|
-| GET    | `/api/v1/theory/pitches`              | List pitches       |
-| GET    | `/api/v1/theory/pitches/{:id}`        | Get pitch          |
-| GET    | `/api/v1/theory/chords`               | List chords        |
-| GET    | `/api/v1/theory/chords/{:id}`         | Get chord          |
-| GET    | `/api/v1/theory/chords/{:id}/quality` | Get chord quality  |
-| GET    | `/api/v1/theory/chords/{:id}/pitches` | List chord pitches |
-| GET    | `/api/v1/theory/chords/{:id}/keys`    | List chord keys    |
-| GET    | `/api/v1/theory/scales`               | List scales        |
-| GET    | `/api/v1/theory/scales/{:id}`         | Get scale detail   |
-| GET    | `/api/v1/theory/scales/{:id}/keys`    | List scale keys    |
-| GET    | `/api/v1/theory/keys`                 | List keys          |
-| GET    | `/api/v1/theory/keys/{:id}/modes`     | List key modes     |
-| GET    | `/api/v1/theory/keys/{:id}/chords`    | List key chords    |
-| GET    | `/api/v1/theory/keys/{:id}/pitches`   | List key pitches   |
-| GET    | `/api/v1/theory/keys/{:id}`           | Get key detail     |
+| Method | Path                                  | Description            |
+|--------|---------------------------------------|------------------------|
+| GET    | `/api/v1/theory/pitches`              | List pitches           |
+| GET    | `/api/v1/theory/pitches/{:id}`        | Get pitch              |
+| GET    | `/api/v1/theory/pitches/{:id}/chords` | List chords from pitch |
+| GET    | `/api/v1/theory/chords`               | List chords            |
+| GET    | `/api/v1/theory/chords/{:id}`         | Get chord              |
+| GET    | `/api/v1/theory/chords/{:id}/quality` | Get chord quality      |
+| GET    | `/api/v1/theory/chords/{:id}/pitches` | List chord pitches     |
+| GET    | `/api/v1/theory/chords/{:id}/keys`    | List chord keys        |
+| GET    | `/api/v1/theory/scales`               | List scales            |
+| GET    | `/api/v1/theory/scales/{:id}`         | Get scale detail       |
+| GET    | `/api/v1/theory/scales/{:id}/keys`    | List scale keys        |
+| GET    | `/api/v1/theory/keys`                 | List keys              |
+| GET    | `/api/v1/theory/keys/{:id}/modes`     | List key modes         |
+| GET    | `/api/v1/theory/keys/{:id}/chords`    | List key chords        |
+| GET    | `/api/v1/theory/keys/{:id}/pitches`   | List key pitches       |
+| GET    | `/api/v1/theory/keys/{:id}`           | Get key detail         |

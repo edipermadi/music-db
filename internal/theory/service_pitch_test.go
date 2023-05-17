@@ -3,6 +3,7 @@ package theory_test
 import (
 	"context"
 	"errors"
+	"github.com/edipermadi/music-db/internal/platform/api"
 	"strings"
 	"testing"
 
@@ -88,6 +89,49 @@ func TestTheoryService_GetPitch(t *testing.T) {
 
 			service := theory.NewService(logger, repository)
 			entry, err := service.GetPitch(context.Background(), 1)
+			if strings.HasPrefix(tc.Title, "ReturnsError") {
+				require.Error(t, err)
+				require.Empty(t, entry)
+			} else {
+				require.NoError(t, err)
+				require.NotEmpty(t, entry)
+			}
+		})
+	}
+}
+
+func TestTheoryService_ListPitchChords(t *testing.T) {
+	type testCase struct {
+		Title                  string
+		RepositoryReturnValues mock.RepositoryReturnValues
+	}
+
+	testCases := []testCase{
+		{
+			Title: "ReturnsChordsWhenSucceeded",
+			RepositoryReturnValues: mock.RepositoryReturnValues{
+				ListPitchChords: []interface{}{[]theory.SimplifiedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			},
+		},
+		{
+			Title: "ReturnsErrorWhenFailed",
+			RepositoryReturnValues: mock.RepositoryReturnValues{
+				ListPitchChords: []interface{}{nil, nil, errors.New("error")},
+			},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.Title, func(t *testing.T) {
+			logger, err := zap.NewProduction()
+			require.NoError(t, err)
+
+			repository := &mock.TheoryRepository{}
+			repository.On("ListPitchChords", mock2.Anything, mock2.Anything, mock2.Anything, mock2.Anything).
+				Return(tc.RepositoryReturnValues.ListPitchChords...)
+
+			service := theory.NewService(logger, repository)
+			entry, _, err := service.ListPitchChords(context.Background(), 1, theory.ChordFilter{}, api.Pagination{})
 			if strings.HasPrefix(tc.Title, "ReturnsError") {
 				require.Error(t, err)
 				require.Empty(t, entry)
