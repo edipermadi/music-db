@@ -2,7 +2,7 @@ GO		:= $(shell which go)
 GOFMT		:= $(shell which gofmt)
 GOPATH		:= $(shell go env GOPATH)
 GOBIN		:= $(GOPATH)/bin
-GOLINT		:= $(GOBIN)/golint
+GOLINT		:= $(GOBIN)/golangci-lint
 GOSEC		:= $(GOBIN)/gosec
 
 COVERAGE_FILE	:= coverage.out
@@ -20,7 +20,7 @@ sec-install:
 
 .PHONY: lint-install
 lint-install:
-	test -e $(GOLINT) || $(GO) install golang.org/x/lint/golint@latest
+	test -e $(GOLINT) || $(GO) install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
 .PHONY: format
 format:
@@ -28,7 +28,7 @@ format:
 
 .PHONY: lint
 lint: lint-install
-	$(GOLINT) -set_exit_status ./...
+	$(GOLINT) run ./...
 
 .PHONY: sec
 sec: sec-install
