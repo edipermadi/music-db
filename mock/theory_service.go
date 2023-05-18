@@ -8,41 +8,81 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-// ServiceReturnValues stores return value of mocked theory.Service
-type ServiceReturnValues struct {
+// TheoryServiceReturnValues stores return value of mocked theory.Service
+type TheoryServiceReturnValues struct {
 	GetPitch        []interface{}
 	ListPitchChords []interface{}
 	ListPitchKeys   []interface{}
+	ListPitchScales []interface{}
 	ListPitches     []interface{}
 
-	ListChords       []interface{}
-	ListChordPitches []interface{}
-	ListChordKeys    []interface{}
 	GetChord         []interface{}
 	GetChordQuality  []interface{}
+	ListChordKeys    []interface{}
+	ListChordPitches []interface{}
+	ListChordScales  []interface{}
+	ListChords       []interface{}
 
-	ListScales    []interface{}
-	ListScaleKeys []interface{}
-	GetScale      []interface{}
+	GetScale         []interface{}
+	ListScaleChords  []interface{}
+	ListScaleKeys    []interface{}
+	ListScalePitches []interface{}
+	ListScales       []interface{}
 
-	ListKeys       []interface{}
-	ListKeyModes   []interface{}
-	ListKeyChords  []interface{}
-	ListKeyPitches []interface{}
 	GetKey         []interface{}
+	ListKeyChords  []interface{}
+	ListKeyModes   []interface{}
+	ListKeyPitches []interface{}
+	ListKeys       []interface{}
 }
 
-// TheoryService mock theory.Service
-type TheoryService struct {
+// TheoryService return a mocked implementation of theory.Serice
+func TheoryService(values TheoryServiceReturnValues) theory.Service {
+	service := &theoryService{}
+
+	// setup mocked chord functions
+	service.On("GetChord", mock.Anything, mock.Anything).Return(values.GetChord...)
+	service.On("GetChordQuality", mock.Anything, mock.Anything).Return(values.GetChordQuality...)
+	service.On("ListChordKeys", mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(values.ListChordKeys...)
+	service.On("ListChordScales", mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(values.ListChordScales...)
+	service.On("ListChordPitches", mock.Anything, mock.Anything).Return(values.ListChordPitches...)
+	service.On("ListChords", mock.Anything, mock.Anything, mock.Anything).Return(values.ListChords...)
+
+	// setup mocked key functions
+	service.On("GetKey", mock.Anything, mock.Anything).Return(values.GetKey...)
+	service.On("ListKeyChords", mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(values.ListKeyChords...)
+	service.On("ListKeyModes", mock.Anything, mock.Anything, mock.Anything).Return(values.ListKeyModes...)
+	service.On("ListKeyPitches", mock.Anything, mock.Anything).Return(values.ListKeyPitches...)
+	service.On("ListKeys", mock.Anything, mock.Anything, mock.Anything).Return(values.ListKeys...)
+
+	// setup mocked pitch functions
+	service.On("GetPitch", mock.Anything, mock.Anything).Return(values.GetPitch...)
+	service.On("ListPitchChords", mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(values.ListPitchChords...)
+	service.On("ListPitchKeys", mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(values.ListPitchKeys...)
+	service.On("ListPitchScales", mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(values.ListPitchScales...)
+	service.On("ListPitches", mock.Anything, mock.Anything).Return(values.ListPitches...)
+
+	// setup mocked scale functions
+	service.On("GetScale", mock.Anything, mock.Anything).Return(values.GetScale...)
+	service.On("ListScaleKeys", mock.Anything, mock.Anything).Return(values.ListScaleKeys...)
+	service.On("ListScaleChords", mock.Anything, mock.Anything).Return(values.ListScaleChords...)
+	service.On("ListScalePitches", mock.Anything, mock.Anything).Return(values.ListScalePitches...)
+	service.On("ListScales", mock.Anything, mock.Anything, mock.Anything).Return(values.ListScales...)
+
+	return service
+}
+
+// theoryService mock theory.Service
+type theoryService struct {
 	mock.Mock
 }
 
 // ListPitches mock theory.Service#ListPitches
-func (m *TheoryService) ListPitches(ctx context.Context) ([]theory.DetailedPitch, error) {
+func (m *theoryService) ListPitches(ctx context.Context) ([]theory.SimplifiedPitch, error) {
 	args := m.Called(ctx)
 
-	var entries []theory.DetailedPitch
-	if v, ok := args.Get(0).([]theory.DetailedPitch); ok {
+	var entries []theory.SimplifiedPitch
+	if v, ok := args.Get(0).([]theory.SimplifiedPitch); ok {
 		entries = v
 	}
 
@@ -50,7 +90,7 @@ func (m *TheoryService) ListPitches(ctx context.Context) ([]theory.DetailedPitch
 }
 
 // GetPitch mock theory.Service#GetPitch
-func (m *TheoryService) GetPitch(ctx context.Context, pitchID int64) (*theory.DetailedPitch, error) {
+func (m *theoryService) GetPitch(ctx context.Context, pitchID int64) (*theory.DetailedPitch, error) {
 	args := m.Called(ctx, pitchID)
 
 	var entry *theory.DetailedPitch
@@ -62,7 +102,7 @@ func (m *TheoryService) GetPitch(ctx context.Context, pitchID int64) (*theory.De
 }
 
 // ListPitchChords mock theory.Service#ListPitchChords
-func (m *TheoryService) ListPitchChords(ctx context.Context, pitchID int64, filter theory.ChordFilter, pagination api.Pagination) ([]theory.SimplifiedChord, *api.Pagination, error) {
+func (m *theoryService) ListPitchChords(ctx context.Context, pitchID int64, filter theory.ChordFilter, pagination api.Pagination) ([]theory.SimplifiedChord, *api.Pagination, error) {
 	args := m.Called(ctx, pitchID, filter, pagination)
 
 	var entries []theory.SimplifiedChord
@@ -79,7 +119,7 @@ func (m *TheoryService) ListPitchChords(ctx context.Context, pitchID int64, filt
 }
 
 // ListPitchKeys mock theory.Service#ListPitchKeys
-func (m *TheoryService) ListPitchKeys(ctx context.Context, pitchID int64, filter theory.KeyFilter, pagination api.Pagination) ([]theory.SimplifiedKey, *api.Pagination, error) {
+func (m *theoryService) ListPitchKeys(ctx context.Context, pitchID int64, filter theory.KeyFilter, pagination api.Pagination) ([]theory.SimplifiedKey, *api.Pagination, error) {
 	args := m.Called(ctx, pitchID, filter, pagination)
 
 	var entries []theory.SimplifiedKey
@@ -95,12 +135,29 @@ func (m *TheoryService) ListPitchKeys(ctx context.Context, pitchID int64, filter
 	return entries, paginationOut, args.Error(2)
 }
 
+// ListPitchScales mock theory.Service#ListPitchScales
+func (m *theoryService) ListPitchScales(ctx context.Context, pitchID int64, filter theory.ScaleFilter, pagination api.Pagination) ([]theory.SimplifiedScale, *api.Pagination, error) {
+	args := m.Called(ctx, pitchID, filter, pagination)
+
+	var entries []theory.SimplifiedScale
+	if v, ok := args.Get(0).([]theory.SimplifiedScale); ok {
+		entries = v
+	}
+
+	var paginationOut *api.Pagination
+	if v, ok := args.Get(1).(*api.Pagination); ok {
+		paginationOut = v
+	}
+
+	return entries, paginationOut, args.Error(2)
+}
+
 // ListChords mock theory.Service#ListChords
-func (m *TheoryService) ListChords(ctx context.Context, filter theory.ChordFilter, pagination api.Pagination) ([]theory.DetailedChord, *api.Pagination, error) {
+func (m *theoryService) ListChords(ctx context.Context, filter theory.ChordFilter, pagination api.Pagination) ([]theory.SimplifiedChord, *api.Pagination, error) {
 	args := m.Called(ctx, filter, pagination)
 
-	var entries []theory.DetailedChord
-	if v, ok := args.Get(0).([]theory.DetailedChord); ok {
+	var entries []theory.SimplifiedChord
+	if v, ok := args.Get(0).([]theory.SimplifiedChord); ok {
 		entries = v
 	}
 
@@ -113,11 +170,11 @@ func (m *TheoryService) ListChords(ctx context.Context, filter theory.ChordFilte
 }
 
 // ListChordPitches mock theory.Service#ListChordPitches
-func (m *TheoryService) ListChordPitches(ctx context.Context, chordID int64) ([]theory.DetailedPitch, error) {
+func (m *theoryService) ListChordPitches(ctx context.Context, chordID int64) ([]theory.SimplifiedPitch, error) {
 	args := m.Called(ctx, chordID)
 
-	var entries []theory.DetailedPitch
-	if v, ok := args.Get(0).([]theory.DetailedPitch); ok {
+	var entries []theory.SimplifiedPitch
+	if v, ok := args.Get(0).([]theory.SimplifiedPitch); ok {
 		entries = v
 	}
 
@@ -125,11 +182,28 @@ func (m *TheoryService) ListChordPitches(ctx context.Context, chordID int64) ([]
 }
 
 // ListChordKeys mock theory.Service#ListChordKeys
-func (m *TheoryService) ListChordKeys(ctx context.Context, chordID int64, filter theory.KeyFilter, pagination api.Pagination) ([]theory.DetailedKey, *api.Pagination, error) {
+func (m *theoryService) ListChordKeys(ctx context.Context, chordID int64, filter theory.KeyFilter, pagination api.Pagination) ([]theory.SimplifiedKey, *api.Pagination, error) {
 	args := m.Called(ctx, chordID, filter, pagination)
 
-	var entries []theory.DetailedKey
-	if v, ok := args.Get(0).([]theory.DetailedKey); ok {
+	var entries []theory.SimplifiedKey
+	if v, ok := args.Get(0).([]theory.SimplifiedKey); ok {
+		entries = v
+	}
+
+	var paginationOut *api.Pagination
+	if v, ok := args.Get(0).(*api.Pagination); ok {
+		paginationOut = v
+	}
+
+	return entries, paginationOut, args.Error(2)
+}
+
+// ListChordScales mock theory.Service#ListChordScales
+func (m *theoryService) ListChordScales(ctx context.Context, chordID int64, filter theory.ScaleFilter, pagination api.Pagination) ([]theory.SimplifiedScale, *api.Pagination, error) {
+	args := m.Called(ctx, chordID, filter, pagination)
+
+	var entries []theory.SimplifiedScale
+	if v, ok := args.Get(0).([]theory.SimplifiedScale); ok {
 		entries = v
 	}
 
@@ -142,7 +216,7 @@ func (m *TheoryService) ListChordKeys(ctx context.Context, chordID int64, filter
 }
 
 // GetChord mock theory.Service#GetChord
-func (m *TheoryService) GetChord(ctx context.Context, chordID int64) (*theory.DetailedChord, error) {
+func (m *theoryService) GetChord(ctx context.Context, chordID int64) (*theory.DetailedChord, error) {
 	args := m.Called(ctx, chordID)
 
 	var entry *theory.DetailedChord
@@ -154,7 +228,7 @@ func (m *TheoryService) GetChord(ctx context.Context, chordID int64) (*theory.De
 }
 
 // GetChordQuality mock theory.Service#GetChordQuality
-func (m *TheoryService) GetChordQuality(ctx context.Context, chordID int64) (*theory.DetailedChordQuality, error) {
+func (m *theoryService) GetChordQuality(ctx context.Context, chordID int64) (*theory.DetailedChordQuality, error) {
 	args := m.Called(ctx, chordID)
 
 	var entry *theory.DetailedChordQuality
@@ -166,11 +240,11 @@ func (m *TheoryService) GetChordQuality(ctx context.Context, chordID int64) (*th
 }
 
 // ListScales mock theory.Service#ListScales
-func (m *TheoryService) ListScales(ctx context.Context, pagination api.Pagination) ([]theory.DetailedScale, *api.Pagination, error) {
-	args := m.Called(ctx, pagination)
+func (m *theoryService) ListScales(ctx context.Context, filter theory.ScaleFilter, pagination api.Pagination) ([]theory.SimplifiedScale, *api.Pagination, error) {
+	args := m.Called(ctx, filter, pagination)
 
-	var entries []theory.DetailedScale
-	if v, ok := args.Get(0).([]theory.DetailedScale); ok {
+	var entries []theory.SimplifiedScale
+	if v, ok := args.Get(0).([]theory.SimplifiedScale); ok {
 		entries = v
 	}
 
@@ -183,19 +257,48 @@ func (m *TheoryService) ListScales(ctx context.Context, pagination api.Paginatio
 }
 
 // ListScaleKeys mock theory.Service#ListScaleKeys
-func (m *TheoryService) ListScaleKeys(ctx context.Context, scaleID int64) ([]theory.DetailedKey, error) {
+func (m *theoryService) ListScaleKeys(ctx context.Context, scaleID int64) ([]theory.SimplifiedKey, error) {
 	args := m.Called(ctx, scaleID)
 
-	var entries []theory.DetailedKey
-	if v, ok := args.Get(0).([]theory.DetailedKey); ok {
+	var entries []theory.SimplifiedKey
+	if v, ok := args.Get(0).([]theory.SimplifiedKey); ok {
 		entries = v
 	}
 
 	return entries, args.Error(1)
 }
 
+// ListScalePitches mock theory.Service#ListScalePitches
+func (m *theoryService) ListScalePitches(ctx context.Context, scaleID int64) ([]theory.SimplifiedPitch, error) {
+	args := m.Called(ctx, scaleID)
+
+	var entries []theory.SimplifiedPitch
+	if v, ok := args.Get(0).([]theory.SimplifiedPitch); ok {
+		entries = v
+	}
+
+	return entries, args.Error(1)
+}
+
+// ListScaleChords mock theory.Service#ListScaleChords
+func (m *theoryService) ListScaleChords(ctx context.Context, scaleID int64, filter theory.ChordFilter, pagination api.Pagination) ([]theory.SimplifiedChord, *api.Pagination, error) {
+	args := m.Called(ctx, scaleID, filter, pagination)
+
+	var entries []theory.SimplifiedChord
+	if v, ok := args.Get(0).([]theory.SimplifiedChord); ok {
+		entries = v
+	}
+
+	var paginationOut *api.Pagination
+	if v, ok := args.Get(1).(*api.Pagination); ok {
+		paginationOut = v
+	}
+
+	return entries, paginationOut, args.Error(2)
+}
+
 // GetScale mock theory.Service#GetScale
-func (m *TheoryService) GetScale(ctx context.Context, scaleID int64) (*theory.DetailedScale, error) {
+func (m *theoryService) GetScale(ctx context.Context, scaleID int64) (*theory.DetailedScale, error) {
 	args := m.Called(ctx, scaleID)
 
 	var entry *theory.DetailedScale
@@ -207,11 +310,11 @@ func (m *TheoryService) GetScale(ctx context.Context, scaleID int64) (*theory.De
 }
 
 // ListKeys mock theory.Service#ListKeys
-func (m *TheoryService) ListKeys(ctx context.Context, filter theory.KeyFilter, pagination api.Pagination) ([]theory.DetailedKey, *api.Pagination, error) {
+func (m *theoryService) ListKeys(ctx context.Context, filter theory.KeyFilter, pagination api.Pagination) ([]theory.SimplifiedKey, *api.Pagination, error) {
 	args := m.Called(ctx, filter, pagination)
 
-	var entries []theory.DetailedKey
-	if v, ok := args.Get(0).([]theory.DetailedKey); ok {
+	var entries []theory.SimplifiedKey
+	if v, ok := args.Get(0).([]theory.SimplifiedKey); ok {
 		entries = v
 	}
 
@@ -224,11 +327,11 @@ func (m *TheoryService) ListKeys(ctx context.Context, filter theory.KeyFilter, p
 }
 
 // ListKeyModes mock theory.Service#ListKeyModes
-func (m *TheoryService) ListKeyModes(ctx context.Context, keyID int64, filter theory.KeyFilter) ([]theory.DetailedKey, error) {
+func (m *theoryService) ListKeyModes(ctx context.Context, keyID int64, filter theory.KeyFilter) ([]theory.SimplifiedKey, error) {
 	args := m.Called(ctx, keyID, filter)
 
-	var entries []theory.DetailedKey
-	if v, ok := args.Get(0).([]theory.DetailedKey); ok {
+	var entries []theory.SimplifiedKey
+	if v, ok := args.Get(0).([]theory.SimplifiedKey); ok {
 		entries = v
 	}
 
@@ -236,11 +339,11 @@ func (m *TheoryService) ListKeyModes(ctx context.Context, keyID int64, filter th
 }
 
 // ListKeyChords mock theory.Service#ListKeyChords
-func (m *TheoryService) ListKeyChords(ctx context.Context, keyID int64, filter theory.ChordFilter, pagination api.Pagination) ([]theory.DetailedChord, *api.Pagination, error) {
+func (m *theoryService) ListKeyChords(ctx context.Context, keyID int64, filter theory.ChordFilter, pagination api.Pagination) ([]theory.SimplifiedChord, *api.Pagination, error) {
 	args := m.Called(ctx, keyID, filter, pagination)
 
-	var entries []theory.DetailedChord
-	if v, ok := args.Get(0).([]theory.DetailedChord); ok {
+	var entries []theory.SimplifiedChord
+	if v, ok := args.Get(0).([]theory.SimplifiedChord); ok {
 		entries = v
 	}
 
@@ -253,11 +356,11 @@ func (m *TheoryService) ListKeyChords(ctx context.Context, keyID int64, filter t
 }
 
 // ListKeyPitches mock theory.Service#ListKeyPitches
-func (m *TheoryService) ListKeyPitches(ctx context.Context, keyID int64) ([]theory.DetailedPitch, error) {
+func (m *theoryService) ListKeyPitches(ctx context.Context, keyID int64) ([]theory.SimplifiedPitch, error) {
 	args := m.Called(ctx, keyID)
 
-	var entries []theory.DetailedPitch
-	if v, ok := args.Get(0).([]theory.DetailedPitch); ok {
+	var entries []theory.SimplifiedPitch
+	if v, ok := args.Get(0).([]theory.SimplifiedPitch); ok {
 		entries = v
 	}
 
@@ -265,7 +368,7 @@ func (m *TheoryService) ListKeyPitches(ctx context.Context, keyID int64) ([]theo
 }
 
 // GetKey mock theory.Service#GetKey
-func (m *TheoryService) GetKey(ctx context.Context, keyID int64) (*theory.DetailedKey, error) {
+func (m *theoryService) GetKey(ctx context.Context, keyID int64) (*theory.DetailedKey, error) {
 	args := m.Called(ctx, keyID)
 
 	var entry *theory.DetailedKey

@@ -11,11 +11,21 @@ import (
 )
 
 type chordHandlers interface {
-	ListChords(writer http.ResponseWriter, request *http.Request)
-	ListChordPitches(writer http.ResponseWriter, request *http.Request)
-	ListChordKeys(writer http.ResponseWriter, request *http.Request)
 	GetChord(writer http.ResponseWriter, request *http.Request)
 	GetChordQuality(writer http.ResponseWriter, request *http.Request)
+	ListChordKeys(writer http.ResponseWriter, request *http.Request)
+	ListChordPitches(writer http.ResponseWriter, request *http.Request)
+	ListChordScales(writer http.ResponseWriter, request *http.Request)
+	ListChords(writer http.ResponseWriter, request *http.Request)
+}
+
+func (h theoryHandler) installChordEndpoints(router *mux.Router) {
+	router.HandleFunc("/chords", h.ListChords).Methods(http.MethodGet).Name("LIST_CHORDS")
+	router.HandleFunc("/chords/{id:[0-9]+}", h.GetChord).Methods(http.MethodGet).Name("GET_CHORD")
+	router.HandleFunc("/chords/{id:[0-9]+}/keys", h.ListChordKeys).Methods(http.MethodGet).Name("LIST_CHORD_KEYS")
+	router.HandleFunc("/chords/{id:[0-9]+}/pitches", h.ListChordPitches).Methods(http.MethodGet).Name("GET_CHORD_PITCHES")
+	router.HandleFunc("/chords/{id:[0-9]+}/quality", h.GetChordQuality).Methods(http.MethodGet).Name("GET_CHORD_QUALITY")
+	router.HandleFunc("/chords/{id:[0-9]+}/scales", h.ListChordScales).Methods(http.MethodGet).Name("LIST_CHORD_SCALES")
 }
 
 func (h theoryHandler) ListChords(writer http.ResponseWriter, request *http.Request) {
@@ -66,7 +76,7 @@ func (h theoryHandler) ListChordKeys(writer http.ResponseWriter, request *http.R
 
 	var data params
 	if err := h.decoder.Decode(&data, request.URL.Query()); err != nil {
-		h.Logger().With(zap.Error(err)).Error("failed to list chords")
+		h.Logger().With(zap.Error(err)).Error("failed to list chord keys")
 		h.ReplyJSON(writer, http.StatusBadRequest, api.ErrBadQueryParameter)
 		return
 	}
@@ -75,6 +85,32 @@ func (h theoryHandler) ListChordKeys(writer http.ResponseWriter, request *http.R
 	chords, paginationOut, err := h.service.ListChordKeys(ctx, chordID, data.KeyFilter, data.Pagination)
 	if err != nil {
 		h.Logger().With(zap.Error(err)).Error("failed to list chord keys")
+		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
+	} else {
+		h.SetPagination(writer, paginationOut)
+		h.ReplyJSON(writer, http.StatusOK, chords)
+	}
+}
+
+func (h theoryHandler) ListChordScales(writer http.ResponseWriter, request *http.Request) {
+	ctx := request.Context()
+
+	type params struct {
+		ScaleFilter
+		api.Pagination
+	}
+
+	var data params
+	if err := h.decoder.Decode(&data, request.URL.Query()); err != nil {
+		h.Logger().With(zap.Error(err)).Error("failed to list chord scales")
+		h.ReplyJSON(writer, http.StatusBadRequest, api.ErrBadQueryParameter)
+		return
+	}
+
+	chordID, _ := strconv.ParseInt(mux.Vars(request)["id"], 10, 64)
+	chords, paginationOut, err := h.service.ListChordScales(ctx, chordID, data.ScaleFilter, data.Pagination)
+	if err != nil {
+		h.Logger().With(zap.Error(err)).Error("failed to list chord scales")
 		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
 	} else {
 		h.SetPagination(writer, paginationOut)

@@ -3,7 +3,6 @@ package theory_test
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/http"
 	"net/url"
 	"testing"
@@ -11,154 +10,131 @@ import (
 	"github.com/edipermadi/music-db/internal/platform/api"
 	"github.com/edipermadi/music-db/internal/theory"
 	"github.com/edipermadi/music-db/mock"
-	mock2 "github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 )
 
 func TestTheoryHandler_ListChordKeys(t *testing.T) {
-	type testCase struct {
-		Title               string
-		GivenQueryString    url.Values
-		ServiceReturnValues mock.ServiceReturnValues
-		ExpectedFilter      theory.KeyFilter
-		ExpectedStatus      int
-	}
-
-	intValue := 1
-	boolValue := true
-	testCases := []testCase{
+	testCases := []handlerTestCase{
 		{
 			Title: "Returns200WhenSucceededWithoutFilter",
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns200WhenSucceededWithScaleIDFilter",
-			GivenQueryString: url.Values{
+			GivenQueryStrings: url.Values{
 				"scale_id": []string{"1"},
 			},
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
-			ExpectedFilter: theory.KeyFilter{ScaleID: 1},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns200WhenSucceededWithTonicIDFilter",
-			GivenQueryString: url.Values{
+			GivenQueryStrings: url.Values{
 				"tonic_id": []string{"1"},
 			},
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
-			ExpectedFilter: theory.KeyFilter{TonicID: 1},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns200WhenSucceededWithNumberFilter",
-			GivenQueryString: url.Values{
+			GivenQueryStrings: url.Values{
 				"number": []string{"1"},
 			},
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
-			ExpectedFilter: theory.KeyFilter{Number: 1},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns200WhenSucceededWithPerfectionFilter",
-			GivenQueryString: url.Values{
+			GivenQueryStrings: url.Values{
 				"perfection": []string{"1"},
 			},
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
-			ExpectedFilter: theory.KeyFilter{Perfection: &intValue},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns200WhenSucceededWithImperfectionFilter",
-			GivenQueryString: url.Values{
+			GivenQueryStrings: url.Values{
 				"imperfection": []string{"1"},
 			},
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
-			ExpectedFilter: theory.KeyFilter{Imperfection: &intValue},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns200WhenSucceededWithBalancedFilter",
-			GivenQueryString: url.Values{
+			GivenQueryStrings: url.Values{
 				"balanced": []string{"true"},
 			},
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
-			ExpectedFilter: theory.KeyFilter{Balanced: &boolValue},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns200WhenSucceededWithRotationalSymmetricFilter",
-			GivenQueryString: url.Values{
+			GivenQueryStrings: url.Values{
 				"rotational_symmetric": []string{"true"},
 			},
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
-			ExpectedFilter: theory.KeyFilter{RotationalSymmetric: &boolValue},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns200WhenSucceededWithRotationalSymmetryLevelFilter",
-			GivenQueryString: url.Values{
+			GivenQueryStrings: url.Values{
 				"rotational_symmetry_level": []string{"1"},
 			},
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
-			ExpectedFilter: theory.KeyFilter{RotationalSymmetryLevel: 1},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns200WhenSucceededWithReflectionalSymmetricFilter",
-			GivenQueryString: url.Values{
+			GivenQueryStrings: url.Values{
 				"reflectional_symmetric": []string{"true"},
 			},
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
-			ExpectedFilter: theory.KeyFilter{ReflectionalSymmetric: &boolValue},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns200WhenSucceededWithPalindromicFilter",
-			GivenQueryString: url.Values{
+			GivenQueryStrings: url.Values{
 				"palindromic": []string{"true"},
 			},
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
-			ExpectedFilter: theory.KeyFilter{Palindromic: &boolValue},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns200WhenSucceededWithCardinalityFilter",
-			GivenQueryString: url.Values{
+			GivenQueryStrings: url.Values{
 				"cardinality": []string{"1"},
 			},
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChordKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
-			ExpectedFilter: theory.KeyFilter{Cardinality: 1},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				ListChordKeys: []interface{}{nil, nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -167,26 +143,148 @@ func TestTheoryHandler_ListChordKeys(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
-
-			server, router := mockServer()
+			server := tc.mockServer()
 			defer server.Close()
 
-			service := &mock.TheoryService{}
-			service.On("ListChordKeys", mock2.Anything, mock2.Anything, tc.ExpectedFilter, mock2.Anything).
-				Return(tc.ServiceReturnValues.ListChordKeys...)
-
-			theory.NewHandler(logger, service).InstallEndpoints(router)
-
-			req, err := http.NewRequest(http.MethodGet, fmt.Sprintf("%s/chords/1/keys", server.URL), nil)
+			resp, err := tc.httpGet("/chords/1/keys")
 			require.NoError(t, err)
 
-			if len(tc.GivenQueryString) > 0 {
-				req.URL.RawQuery = tc.GivenQueryString.Encode()
-			}
+			defer func() { _ = resp.Body.Close() }()
 
-			resp, err := http.DefaultClient.Do(req)
+			require.Equal(t, tc.ExpectedStatus, resp.StatusCode)
+			if tc.ExpectedStatus == http.StatusOK {
+				var decoded []theory.DetailedKey
+				require.NoError(t, json.NewDecoder(resp.Body).Decode(&decoded))
+				require.NotEmpty(t, decoded)
+			}
+		})
+	}
+}
+
+func TestTheoryHandler_ListChordScales(t *testing.T) {
+	testCases := []handlerTestCase{
+		{
+			Title: "Returns200WhenSucceededWithoutFilter",
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordScales: []interface{}{[]theory.SimplifiedScale{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			},
+			ExpectedStatus: http.StatusOK,
+		},
+		{
+			Title: "Returns200WhenSucceededWithTonicIDFilter",
+			GivenQueryStrings: url.Values{
+				"tonic_id": []string{"1"},
+			},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordScales: []interface{}{[]theory.SimplifiedScale{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			},
+			ExpectedStatus: http.StatusOK,
+		},
+		{
+			Title: "Returns200WhenSucceededWithNumberFilter",
+			GivenQueryStrings: url.Values{
+				"number": []string{"1"},
+			},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordScales: []interface{}{[]theory.SimplifiedScale{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			},
+			ExpectedStatus: http.StatusOK,
+		},
+		{
+			Title: "Returns200WhenSucceededWithPerfectionFilter",
+			GivenQueryStrings: url.Values{
+				"perfection": []string{"1"},
+			},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordScales: []interface{}{[]theory.SimplifiedScale{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			},
+			ExpectedStatus: http.StatusOK,
+		},
+		{
+			Title: "Returns200WhenSucceededWithImperfectionFilter",
+			GivenQueryStrings: url.Values{
+				"imperfection": []string{"1"},
+			},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordScales: []interface{}{[]theory.SimplifiedScale{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			},
+			ExpectedStatus: http.StatusOK,
+		},
+		{
+			Title: "Returns200WhenSucceededWithBalancedFilter",
+			GivenQueryStrings: url.Values{
+				"balanced": []string{"true"},
+			},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordScales: []interface{}{[]theory.SimplifiedScale{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			},
+			ExpectedStatus: http.StatusOK,
+		},
+		{
+			Title: "Returns200WhenSucceededWithRotationalSymmetricFilter",
+			GivenQueryStrings: url.Values{
+				"rotational_symmetric": []string{"true"},
+			},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordScales: []interface{}{[]theory.SimplifiedScale{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			},
+			ExpectedStatus: http.StatusOK,
+		},
+		{
+			Title: "Returns200WhenSucceededWithRotationalSymmetryLevelFilter",
+			GivenQueryStrings: url.Values{
+				"rotational_symmetry_level": []string{"1"},
+			},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordScales: []interface{}{[]theory.SimplifiedScale{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			},
+			ExpectedStatus: http.StatusOK,
+		},
+		{
+			Title: "Returns200WhenSucceededWithReflectionalSymmetricFilter",
+			GivenQueryStrings: url.Values{
+				"reflectional_symmetric": []string{"true"},
+			},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordScales: []interface{}{[]theory.SimplifiedScale{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			},
+			ExpectedStatus: http.StatusOK,
+		},
+		{
+			Title: "Returns200WhenSucceededWithPalindromicFilter",
+			GivenQueryStrings: url.Values{
+				"palindromic": []string{"true"},
+			},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordScales: []interface{}{[]theory.SimplifiedScale{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			},
+			ExpectedStatus: http.StatusOK,
+		},
+		{
+			Title: "Returns200WhenSucceededWithCardinalityFilter",
+			GivenQueryStrings: url.Values{
+				"cardinality": []string{"1"},
+			},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordScales: []interface{}{[]theory.SimplifiedScale{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			},
+			ExpectedStatus: http.StatusOK,
+		},
+		{
+			Title: "Returns500WhenFailed",
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordScales: []interface{}{nil, nil, errors.New("error")},
+			},
+			ExpectedStatus: http.StatusInternalServerError,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.Title, func(t *testing.T) {
+			server := tc.mockServer()
+			defer server.Close()
+
+			resp, err := tc.httpGet("/chords/1/scales")
 			require.NoError(t, err)
 
 			defer func() { _ = resp.Body.Close() }()
@@ -202,23 +300,17 @@ func TestTheoryHandler_ListChordKeys(t *testing.T) {
 }
 
 func TestTheoryHandler_ListChordPitches(t *testing.T) {
-	type testCase struct {
-		Title               string
-		ServiceReturnValues mock.ServiceReturnValues
-		ExpectedStatus      int
-	}
-
-	testCases := []testCase{
+	testCases := []handlerTestCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChordPitches: []interface{}{[]theory.DetailedPitch{{ID: 1, Name: "name"}}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChordPitches: []interface{}{[]theory.SimplifiedPitch{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				ListChordPitches: []interface{}{nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -227,19 +319,10 @@ func TestTheoryHandler_ListChordPitches(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
-
-			server, router := mockServer()
+			server := tc.mockServer()
 			defer server.Close()
 
-			service := &mock.TheoryService{}
-			service.On("ListChordPitches", mock2.Anything, mock2.Anything).
-				Return(tc.ServiceReturnValues.ListChordPitches...)
-
-			theory.NewHandler(logger, service).InstallEndpoints(router)
-
-			resp, err := http.Get(fmt.Sprintf("%s/chords/1/pitches", server.URL))
+			resp, err := tc.httpGet("/chords/1/pitches")
 			require.NoError(t, err)
 
 			defer func() { _ = resp.Body.Close() }()
@@ -255,19 +338,11 @@ func TestTheoryHandler_ListChordPitches(t *testing.T) {
 }
 
 func TestTheoryHandler_ListChords(t *testing.T) {
-	type testCase struct {
-		Title               string
-		GivenQueryStrings   url.Values
-		ServiceReturnValues mock.ServiceReturnValues
-		ExpectedFilter      theory.ChordFilter
-		ExpectedStatus      int
-	}
-
-	testCases := []testCase{
+	testCases := []handlerTestCase{
 		{
 			Title: "Returns200WhenSucceededWithoutFilter",
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChords: []interface{}{[]theory.DetailedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChords: []interface{}{[]theory.SimplifiedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
@@ -276,10 +351,9 @@ func TestTheoryHandler_ListChords(t *testing.T) {
 			GivenQueryStrings: url.Values{
 				"chord_quality_id": []string{"1"},
 			},
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChords: []interface{}{[]theory.DetailedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChords: []interface{}{[]theory.SimplifiedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
-			ExpectedFilter: theory.ChordFilter{ChordQualityID: 1},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
@@ -287,10 +361,9 @@ func TestTheoryHandler_ListChords(t *testing.T) {
 			GivenQueryStrings: url.Values{
 				"root_id": []string{"1"},
 			},
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChords: []interface{}{[]theory.DetailedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChords: []interface{}{[]theory.SimplifiedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
-			ExpectedFilter: theory.ChordFilter{RootID: 1},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
@@ -298,10 +371,9 @@ func TestTheoryHandler_ListChords(t *testing.T) {
 			GivenQueryStrings: url.Values{
 				"number": []string{"1"},
 			},
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChords: []interface{}{[]theory.DetailedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChords: []interface{}{[]theory.SimplifiedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
-			ExpectedFilter: theory.ChordFilter{Number: 1},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
@@ -309,15 +381,14 @@ func TestTheoryHandler_ListChords(t *testing.T) {
 			GivenQueryStrings: url.Values{
 				"cardinality": []string{"1"},
 			},
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListChords: []interface{}{[]theory.DetailedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListChords: []interface{}{[]theory.SimplifiedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
-			ExpectedFilter: theory.ChordFilter{Cardinality: 1},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				ListChords: []interface{}{nil, nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -326,26 +397,10 @@ func TestTheoryHandler_ListChords(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
-
-			server, router := mockServer()
+			server := tc.mockServer()
 			defer server.Close()
 
-			service := &mock.TheoryService{}
-			service.On("ListChords", mock2.Anything, tc.ExpectedFilter, mock2.Anything).
-				Return(tc.ServiceReturnValues.ListChords...)
-
-			theory.NewHandler(logger, service).InstallEndpoints(router)
-
-			req, err := http.NewRequest(http.MethodGet, fmt.Sprintf("%s/chords", server.URL), nil)
-			require.NoError(t, err)
-
-			if len(tc.GivenQueryStrings) > 0 {
-				req.URL.RawQuery = tc.GivenQueryStrings.Encode()
-			}
-
-			resp, err := http.DefaultClient.Do(req)
+			resp, err := tc.httpGet("/chords")
 			require.NoError(t, err)
 
 			defer func() { _ = resp.Body.Close() }()
@@ -361,30 +416,24 @@ func TestTheoryHandler_ListChords(t *testing.T) {
 }
 
 func TestTheoryHandler_GetChord(t *testing.T) {
-	type testCase struct {
-		Title               string
-		ServiceReturnValues mock.ServiceReturnValues
-		ExpectedStatus      int
-	}
-
-	testCases := []testCase{
+	testCases := []handlerTestCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				GetChord: []interface{}{&theory.DetailedChord{ID: 1, Name: "name"}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns404WhenNotFound",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				GetChord: []interface{}{nil, theory.ErrChordNotFound},
 			},
 			ExpectedStatus: http.StatusNotFound,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				GetChord: []interface{}{nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -393,19 +442,10 @@ func TestTheoryHandler_GetChord(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
-
-			server, router := mockServer()
+			server := tc.mockServer()
 			defer server.Close()
 
-			service := &mock.TheoryService{}
-			service.On("GetChord", mock2.Anything, mock2.Anything).
-				Return(tc.ServiceReturnValues.GetChord...)
-
-			theory.NewHandler(logger, service).InstallEndpoints(router)
-
-			resp, err := http.Get(fmt.Sprintf("%s/chords/1", server.URL))
+			resp, err := tc.httpGet("/chords/1")
 			require.NoError(t, err)
 
 			defer func() { _ = resp.Body.Close() }()
@@ -421,30 +461,24 @@ func TestTheoryHandler_GetChord(t *testing.T) {
 }
 
 func TestTheoryHandler_GetChordQuality(t *testing.T) {
-	type testCase struct {
-		Title               string
-		ServiceReturnValues mock.ServiceReturnValues
-		ExpectedStatus      int
-	}
-
-	testCases := []testCase{
+	testCases := []handlerTestCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				GetChordQuality: []interface{}{&theory.DetailedChordQuality{ID: 1, Name: "name"}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns404WhenNotFound",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				GetChordQuality: []interface{}{nil, theory.ErrChordQualityNotFound},
 			},
 			ExpectedStatus: http.StatusNotFound,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				GetChordQuality: []interface{}{nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -453,19 +487,10 @@ func TestTheoryHandler_GetChordQuality(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
-
-			server, router := mockServer()
+			server := tc.mockServer()
 			defer server.Close()
 
-			service := &mock.TheoryService{}
-			service.On("GetChordQuality", mock2.Anything, mock2.Anything).
-				Return(tc.ServiceReturnValues.GetChordQuality...)
-
-			theory.NewHandler(logger, service).InstallEndpoints(router)
-
-			resp, err := http.Get(fmt.Sprintf("%s/chords/1/quality", server.URL))
+			resp, err := tc.httpGet("/chords/1/quality")
 			require.NoError(t, err)
 
 			defer func() { _ = resp.Body.Close() }()

@@ -3,43 +3,34 @@ package theory_test
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/http"
 	"testing"
 
 	"github.com/edipermadi/music-db/internal/platform/api"
 	"github.com/edipermadi/music-db/internal/theory"
 	"github.com/edipermadi/music-db/mock"
-	mock2 "github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 )
 
 func TestTheoryHandler_GetScale(t *testing.T) {
-	type testCase struct {
-		Title               string
-		ServiceReturnValues mock.ServiceReturnValues
-		ExpectedStatus      int
-	}
-
-	testCases := []testCase{
+	testCases := []handlerTestCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				GetScale: []interface{}{&theory.DetailedScale{ID: 1, Name: "name"}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns404WhenNotFound",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				GetScale: []interface{}{nil, theory.ErrScaleNotFound},
 			},
 			ExpectedStatus: http.StatusNotFound,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				GetScale: []interface{}{nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -48,19 +39,10 @@ func TestTheoryHandler_GetScale(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
-
-			server, router := mockServer()
+			server := tc.mockServer()
 			defer server.Close()
 
-			service := &mock.TheoryService{}
-			service.On("GetScale", mock2.Anything, mock2.Anything).
-				Return(tc.ServiceReturnValues.GetScale...)
-
-			theory.NewHandler(logger, service).InstallEndpoints(router)
-
-			resp, err := http.Get(fmt.Sprintf("%s/scales/1", server.URL))
+			resp, err := tc.httpGet("/scales/1")
 			require.NoError(t, err)
 
 			defer func() { _ = resp.Body.Close() }()
@@ -76,23 +58,17 @@ func TestTheoryHandler_GetScale(t *testing.T) {
 }
 
 func TestTheoryHandler_ListScaleKeys(t *testing.T) {
-	type testCase struct {
-		Title               string
-		ServiceReturnValues mock.ServiceReturnValues
-		ExpectedStatus      int
-	}
-
-	testCases := []testCase{
+	testCases := []handlerTestCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListScaleKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name"}}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListScaleKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				ListScaleKeys: []interface{}{nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -101,19 +77,10 @@ func TestTheoryHandler_ListScaleKeys(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
-
-			server, router := mockServer()
+			server := tc.mockServer()
 			defer server.Close()
 
-			service := &mock.TheoryService{}
-			service.On("ListScaleKeys", mock2.Anything, mock2.Anything).
-				Return(tc.ServiceReturnValues.ListScaleKeys...)
-
-			theory.NewHandler(logger, service).InstallEndpoints(router)
-
-			resp, err := http.Get(fmt.Sprintf("%s/scales/1/keys", server.URL))
+			resp, err := tc.httpGet("/scales/1/keys")
 			require.NoError(t, err)
 
 			defer func() { _ = resp.Body.Close() }()
@@ -128,24 +95,56 @@ func TestTheoryHandler_ListScaleKeys(t *testing.T) {
 	}
 }
 
-func TestTheoryHandler_ListScales(t *testing.T) {
-	type testCase struct {
-		Title               string
-		ServiceReturnValues mock.ServiceReturnValues
-		ExpectedStatus      int
-	}
-
-	testCases := []testCase{
+func TestTheoryHandler_ListScalePitches(t *testing.T) {
+	testCases := []handlerTestCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListScales: []interface{}{[]theory.DetailedScale{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListScalePitches: []interface{}{[]theory.SimplifiedPitch{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListScalePitches: []interface{}{nil, errors.New("error")},
+			},
+			ExpectedStatus: http.StatusInternalServerError,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.Title, func(t *testing.T) {
+			server := tc.mockServer()
+			defer server.Close()
+
+			resp, err := tc.httpGet("/scales/1/pitches")
+			require.NoError(t, err)
+
+			defer func() { _ = resp.Body.Close() }()
+
+			require.Equal(t, tc.ExpectedStatus, resp.StatusCode)
+			if tc.ExpectedStatus == http.StatusOK {
+				var decoded []theory.SimplifiedPitch
+				require.NoError(t, json.NewDecoder(resp.Body).Decode(&decoded))
+				require.NotEmpty(t, decoded)
+			}
+		})
+	}
+}
+
+func TestTheoryHandler_ListScales(t *testing.T) {
+	testCases := []handlerTestCase{
+		{
+			Title: "Returns200WhenSucceeded",
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListScales: []interface{}{[]theory.SimplifiedScale{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			},
+			ExpectedStatus: http.StatusOK,
+		},
+		{
+			Title: "Returns500WhenFailed",
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				ListScales: []interface{}{nil, nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -154,19 +153,10 @@ func TestTheoryHandler_ListScales(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
-
-			server, router := mockServer()
+			server := tc.mockServer()
 			defer server.Close()
 
-			service := &mock.TheoryService{}
-			service.On("ListScales", mock2.Anything, mock2.Anything).
-				Return(tc.ServiceReturnValues.ListScales...)
-
-			theory.NewHandler(logger, service).InstallEndpoints(router)
-
-			resp, err := http.Get(fmt.Sprintf("%s/scales", server.URL))
+			resp, err := tc.httpGet("/scales")
 			require.NoError(t, err)
 
 			defer func() { _ = resp.Body.Close() }()

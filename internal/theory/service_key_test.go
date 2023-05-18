@@ -9,27 +9,20 @@ import (
 	"github.com/edipermadi/music-db/internal/platform/api"
 	"github.com/edipermadi/music-db/internal/theory"
 	"github.com/edipermadi/music-db/mock"
-	mock2 "github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 )
 
 func TestTheoryService_ListKeys(t *testing.T) {
-	type testCase struct {
-		Title                  string
-		RepositoryReturnValues mock.RepositoryReturnValues
-	}
-
-	testCases := []testCase{
+	testCases := []serviceTestCase{
 		{
 			Title: "ReturnsKeysWhenSucceeded",
-			RepositoryReturnValues: mock.RepositoryReturnValues{
-				ListKeys: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name", Number: 2}}, &api.Pagination{}, nil},
+			RepositoryReturnValues: mock.TheoryRepositoryReturnValues{
+				ListKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 		},
 		{
 			Title: "ReturnsErrorWhenFailed",
-			RepositoryReturnValues: mock.RepositoryReturnValues{
+			RepositoryReturnValues: mock.TheoryRepositoryReturnValues{
 				ListKeys: []interface{}{nil, nil, errors.New("error")},
 			},
 		},
@@ -37,14 +30,7 @@ func TestTheoryService_ListKeys(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
-
-			repository := &mock.TheoryRepository{}
-			repository.On("ListKeys", mock2.Anything, mock2.Anything, mock2.Anything).
-				Return(tc.RepositoryReturnValues.ListKeys...)
-
-			service := theory.NewService(logger, repository)
+			service := tc.mockedService()
 			entries, _, err := service.ListKeys(context.Background(), theory.KeyFilter{}, api.Pagination{})
 			if strings.HasPrefix(tc.Title, "ReturnsError") {
 				require.Error(t, err)
@@ -58,21 +44,16 @@ func TestTheoryService_ListKeys(t *testing.T) {
 }
 
 func TestTheoryService_ListKeyModes(t *testing.T) {
-	type testCase struct {
-		Title                  string
-		RepositoryReturnValues mock.RepositoryReturnValues
-	}
-
-	testCases := []testCase{
+	testCases := []serviceTestCase{
 		{
 			Title: "ReturnsKeysWhenSucceeded",
-			RepositoryReturnValues: mock.RepositoryReturnValues{
-				ListKeyModes: []interface{}{[]theory.DetailedKey{{ID: 1, Name: "name", Number: 2}}, nil},
+			RepositoryReturnValues: mock.TheoryRepositoryReturnValues{
+				ListKeyModes: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, nil},
 			},
 		},
 		{
 			Title: "ReturnsErrorWhenFailed",
-			RepositoryReturnValues: mock.RepositoryReturnValues{
+			RepositoryReturnValues: mock.TheoryRepositoryReturnValues{
 				ListKeyModes: []interface{}{nil, errors.New("error")},
 			},
 		},
@@ -80,14 +61,7 @@ func TestTheoryService_ListKeyModes(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
-
-			repository := &mock.TheoryRepository{}
-			repository.On("ListKeyModes", mock2.Anything, mock2.Anything, mock2.Anything).
-				Return(tc.RepositoryReturnValues.ListKeyModes...)
-
-			service := theory.NewService(logger, repository)
+			service := tc.mockedService()
 			entries, err := service.ListKeyModes(context.Background(), 1, theory.KeyFilter{})
 			if strings.HasPrefix(tc.Title, "ReturnsError") {
 				require.Error(t, err)
@@ -101,21 +75,16 @@ func TestTheoryService_ListKeyModes(t *testing.T) {
 }
 
 func TestTheoryService_ListKeyChords(t *testing.T) {
-	type testCase struct {
-		Title                  string
-		RepositoryReturnValues mock.RepositoryReturnValues
-	}
-
-	testCases := []testCase{
+	testCases := []serviceTestCase{
 		{
 			Title: "ReturnsChordsWhenSucceeded",
-			RepositoryReturnValues: mock.RepositoryReturnValues{
-				ListKeyChords: []interface{}{[]theory.DetailedChord{{ID: 1, Name: "name", Number: 2}}, &api.Pagination{}, nil},
+			RepositoryReturnValues: mock.TheoryRepositoryReturnValues{
+				ListKeyChords: []interface{}{[]theory.SimplifiedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 		},
 		{
 			Title: "ReturnsErrorWhenFailed",
-			RepositoryReturnValues: mock.RepositoryReturnValues{
+			RepositoryReturnValues: mock.TheoryRepositoryReturnValues{
 				ListKeyChords: []interface{}{nil, nil, errors.New("error")},
 			},
 		},
@@ -123,14 +92,7 @@ func TestTheoryService_ListKeyChords(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
-
-			repository := &mock.TheoryRepository{}
-			repository.On("ListKeyChords", mock2.Anything, mock2.Anything, mock2.Anything, mock2.Anything).
-				Return(tc.RepositoryReturnValues.ListKeyChords...)
-
-			service := theory.NewService(logger, repository)
+			service := tc.mockedService()
 			entries, _, err := service.ListKeyChords(context.Background(), 1, theory.ChordFilter{}, api.Pagination{})
 			if strings.HasPrefix(tc.Title, "ReturnsError") {
 				require.Error(t, err)
@@ -144,21 +106,16 @@ func TestTheoryService_ListKeyChords(t *testing.T) {
 }
 
 func TestTheoryService_ListKeyPitches(t *testing.T) {
-	type testCase struct {
-		Title                  string
-		RepositoryReturnValues mock.RepositoryReturnValues
-	}
-
-	testCases := []testCase{
+	testCases := []serviceTestCase{
 		{
 			Title: "ReturnsPitchesWhenSucceeded",
-			RepositoryReturnValues: mock.RepositoryReturnValues{
-				ListKeyPitches: []interface{}{[]theory.DetailedPitch{{ID: 1, Name: "name", Number: 2}}, nil},
+			RepositoryReturnValues: mock.TheoryRepositoryReturnValues{
+				ListKeyPitches: []interface{}{[]theory.SimplifiedPitch{{ID: 1, Name: "name"}}, nil},
 			},
 		},
 		{
 			Title: "ReturnsErrorWhenFailed",
-			RepositoryReturnValues: mock.RepositoryReturnValues{
+			RepositoryReturnValues: mock.TheoryRepositoryReturnValues{
 				ListKeyPitches: []interface{}{nil, errors.New("error")},
 			},
 		},
@@ -166,14 +123,7 @@ func TestTheoryService_ListKeyPitches(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
-
-			repository := &mock.TheoryRepository{}
-			repository.On("ListKeyPitches", mock2.Anything, mock2.Anything).
-				Return(tc.RepositoryReturnValues.ListKeyPitches...)
-
-			service := theory.NewService(logger, repository)
+			service := tc.mockedService()
 			entries, err := service.ListKeyPitches(context.Background(), 1)
 			if strings.HasPrefix(tc.Title, "ReturnsError") {
 				require.Error(t, err)
@@ -187,21 +137,16 @@ func TestTheoryService_ListKeyPitches(t *testing.T) {
 }
 
 func TestTheoryService_GetKey(t *testing.T) {
-	type testCase struct {
-		Title                  string
-		RepositoryReturnValues mock.RepositoryReturnValues
-	}
-
-	testCases := []testCase{
+	testCases := []serviceTestCase{
 		{
 			Title: "ReturnsKeyWhenSucceeded",
-			RepositoryReturnValues: mock.RepositoryReturnValues{
+			RepositoryReturnValues: mock.TheoryRepositoryReturnValues{
 				GetKey: []interface{}{&theory.DetailedKey{ID: 1, Name: "name", Number: 2}, nil},
 			},
 		},
 		{
 			Title: "ReturnsErrorWhenFailed",
-			RepositoryReturnValues: mock.RepositoryReturnValues{
+			RepositoryReturnValues: mock.TheoryRepositoryReturnValues{
 				GetKey: []interface{}{nil, errors.New("error")},
 			},
 		},
@@ -209,14 +154,7 @@ func TestTheoryService_GetKey(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
-
-			repository := &mock.TheoryRepository{}
-			repository.On("GetKey", mock2.Anything, mock2.Anything).
-				Return(tc.RepositoryReturnValues.GetKey...)
-
-			service := theory.NewService(logger, repository)
+			service := tc.mockedService()
 			entry, err := service.GetKey(context.Background(), 1)
 			if strings.HasPrefix(tc.Title, "ReturnsError") {
 				require.Error(t, err)

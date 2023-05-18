@@ -14,7 +14,16 @@ type pitchHandlers interface {
 	GetPitch(writer http.ResponseWriter, request *http.Request)
 	ListPitchChords(writer http.ResponseWriter, request *http.Request)
 	ListPitchKeys(writer http.ResponseWriter, request *http.Request)
+	ListPitchScales(writer http.ResponseWriter, request *http.Request)
 	ListPitches(writer http.ResponseWriter, request *http.Request)
+}
+
+func (h theoryHandler) installPitchEndpoints(router *mux.Router) {
+	router.HandleFunc("/pitches", h.ListPitches).Methods(http.MethodGet).Name("LIST_PITCHES")
+	router.HandleFunc("/pitches/{id:[0-9]+}", h.GetPitch).Methods(http.MethodGet).Name("GET_PITCH")
+	router.HandleFunc("/pitches/{id:[0-9]+}/chords", h.ListPitchChords).Methods(http.MethodGet).Name("LIST_PITCH_CHORDS")
+	router.HandleFunc("/pitches/{id:[0-9]+}/scales", h.ListPitchScales).Methods(http.MethodGet).Name("LIST_PITCH_SCALES")
+	router.HandleFunc("/pitches/{id:[0-9]+}/keys", h.ListPitchKeys).Methods(http.MethodGet).Name("LIST_PITCH_KEYS")
 }
 
 func (h theoryHandler) GetPitch(writer http.ResponseWriter, request *http.Request) {
@@ -43,7 +52,7 @@ func (h theoryHandler) ListPitchChords(writer http.ResponseWriter, request *http
 
 	var data params
 	if err := h.decoder.Decode(&data, request.URL.Query()); err != nil {
-		h.Logger().With(zap.Error(err)).Error("failed to list chords from pitch")
+		h.Logger().With(zap.Error(err)).Error("failed to list pitch chords")
 		h.ReplyJSON(writer, http.StatusBadRequest, api.ErrBadQueryParameter)
 		return
 	}
@@ -52,7 +61,7 @@ func (h theoryHandler) ListPitchChords(writer http.ResponseWriter, request *http
 	pitch, paginationOut, err := h.service.ListPitchChords(ctx, pitchID, data.ChordFilter, data.Pagination)
 	switch {
 	case err != nil:
-		h.Logger().With(zap.Error(err)).Error("failed to list chords from pitch")
+		h.Logger().With(zap.Error(err)).Error("failed to list pitch chords")
 		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
 	default:
 		h.SetPagination(writer, paginationOut)
@@ -70,7 +79,7 @@ func (h theoryHandler) ListPitchKeys(writer http.ResponseWriter, request *http.R
 
 	var data params
 	if err := h.decoder.Decode(&data, request.URL.Query()); err != nil {
-		h.Logger().With(zap.Error(err)).Error("failed to list keys from pitch")
+		h.Logger().With(zap.Error(err)).Error("failed to list pitch keys")
 		h.ReplyJSON(writer, http.StatusBadRequest, api.ErrBadQueryParameter)
 		return
 	}
@@ -79,7 +88,34 @@ func (h theoryHandler) ListPitchKeys(writer http.ResponseWriter, request *http.R
 	pitch, paginationOut, err := h.service.ListPitchKeys(ctx, pitchID, data.KeyFilter, data.Pagination)
 	switch {
 	case err != nil:
-		h.Logger().With(zap.Error(err)).Error("failed to list chords from pitch")
+		h.Logger().With(zap.Error(err)).Error("failed to list pitch keys")
+		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
+	default:
+		h.SetPagination(writer, paginationOut)
+		h.ReplyJSON(writer, http.StatusOK, pitch)
+	}
+}
+
+func (h theoryHandler) ListPitchScales(writer http.ResponseWriter, request *http.Request) {
+	ctx := request.Context()
+
+	type params struct {
+		ScaleFilter
+		api.Pagination
+	}
+
+	var data params
+	if err := h.decoder.Decode(&data, request.URL.Query()); err != nil {
+		h.Logger().With(zap.Error(err)).Error("failed to list pitch scales")
+		h.ReplyJSON(writer, http.StatusBadRequest, api.ErrBadQueryParameter)
+		return
+	}
+
+	pitchID, _ := strconv.ParseInt(mux.Vars(request)["id"], 10, 64)
+	pitch, paginationOut, err := h.service.ListPitchScales(ctx, pitchID, data.ScaleFilter, data.Pagination)
+	switch {
+	case err != nil:
+		h.Logger().With(zap.Error(err)).Error("failed to list pitch scales")
 		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
 	default:
 		h.SetPagination(writer, paginationOut)
