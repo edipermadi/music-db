@@ -48,7 +48,6 @@ type DetailedChord struct {
 	Root    SimplifiedPitch        `json:"root" db:"root"`
 	Name    string                 `json:"name" db:"name"`
 	Number  int                    `json:"number" db:"number"`
-	Pitches []SimplifiedPitch      `json:"pitches,omitempty" db:"-"`
 }
 
 // ChordFilter represents chord filter
@@ -57,12 +56,6 @@ type ChordFilter struct {
 	RootID         int64 `form:"root_id"`
 	Number         int   `form:"number"`
 	Cardinality    int   `form:"cardinality"`
-}
-
-// SimplifiedScale is simplified scale object
-type SimplifiedScale struct {
-	ID   int64  `json:"id" db:"id"`
-	Name string `json:"name" db:"name"`
 }
 
 // DetailedScale is detailed scale object
@@ -81,6 +74,26 @@ type DetailedScale struct {
 	ReflectionalSymmetric    bool     `json:"reflectional_symmetric" db:"reflectional_symmetric"`
 	ReflectionalSymmetryAxes SliceInt `json:"reflectional_symmetry_axes" db:"reflectional_symmetry_axes"`
 	Balanced                 bool     `json:"balanced" db:"balanced"`
+}
+
+// SimplifiedScale is simplified scale object
+type SimplifiedScale struct {
+	ID   int64  `json:"id" db:"id"`
+	Name string `json:"name" db:"name"`
+}
+
+// ScaleFilter is scale filter
+type ScaleFilter struct {
+	TonicID                 int64 `form:"tonic_id"`
+	Number                  int   `form:"number"`
+	Perfection              *int  `form:"perfection"`
+	Imperfection            *int  `form:"imperfection"`
+	Balanced                *bool `form:"balanced"`
+	RotationalSymmetric     *bool `form:"rotational_symmetric"`
+	RotationalSymmetryLevel int   `form:"rotational_symmetry_level"`
+	ReflectionalSymmetric   *bool `form:"reflectional_symmetric"`
+	Palindromic             *bool `form:"palindromic"`
+	Cardinality             int   `form:"cardinality"`
 }
 
 // DetailedKey is detailed key object

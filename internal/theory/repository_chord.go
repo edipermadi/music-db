@@ -12,14 +12,15 @@ import (
 )
 
 type chordRepository interface {
-	ListChords(ctx context.Context, filter ChordFilter, pagination api.Pagination) ([]DetailedChord, *api.Pagination, error)
-	ListChordPitches(ctx context.Context, chordID int64) ([]DetailedPitch, error)
-	ListChordKeys(ctx context.Context, chordID int64, filter KeyFilter, pagination api.Pagination) ([]DetailedKey, *api.Pagination, error)
 	GetChord(ctx context.Context, chordID int64) (*DetailedChord, error)
 	GetChordQuality(ctx context.Context, chordID int64) (*DetailedChordQuality, error)
+	ListChordKeys(ctx context.Context, chordID int64, filter KeyFilter, pagination api.Pagination) ([]SimplifiedKey, *api.Pagination, error)
+	ListChordPitches(ctx context.Context, chordID int64) ([]SimplifiedPitch, error)
+	ListChordScales(ctx context.Context, chordID int64, filter ScaleFilter, pagination api.Pagination) ([]SimplifiedScale, *api.Pagination, error)
+	ListChords(ctx context.Context, filter ChordFilter, pagination api.Pagination) ([]SimplifiedChord, *api.Pagination, error)
 }
 
-func (r theoryRepository) ListChords(ctx context.Context, filter ChordFilter, pagination api.Pagination) ([]DetailedChord, *api.Pagination, error) {
+func (r theoryRepository) ListChords(ctx context.Context, filter ChordFilter, pagination api.Pagination) ([]SimplifiedChord, *api.Pagination, error) {
 	pagination.Sanitize()
 
 	args := make([]interface{}, 0)
@@ -66,7 +67,7 @@ func (r theoryRepository) ListChords(ctx context.Context, filter ChordFilter, pa
 	pagination.TotalItems = total
 	pagination.TotalPages = int(math.Ceil(float64(total) / float64(pagination.PerPage)))
 
-	entries := make([]DetailedChord, 0)
+	entries := make([]SimplifiedChord, 0)
 	if pagination.Offset() > total {
 		return entries, nil, nil
 	}
@@ -76,12 +77,7 @@ func (r theoryRepository) ListChords(ctx context.Context, filter ChordFilter, pa
 	queryList := fmt.Sprintf(`
 		SELECT
 			c.id,
-			cq.id   AS "quality.id",
-			cq.name AS "quality.name",
-			p.id    AS "root.id",
-			p.name  AS "root.name",
-			c.name,
-			c.number
+			c.name
 		FROM chords c 
 			JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 			JOIN pitches p ON c.root_id = p.id
@@ -100,13 +96,11 @@ func (r theoryRepository) ListChords(ctx context.Context, filter ChordFilter, pa
 	return entries, &pagination, nil
 }
 
-func (r theoryRepository) ListChordPitches(ctx context.Context, chordID int64) ([]DetailedPitch, error) {
+func (r theoryRepository) ListChordPitches(ctx context.Context, chordID int64) ([]SimplifiedPitch, error) {
 	query := `
-		SELECT
+		SELECT DISTINCT 
 			p.id,
-			p.name,
-			p.number,
-			p.frequency
+			p.name
 		FROM music.public.chord_pitches cp
 			JOIN pitches p ON cp.pitch_id = p.id
 		WHERE
@@ -114,7 +108,7 @@ func (r theoryRepository) ListChordPitches(ctx context.Context, chordID int64) (
 		ORDER BY
 			p.id;`
 
-	pitches := make([]DetailedPitch, 0)
+	pitches := make([]SimplifiedPitch, 0)
 	if err := r.db.SelectContext(ctx, &pitches, query, chordID); err != nil {
 		return nil, err
 	}
@@ -122,7 +116,7 @@ func (r theoryRepository) ListChordPitches(ctx context.Context, chordID int64) (
 	return pitches, nil
 }
 
-func (r theoryRepository) ListChordKeys(ctx context.Context, chordID int64, filter KeyFilter, pagination api.Pagination) ([]DetailedKey, *api.Pagination, error) {
+func (r theoryRepository) ListChordKeys(ctx context.Context, chordID int64, filter KeyFilter, pagination api.Pagination) ([]SimplifiedKey, *api.Pagination, error) {
 	pagination.Sanitize()
 
 	args := []interface{}{chordID}
@@ -200,7 +194,7 @@ func (r theoryRepository) ListChordKeys(ctx context.Context, chordID int64, filt
 	pagination.TotalItems = total
 	pagination.TotalPages = int(math.Ceil(float64(total) / float64(pagination.PerPage)))
 
-	entries := make([]DetailedKey, 0)
+	entries := make([]SimplifiedKey, 0)
 	if pagination.Offset() > total {
 		return entries, nil, nil
 	}
@@ -210,15 +204,110 @@ func (r theoryRepository) ListChordKeys(ctx context.Context, chordID int64, filt
 	queryList := fmt.Sprintf(`
 		SELECT
 			k.id,
-			s.id   AS "scale.id",
-			s.name AS "scale.name",
-			p.id   AS "tonic.id",
-			p.name AS "tonic.name",
-			k.name,
-			k.number,
-			k.balanced,
-			k.center_x,
-			k.center_y
+			k.name
+		FROM key_pitch_chords kpc
+			JOIN keys k ON kpc.key_id = k.id
+			JOIN scales s ON k.scale_id = s.id
+			JOIN pitches p ON k.tonic_id = p.id
+		WHERE
+			%s
+		ORDER BY
+			k.id
+		OFFSET ?
+		LIMIT  ?;`, strings.Join(clauses, " AND "))
+
+	args = append(args, pagination.Offset(), pagination.PerPage)
+	if err := r.db.SelectContext(ctx, &entries, r.db.Rebind(queryList), args...); err != nil {
+		return nil, nil, err
+	}
+
+	return entries, &pagination, nil
+}
+
+func (r theoryRepository) ListChordScales(ctx context.Context, chordID int64, filter ScaleFilter, pagination api.Pagination) ([]SimplifiedScale, *api.Pagination, error) {
+	pagination.Sanitize()
+
+	args := []interface{}{chordID}
+	clauses := []string{"kpc.chord_id = ?"}
+
+	if filter.TonicID > 0 {
+		args = append(args, filter.TonicID)
+		clauses = append(clauses, "k.tonic_id = ?")
+	}
+
+	if filter.Number > 0 {
+		args = append(args, filter.Number)
+		clauses = append(clauses, "k.number = ?")
+	}
+
+	if filter.Perfection != nil && (*filter.Perfection) >= 0 {
+		args = append(args, *filter.Perfection)
+		clauses = append(clauses, "s.perfection = ?")
+	}
+
+	if filter.Imperfection != nil && (*filter.Imperfection) >= 0 {
+		args = append(args, *filter.Imperfection)
+		clauses = append(clauses, "s.imperfection = ?")
+	}
+
+	if filter.Balanced != nil {
+		args = append(args, *filter.Balanced)
+		clauses = append(clauses, "k.balanced = ?")
+	}
+
+	if filter.RotationalSymmetric != nil {
+		args = append(args, *filter.RotationalSymmetric)
+		clauses = append(clauses, "s.rotational_symmetric = ?")
+	}
+
+	if filter.RotationalSymmetryLevel > 0 {
+		args = append(args, filter.RotationalSymmetryLevel)
+		clauses = append(clauses, "s.rotational_symmetry_level = ?")
+	}
+
+	if filter.ReflectionalSymmetric != nil {
+		args = append(args, *filter.ReflectionalSymmetric)
+		clauses = append(clauses, "s.reflectional_symmetric = ?")
+	}
+
+	if filter.Palindromic != nil {
+		args = append(args, *filter.Palindromic)
+		clauses = append(clauses, "s.palindromic = ?")
+	}
+
+	if filter.Cardinality > 0 {
+		args = append(args, filter.Cardinality)
+		clauses = append(clauses, "s.cardinality = ?")
+	}
+
+	queryCount := fmt.Sprintf(`
+		SELECT
+			COUNT(s.id)
+		FROM key_pitch_chords kpc
+			JOIN keys k ON kpc.key_id = k.id
+			JOIN scales s ON k.scale_id = s.id
+		WHERE
+			%s;`, strings.Join(clauses, " AND "))
+
+	var total int
+	if err := r.db.GetContext(ctx, &total, r.db.Rebind(queryCount), args...); err != nil {
+		return nil, nil, err
+	}
+
+	pagination.TotalItems = total
+	pagination.TotalPages = int(math.Ceil(float64(total) / float64(pagination.PerPage)))
+
+	entries := make([]SimplifiedScale, 0)
+	if pagination.Offset() > total {
+		return entries, nil, nil
+	}
+
+	pagination.NextPage = (pagination.Page + 1) % (pagination.TotalPages + 1)
+
+	queryList := fmt.Sprintf(`
+		SELECT
+			s.id,
+			s.name
 		FROM key_pitch_chords kpc
 			JOIN keys k ON kpc.key_id = k.id
 			JOIN scales s ON k.scale_id = s.id
@@ -262,22 +351,6 @@ func (r theoryRepository) GetChord(ctx context.Context, chordID int64) (*Detaile
 		return nil, err
 	}
 
-	// get scale keys
-	pitches, err := r.ListChordPitches(ctx, chordID)
-	if err != nil {
-		return nil, err
-	}
-
-	// map to simplified pitch
-	mapped := make([]SimplifiedPitch, 0)
-	for _, v := range pitches {
-		mapped = append(mapped, SimplifiedPitch{
-			ID:   v.ID,
-			Name: v.Name,
-		})
-	}
-
-	chord.Pitches = mapped
 	return &chord, nil
 }
 

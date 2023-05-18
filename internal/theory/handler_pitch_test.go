@@ -3,43 +3,34 @@ package theory_test
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/http"
 	"testing"
 
 	"github.com/edipermadi/music-db/internal/platform/api"
 	"github.com/edipermadi/music-db/internal/theory"
 	"github.com/edipermadi/music-db/mock"
-	mock2 "github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 )
 
 func TestTheoryHandler_GetPitch(t *testing.T) {
-	type testCase struct {
-		Title               string
-		ServiceReturnValues mock.ServiceReturnValues
-		ExpectedStatus      int
-	}
-
-	testCases := []testCase{
+	testCases := []handlerTestCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				GetPitch: []interface{}{&theory.DetailedPitch{ID: 1, Name: "name"}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns404WhenNotFound",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				GetPitch: []interface{}{nil, theory.ErrPitchNotFound},
 			},
 			ExpectedStatus: http.StatusNotFound,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				GetPitch: []interface{}{nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -48,19 +39,10 @@ func TestTheoryHandler_GetPitch(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
-
-			server, router := mockServer()
+			server := tc.mockServer()
 			defer server.Close()
 
-			service := &mock.TheoryService{}
-			service.On("GetPitch", mock2.Anything, mock2.Anything).
-				Return(tc.ServiceReturnValues.GetPitch...)
-
-			theory.NewHandler(logger, service).InstallEndpoints(router)
-
-			resp, err := http.Get(fmt.Sprintf("%s/pitches/1", server.URL))
+			resp, err := tc.httpGet("/pitches/1")
 			require.NoError(t, err)
 
 			defer func() { _ = resp.Body.Close() }()
@@ -76,23 +58,17 @@ func TestTheoryHandler_GetPitch(t *testing.T) {
 }
 
 func TestTheoryHandler_ListPitchChords(t *testing.T) {
-	type testCase struct {
-		Title               string
-		ServiceReturnValues mock.ServiceReturnValues
-		ExpectedStatus      int
-	}
-
-	testCases := []testCase{
+	testCases := []handlerTestCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				ListPitchChords: []interface{}{[]theory.SimplifiedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				ListPitchChords: []interface{}{nil, nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -101,19 +77,10 @@ func TestTheoryHandler_ListPitchChords(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
-
-			server, router := mockServer()
+			server := tc.mockServer()
 			defer server.Close()
 
-			service := &mock.TheoryService{}
-			service.On("ListPitchChords", mock2.Anything, mock2.Anything, mock2.Anything, mock2.Anything).
-				Return(tc.ServiceReturnValues.ListPitchChords...)
-
-			theory.NewHandler(logger, service).InstallEndpoints(router)
-
-			resp, err := http.Get(fmt.Sprintf("%s/pitches/1/chords", server.URL))
+			resp, err := tc.httpGet("/pitches/1/chords")
 			require.NoError(t, err)
 
 			defer func() { _ = resp.Body.Close() }()
@@ -129,23 +96,17 @@ func TestTheoryHandler_ListPitchChords(t *testing.T) {
 }
 
 func TestTheoryHandler_ListPitchKeys(t *testing.T) {
-	type testCase struct {
-		Title               string
-		ServiceReturnValues mock.ServiceReturnValues
-		ExpectedStatus      int
-	}
-
-	testCases := []testCase{
+	testCases := []handlerTestCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				ListPitchKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				ListPitchKeys: []interface{}{nil, nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -154,26 +115,55 @@ func TestTheoryHandler_ListPitchKeys(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
-
-			server, router := mockServer()
+			server := tc.mockServer()
 			defer server.Close()
 
-			service := &mock.TheoryService{}
-			service.On("ListPitchKeys", mock2.Anything, mock2.Anything, mock2.Anything, mock2.Anything).
-				Return(tc.ServiceReturnValues.ListPitchKeys...)
-
-			theory.NewHandler(logger, service).InstallEndpoints(router)
-
-			resp, err := http.Get(fmt.Sprintf("%s/pitches/1/keys", server.URL))
+			resp, err := tc.httpGet("/pitches/1/keys")
 			require.NoError(t, err)
 
 			defer func() { _ = resp.Body.Close() }()
 
 			require.Equal(t, tc.ExpectedStatus, resp.StatusCode)
 			if tc.ExpectedStatus == http.StatusOK {
-				var decoded []theory.SimplifiedChord
+				var decoded []theory.SimplifiedKey
+				require.NoError(t, json.NewDecoder(resp.Body).Decode(&decoded))
+				require.NotEmpty(t, decoded)
+			}
+		})
+	}
+}
+
+func TestTheoryHandler_ListPitchScales(t *testing.T) {
+	testCases := []handlerTestCase{
+		{
+			Title: "Returns200WhenSucceeded",
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListPitchScales: []interface{}{[]theory.SimplifiedScale{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			},
+			ExpectedStatus: http.StatusOK,
+		},
+		{
+			Title: "Returns500WhenFailed",
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListPitchScales: []interface{}{nil, nil, errors.New("error")},
+			},
+			ExpectedStatus: http.StatusInternalServerError,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.Title, func(t *testing.T) {
+			server := tc.mockServer()
+			defer server.Close()
+
+			resp, err := tc.httpGet("/pitches/1/scales")
+			require.NoError(t, err)
+
+			defer func() { _ = resp.Body.Close() }()
+
+			require.Equal(t, tc.ExpectedStatus, resp.StatusCode)
+			if tc.ExpectedStatus == http.StatusOK {
+				var decoded []theory.SimplifiedScale
 				require.NoError(t, json.NewDecoder(resp.Body).Decode(&decoded))
 				require.NotEmpty(t, decoded)
 			}
@@ -182,23 +172,17 @@ func TestTheoryHandler_ListPitchKeys(t *testing.T) {
 }
 
 func TestTheoryHandler_ListPitches(t *testing.T) {
-	type testCase struct {
-		Title               string
-		ServiceReturnValues mock.ServiceReturnValues
-		ExpectedStatus      int
-	}
-
-	testCases := []testCase{
+	testCases := []handlerTestCase{
 		{
 			Title: "Returns200WhenSucceeded",
-			ServiceReturnValues: mock.ServiceReturnValues{
-				ListPitches: []interface{}{[]theory.DetailedPitch{{ID: 1, Name: "name"}}, nil},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListPitches: []interface{}{[]theory.SimplifiedPitch{{ID: 1, Name: "name"}}, nil},
 			},
 			ExpectedStatus: http.StatusOK,
 		},
 		{
 			Title: "Returns500WhenFailed",
-			ServiceReturnValues: mock.ServiceReturnValues{
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				ListPitches: []interface{}{nil, errors.New("error")},
 			},
 			ExpectedStatus: http.StatusInternalServerError,
@@ -207,19 +191,10 @@ func TestTheoryHandler_ListPitches(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
-
-			server, router := mockServer()
+			server := tc.mockServer()
 			defer server.Close()
 
-			service := &mock.TheoryService{}
-			service.On("ListPitches", mock2.Anything, mock2.Anything).
-				Return(tc.ServiceReturnValues.ListPitches...)
-
-			theory.NewHandler(logger, service).InstallEndpoints(router)
-
-			resp, err := http.Get(fmt.Sprintf("%s/pitches", server.URL))
+			resp, err := tc.httpGet("/pitches")
 			require.NoError(t, err)
 
 			defer func() { _ = resp.Body.Close() }()

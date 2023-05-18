@@ -10,7 +10,8 @@ type pitchService interface {
 	GetPitch(ctx context.Context, pitchID int64) (*DetailedPitch, error)
 	ListPitchChords(ctx context.Context, pitchID int64, filter ChordFilter, pagination api.Pagination) ([]SimplifiedChord, *api.Pagination, error)
 	ListPitchKeys(ctx context.Context, pitchID int64, filter KeyFilter, pagination api.Pagination) ([]SimplifiedKey, *api.Pagination, error)
-	ListPitches(ctx context.Context) ([]DetailedPitch, error)
+	ListPitchScales(ctx context.Context, pitchID int64, filter ScaleFilter, pagination api.Pagination) ([]SimplifiedScale, *api.Pagination, error)
+	ListPitches(ctx context.Context) ([]SimplifiedPitch, error)
 }
 
 func (s theoryService) GetPitch(ctx context.Context, pitchID int64) (*DetailedPitch, error) {
@@ -25,6 +26,10 @@ func (s theoryService) ListPitchKeys(ctx context.Context, pitchID int64, filter 
 	return s.repository.ListPitchKeys(ctx, pitchID, filter, pagination)
 }
 
-func (s theoryService) ListPitches(ctx context.Context) ([]DetailedPitch, error) {
+func (s theoryService) ListPitchScales(ctx context.Context, pitchID int64, filter ScaleFilter, pagination api.Pagination) ([]SimplifiedScale, *api.Pagination, error) {
+	return s.repository.ListPitchScales(ctx, pitchID, filter, pagination)
+}
+
+func (s theoryService) ListPitches(ctx context.Context) ([]SimplifiedPitch, error) {
 	return s.repository.ListPitches(ctx)
 }

@@ -10,8 +10,8 @@ import (
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/edipermadi/music-db/internal/platform/api"
 	"github.com/edipermadi/music-db/internal/theory"
+	"github.com/edipermadi/music-db/mock"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 )
 
 func TestTheoryRepository_ListKeys(t *testing.T) {
@@ -40,15 +40,7 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -73,15 +65,7 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -107,15 +91,7 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -141,15 +117,7 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -175,15 +143,7 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -209,15 +169,7 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -243,15 +195,7 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -277,15 +221,7 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -311,15 +247,7 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -345,15 +273,7 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -379,15 +299,7 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -413,15 +325,7 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -445,15 +349,7 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -477,15 +373,7 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -504,21 +392,12 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 
 	listKeysColumns := []string{
 		"id",
-		"scale.id",
-		"scale.name",
-		"tonic.id",
-		"tonic.name",
 		"name",
-		"number",
-		"balanced",
-		"center_x",
-		"center_y",
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
+			logger := mock.Logger()
 
 			db, sqlMock, err := mockDatabase()
 			require.NoError(t, err)
@@ -541,13 +420,12 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 					sqlMock.ExpectQuery(tc.ExpectedListQuery).
 						WithArgs(tc.ExpectedListArgs...).
 						WillReturnRows(sqlmock.NewRows(listKeysColumns).
-							AddRow(1, 2, "name1", 3, "name2", "name3", 4, true, 5.0, 6.0))
+							AddRow(1, "name"))
 				}
 			}
 
-			var pagination api.Pagination
 			repository := theory.NewRepository(logger, db)
-			keys, _, err := repository.ListKeys(context.Background(), tc.GivenFilter, pagination)
+			keys, _, err := repository.ListKeys(context.Background(), tc.GivenFilter, api.Pagination{})
 			if strings.HasPrefix(tc.Title, "ReturnsError") {
 				require.Error(t, err)
 				require.Empty(t, keys)
@@ -611,8 +489,7 @@ func TestTheoryRepository_GetKey(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
+			logger := mock.Logger()
 
 			db, sqlMock, err := mockDatabase()
 			require.NoError(t, err)
@@ -664,15 +541,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 				)
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -694,15 +563,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 				)
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -725,15 +586,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 				)
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -756,15 +609,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 				)
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -787,15 +632,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 				)
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -818,15 +655,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 				)
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -849,15 +678,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 				)
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -880,15 +701,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 				)
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -911,15 +724,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 				)
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -942,15 +747,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 				)
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -973,15 +770,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 				)
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -1004,15 +793,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 				)
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -1034,15 +815,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 				)
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
@@ -1057,21 +830,12 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 
 	listKeyModesColumns := []string{
 		"id",
-		"scale.id",
-		"scale.name",
-		"tonic.id",
-		"tonic.name",
 		"name",
-		"number",
-		"balanced",
-		"center_x",
-		"center_y",
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
+			logger := mock.Logger()
 
 			db, sqlMock, err := mockDatabase()
 			require.NoError(t, err)
@@ -1084,7 +848,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 				sqlMock.ExpectQuery(tc.ExpectedListQuery).
 					WithArgs(tc.ExpectedListArgs...).
 					WillReturnRows(sqlmock.NewRows(listKeyModesColumns).
-						AddRow(1, 2, "name1", 3, "name2", "name3", 4, true, 5.0, 6.0))
+						AddRow(1, "name"))
 			}
 
 			repository := theory.NewRepository(logger, db)
@@ -1125,12 +889,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					c.id,
-					cq.id   AS "quality.id",
-					cq.name AS "quality.name",
-					p.id    AS "root.id",
-					p.name  AS "root.name",
-					c.name,
-					c.number
+					c.name
 				FROM key_pitch_chords kpc 
 					JOIN chords c ON kpc.chord_id = c.id
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
@@ -1159,12 +918,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					c.id,
-					cq.id   AS "quality.id",
-					cq.name AS "quality.name",
-					p.id    AS "root.id",
-					p.name  AS "root.name",
-					c.name,
-					c.number
+					c.name
 				FROM key_pitch_chords kpc 
 					JOIN chords c ON kpc.chord_id = c.id
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
@@ -1194,12 +948,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					c.id,
-					cq.id   AS "quality.id",
-					cq.name AS "quality.name",
-					p.id    AS "root.id",
-					p.name  AS "root.name",
-					c.name,
-					c.number
+					c.name
 				FROM key_pitch_chords kpc 
 					JOIN chords c ON kpc.chord_id = c.id
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
@@ -1229,12 +978,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					c.id,
-					cq.id   AS "quality.id",
-					cq.name AS "quality.name",
-					p.id    AS "root.id",
-					p.name  AS "root.name",
-					c.name,
-					c.number
+					c.name
 				FROM key_pitch_chords kpc 
 					JOIN chords c ON kpc.chord_id = c.id
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
@@ -1264,12 +1008,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					c.id,
-					cq.id   AS "quality.id",
-					cq.name AS "quality.name",
-					p.id    AS "root.id",
-					p.name  AS "root.name",
-					c.name,
-					c.number
+					c.name
 				FROM key_pitch_chords kpc 
 					JOIN chords c ON kpc.chord_id = c.id
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
@@ -1296,12 +1035,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					c.id,
-					cq.id   AS "quality.id",
-					cq.name AS "quality.name",
-					p.id    AS "root.id",
-					p.name  AS "root.name",
-					c.name,
-					c.number
+					c.name
 				FROM key_pitch_chords kpc 
 					JOIN chords c ON kpc.chord_id = c.id
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
@@ -1328,12 +1062,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					c.id,
-					cq.id   AS "quality.id",
-					cq.name AS "quality.name",
-					p.id    AS "root.id",
-					p.name  AS "root.name",
-					c.name,
-					c.number
+					c.name
 				FROM key_pitch_chords kpc 
 					JOIN chords c ON kpc.chord_id = c.id
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
@@ -1354,18 +1083,12 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 
 	listChordsColumns := []string{
 		"id",
-		"quality.id",
-		"quality.name",
-		"root.id",
-		"root.name",
 		"name",
-		"number",
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
+			logger := mock.Logger()
 
 			db, sqlMock, err := mockDatabase()
 			require.NoError(t, err)
@@ -1388,7 +1111,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 					sqlMock.ExpectQuery(tc.ExpectedListQuery).
 						WithArgs(tc.ExpectedListArgs...).
 						WillReturnRows(sqlmock.NewRows(listChordsColumns).
-							AddRow(1, 2, "name1", 3, "name2", "name3", 4))
+							AddRow(1, "name1"))
 				}
 			}
 
@@ -1425,9 +1148,7 @@ func TestTheoryRepository_ListKeyPitches(t *testing.T) {
 	listKeyPitchesQuery := `
 		SELECT
 			p.id,
-			p.name,
-			p.number,
-			p.frequency
+			p.name
 		FROM key_pitches k
 			JOIN pitches p ON k.pitch_id = p.id
 		WHERE
@@ -1438,14 +1159,11 @@ func TestTheoryRepository_ListKeyPitches(t *testing.T) {
 	listKeyPitchesColumns := []string{
 		"id",
 		"name",
-		"number",
-		"frequency",
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
+			logger := mock.Logger()
 
 			db, sqlMock, err := mockDatabase()
 			require.NoError(t, err)
@@ -1458,7 +1176,7 @@ func TestTheoryRepository_ListKeyPitches(t *testing.T) {
 				sqlMock.ExpectQuery(listKeyPitchesQuery).
 					WithArgs(sqlmock.AnyArg()).
 					WillReturnRows(sqlmock.NewRows(listKeyPitchesColumns).
-						AddRow(1, "name", 2, 3.0))
+						AddRow(1, "name"))
 			}
 
 			repository := theory.NewRepository(logger, db)

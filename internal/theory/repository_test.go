@@ -5,15 +5,13 @@ import (
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/edipermadi/music-db/internal/theory"
+	"github.com/edipermadi/music-db/mock"
 	"github.com/jmoiron/sqlx"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 )
 
 func TestNewRepository(t *testing.T) {
-	logger, err := zap.NewProduction()
-	require.NoError(t, err)
-
+	logger := mock.Logger()
 	db, _, err := mockDatabase()
 	require.NoError(t, err)
 

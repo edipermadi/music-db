@@ -10,8 +10,8 @@ import (
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/edipermadi/music-db/internal/platform/api"
 	"github.com/edipermadi/music-db/internal/theory"
+	"github.com/edipermadi/music-db/mock"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 )
 
 func TestTheoryRepository_ListChords(t *testing.T) {
@@ -38,12 +38,7 @@ func TestTheoryRepository_ListChords(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					c.id,
-					cq.id   AS "quality.id",
-					cq.name AS "quality.name",
-					p.id    AS "root.id",
-					p.name  AS "root.name",
-					c.name,
-					c.number
+					c.name
 				FROM chords c 
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 					JOIN pitches p ON c.root_id = p.id
@@ -67,12 +62,7 @@ func TestTheoryRepository_ListChords(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					c.id,
-					cq.id   AS "quality.id",
-					cq.name AS "quality.name",
-					p.id    AS "root.id",
-					p.name  AS "root.name",
-					c.name,
-					c.number
+					c.name
 				FROM chords c 
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 					JOIN pitches p ON c.root_id = p.id
@@ -98,12 +88,7 @@ func TestTheoryRepository_ListChords(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					c.id,
-					cq.id   AS "quality.id",
-					cq.name AS "quality.name",
-					p.id    AS "root.id",
-					p.name  AS "root.name",
-					c.name,
-					c.number
+					c.name
 				FROM chords c 
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 					JOIN pitches p ON c.root_id = p.id
@@ -129,12 +114,7 @@ func TestTheoryRepository_ListChords(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					c.id,
-					cq.id   AS "quality.id",
-					cq.name AS "quality.name",
-					p.id    AS "root.id",
-					p.name  AS "root.name",
-					c.name,
-					c.number
+					c.name
 				FROM chords c 
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 					JOIN pitches p ON c.root_id = p.id
@@ -160,12 +140,7 @@ func TestTheoryRepository_ListChords(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					c.id,
-					cq.id   AS "quality.id",
-					cq.name AS "quality.name",
-					p.id    AS "root.id",
-					p.name  AS "root.name",
-					c.name,
-					c.number
+					c.name
 				FROM chords c 
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 					JOIN pitches p ON c.root_id = p.id
@@ -189,12 +164,7 @@ func TestTheoryRepository_ListChords(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					c.id,
-					cq.id   AS "quality.id",
-					cq.name AS "quality.name",
-					p.id    AS "root.id",
-					p.name  AS "root.name",
-					c.name,
-					c.number
+					c.name
 				FROM chords c 
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 					JOIN pitches p ON c.root_id = p.id
@@ -217,12 +187,7 @@ func TestTheoryRepository_ListChords(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					c.id,
-					cq.id   AS "quality.id",
-					cq.name AS "quality.name",
-					p.id    AS "root.id",
-					p.name  AS "root.name",
-					c.name,
-					c.number
+					c.name
 				FROM chords c 
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 					JOIN pitches p ON c.root_id = p.id
@@ -240,18 +205,12 @@ func TestTheoryRepository_ListChords(t *testing.T) {
 
 	listChordsColumns := []string{
 		"id",
-		"quality.id",
-		"quality.name",
-		"root.id",
-		"root.name",
 		"name",
-		"number",
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
+			logger := mock.Logger()
 
 			db, sqlMock, err := mockDatabase()
 			require.NoError(t, err)
@@ -273,7 +232,7 @@ func TestTheoryRepository_ListChords(t *testing.T) {
 				} else {
 					sqlMock.ExpectQuery(tc.ExpectedListQuery).
 						WithArgs(tc.ExpectedListArgs...).
-						WillReturnRows(sqlmock.NewRows(listChordsColumns).AddRow(1, 2, "name1", 3, "name2", "name3", 4))
+						WillReturnRows(sqlmock.NewRows(listChordsColumns).AddRow(1, "name"))
 				}
 			}
 
@@ -292,9 +251,8 @@ func TestTheoryRepository_ListChords(t *testing.T) {
 
 func TestTheoryRepository_GetChord(t *testing.T) {
 	type testCase struct {
-		Title                 string
-		GetChordError         error
-		ListChordPitchesError error
+		Title         string
+		GetChordError error
 	}
 
 	testCases := []testCase{
@@ -308,10 +266,6 @@ func TestTheoryRepository_GetChord(t *testing.T) {
 		{
 			Title:         "ReturnsErrorWhenGetChordFailed",
 			GetChordError: sql.ErrConnDone,
-		},
-		{
-			Title:                 "ReturnsErrorWhenListChordPitchesFailed",
-			ListChordPitchesError: sql.ErrConnDone,
 		},
 	}
 
@@ -340,30 +294,9 @@ func TestTheoryRepository_GetChord(t *testing.T) {
 		"number",
 	}
 
-	listChordPitchesQuery := `
-		SELECT
-			p.id,
-			p.name,
-			p.number,
-			p.frequency
-		FROM music.public.chord_pitches cp
-			JOIN pitches p ON cp.pitch_id = p.id
-		WHERE
-			cp.chord_id = $1
-		ORDER BY
-			p.id;`
-
-	listChordPitchesColumns := []string{
-		"id",
-		"name",
-		"number",
-		"frequency",
-	}
-
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
+			logger := mock.Logger()
 
 			db, sqlMock, err := mockDatabase()
 			require.NoError(t, err)
@@ -377,17 +310,6 @@ func TestTheoryRepository_GetChord(t *testing.T) {
 					WithArgs(sqlmock.AnyArg()).
 					WillReturnRows(sqlmock.NewRows(getChordColumns).
 						AddRow(1, 2, "name1", 3, "name2", "name3", 4))
-
-				if tc.ListChordPitchesError != nil {
-					sqlMock.ExpectQuery(listChordPitchesQuery).
-						WithArgs(sqlmock.AnyArg()).
-						WillReturnError(tc.ListChordPitchesError)
-				} else {
-					sqlMock.ExpectQuery(listChordPitchesQuery).
-						WithArgs(sqlmock.AnyArg()).
-						WillReturnRows(sqlmock.NewRows(listChordPitchesColumns).
-							AddRow(1, "name", 2, 3.0))
-				}
 			}
 
 			repository := theory.NewRepository(logger, db)
@@ -444,8 +366,7 @@ func TestTheoryRepository_GetChordQuality(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
+			logger := mock.Logger()
 
 			db, sqlMock, err := mockDatabase()
 			require.NoError(t, err)
@@ -501,15 +422,7 @@ func TestTheoryRepository_ListChordKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM key_pitch_chords kpc
 					JOIN keys k ON kpc.key_id = k.id
 					JOIN scales s ON k.scale_id = s.id
@@ -538,15 +451,7 @@ func TestTheoryRepository_ListChordKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM key_pitch_chords kpc
 					JOIN keys k ON kpc.key_id = k.id
 					JOIN scales s ON k.scale_id = s.id
@@ -576,15 +481,7 @@ func TestTheoryRepository_ListChordKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM key_pitch_chords kpc
 					JOIN keys k ON kpc.key_id = k.id
 					JOIN scales s ON k.scale_id = s.id
@@ -614,15 +511,7 @@ func TestTheoryRepository_ListChordKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM key_pitch_chords kpc
 					JOIN keys k ON kpc.key_id = k.id
 					JOIN scales s ON k.scale_id = s.id
@@ -652,15 +541,7 @@ func TestTheoryRepository_ListChordKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM key_pitch_chords kpc
 					JOIN keys k ON kpc.key_id = k.id
 					JOIN scales s ON k.scale_id = s.id
@@ -690,15 +571,7 @@ func TestTheoryRepository_ListChordKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM key_pitch_chords kpc
 					JOIN keys k ON kpc.key_id = k.id
 					JOIN scales s ON k.scale_id = s.id
@@ -728,15 +601,7 @@ func TestTheoryRepository_ListChordKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM key_pitch_chords kpc
 					JOIN keys k ON kpc.key_id = k.id
 					JOIN scales s ON k.scale_id = s.id
@@ -766,15 +631,7 @@ func TestTheoryRepository_ListChordKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM key_pitch_chords kpc
 					JOIN keys k ON kpc.key_id = k.id
 					JOIN scales s ON k.scale_id = s.id
@@ -804,15 +661,7 @@ func TestTheoryRepository_ListChordKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM key_pitch_chords kpc
 					JOIN keys k ON kpc.key_id = k.id
 					JOIN scales s ON k.scale_id = s.id
@@ -842,15 +691,7 @@ func TestTheoryRepository_ListChordKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM key_pitch_chords kpc
 					JOIN keys k ON kpc.key_id = k.id
 					JOIN scales s ON k.scale_id = s.id
@@ -880,15 +721,7 @@ func TestTheoryRepository_ListChordKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM key_pitch_chords kpc
 					JOIN keys k ON kpc.key_id = k.id
 					JOIN scales s ON k.scale_id = s.id
@@ -918,15 +751,7 @@ func TestTheoryRepository_ListChordKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM key_pitch_chords kpc
 					JOIN keys k ON kpc.key_id = k.id
 					JOIN scales s ON k.scale_id = s.id
@@ -953,15 +778,7 @@ func TestTheoryRepository_ListChordKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM key_pitch_chords kpc
 					JOIN keys k ON kpc.key_id = k.id
 					JOIN scales s ON k.scale_id = s.id
@@ -988,15 +805,7 @@ func TestTheoryRepository_ListChordKeys(t *testing.T) {
 			ExpectedListQuery: `
 				SELECT
 					k.id,
-					s.id   AS "scale.id",
-					s.name AS "scale.name",
-					p.id   AS "tonic.id",
-					p.name AS "tonic.name",
-					k.name,
-					k.number,
-					k.balanced,
-					k.center_x,
-					k.center_y
+					k.name
 				FROM key_pitch_chords kpc
 					JOIN keys k ON kpc.key_id = k.id
 					JOIN scales s ON k.scale_id = s.id
@@ -1017,21 +826,12 @@ func TestTheoryRepository_ListChordKeys(t *testing.T) {
 
 	listChordKeysColumns := []string{
 		"id",
-		"scale.id",
-		"scale.name",
-		"tonic.id",
-		"tonic.name",
 		"name",
-		"number",
-		"balanced",
-		"center_x",
-		"center_y",
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
+			logger := mock.Logger()
 
 			db, sqlMock, err := mockDatabase()
 			require.NoError(t, err)
@@ -1054,13 +854,460 @@ func TestTheoryRepository_ListChordKeys(t *testing.T) {
 					sqlMock.ExpectQuery(tc.ExpectedListQuery).
 						WithArgs(tc.ExpectedListArgs...).
 						WillReturnRows(sqlmock.NewRows(listChordKeysColumns).
-							AddRow(1, 2, "name1", 3, "name2", "name3", 4, true, 5.0, 6.0))
+							AddRow(1, "name"))
 				}
 			}
 
 			var pagination api.Pagination
 			repository := theory.NewRepository(logger, db)
 			keys, _, err := repository.ListChordKeys(context.Background(), 1, tc.GivenFilter, pagination)
+			if strings.HasPrefix(tc.Title, "ReturnsError") {
+				require.Error(t, err)
+				require.Empty(t, keys)
+			} else {
+				require.NoError(t, err)
+				require.NotEmpty(t, keys)
+			}
+		})
+	}
+}
+
+func TestTheoryRepository_ListChordScales(t *testing.T) {
+	type testCase struct {
+		Title               string
+		GivenFilter         theory.ScaleFilter
+		ExpectedCountQuery  string
+		ExpectedListQuery   string
+		ExpectedCountArgs   []driver.Value
+		ExpectedListArgs    []driver.Value
+		CountChordKeysError error
+		ListChordKeysError  error
+	}
+
+	intValue := 1
+	boolValue := true
+	testCases := []testCase{
+		{
+			Title: "ReturnsChordKeysWhenSucceededWithoutFilter",
+			ExpectedCountQuery: `
+				SELECT
+					COUNT(s.id)
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+				WHERE kpc.chord_id = $1;`,
+			ExpectedListQuery: `
+				SELECT
+					s.id,
+					s.name
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+					JOIN pitches p ON k.tonic_id = p.id
+				WHERE
+					kpc.chord_id = $1
+				ORDER BY
+					k.id
+				OFFSET $2
+				LIMIT  $3;`,
+			ExpectedCountArgs: []driver.Value{sqlmock.AnyArg()},
+			ExpectedListArgs:  []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()},
+		},
+		{
+			Title:       "ReturnsChordKeysWhenSucceededWithTonicIDFilter",
+			GivenFilter: theory.ScaleFilter{TonicID: 1},
+			ExpectedCountQuery: `
+				SELECT
+					COUNT(s.id)
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+				WHERE
+					kpc.chord_id = $1 AND
+					k.tonic_id   = $2;`,
+			ExpectedListQuery: `
+				SELECT
+					s.id,
+					s.name
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+					JOIN pitches p ON k.tonic_id = p.id
+				WHERE
+					kpc.chord_id = $1 AND
+					k.tonic_id   = $2
+				ORDER BY
+					k.id
+				OFFSET $3
+				LIMIT  $4;`,
+			ExpectedCountArgs: []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg()},
+			ExpectedListArgs:  []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()},
+		},
+		{
+			Title:       "ReturnsChordKeysWhenSucceededWithNumberFilter",
+			GivenFilter: theory.ScaleFilter{Number: 1},
+			ExpectedCountQuery: `
+				SELECT
+					COUNT(s.id)
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+				WHERE
+					kpc.chord_id = $1 AND
+					k.number     = $2;`,
+			ExpectedListQuery: `
+				SELECT
+					s.id,
+					s.name
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+					JOIN pitches p ON k.tonic_id = p.id
+				WHERE
+					kpc.chord_id = $1 AND
+					k.number     = $2
+				ORDER BY
+					k.id
+				OFFSET $3
+				LIMIT  $4;`,
+			ExpectedCountArgs: []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg()},
+			ExpectedListArgs:  []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()},
+		},
+		{
+			Title:       "ReturnsChordKeysWhenSucceededWithPerfectionFilter",
+			GivenFilter: theory.ScaleFilter{Perfection: &intValue},
+			ExpectedCountQuery: `
+				SELECT
+					COUNT(s.id)
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+				WHERE
+					kpc.chord_id = $1 AND
+					s.perfection = $2;`,
+			ExpectedListQuery: `
+				SELECT
+					s.id,
+					s.name
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+					JOIN pitches p ON k.tonic_id = p.id
+				WHERE
+					kpc.chord_id  = $1 AND
+					s.perfection  = $2
+				ORDER BY
+					k.id
+				OFFSET $3
+				LIMIT  $4;`,
+			ExpectedCountArgs: []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg()},
+			ExpectedListArgs:  []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()},
+		},
+		{
+			Title:       "ReturnsChordKeysWhenSucceededWithImperfectionFilter",
+			GivenFilter: theory.ScaleFilter{Imperfection: &intValue},
+			ExpectedCountQuery: `
+				SELECT
+					COUNT(s.id)
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+				WHERE
+					kpc.chord_id = $1 AND
+					s.imperfection = $2;`,
+			ExpectedListQuery: `
+				SELECT
+					s.id,
+					s.name
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+					JOIN pitches p ON k.tonic_id = p.id
+				WHERE
+					kpc.chord_id  = $1 AND
+					s.imperfection  = $2
+				ORDER BY
+					k.id
+				OFFSET $3
+				LIMIT  $4;`,
+			ExpectedCountArgs: []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg()},
+			ExpectedListArgs:  []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()},
+		},
+		{
+			Title:       "ReturnsChordKeysWhenSucceededWithBalancedFilter",
+			GivenFilter: theory.ScaleFilter{Balanced: &boolValue},
+			ExpectedCountQuery: `
+				SELECT
+					COUNT(s.id)
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+				WHERE
+					kpc.chord_id = $1 AND
+					k.balanced   = $2;`,
+			ExpectedListQuery: `
+				SELECT
+					s.id,
+					s.name
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+					JOIN pitches p ON k.tonic_id = p.id
+				WHERE
+					kpc.chord_id = $1 AND
+					k.balanced   = $2
+				ORDER BY
+					k.id
+				OFFSET $3
+				LIMIT  $4;`,
+			ExpectedCountArgs: []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg()},
+			ExpectedListArgs:  []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()},
+		},
+		{
+			Title:       "ReturnsChordKeysWhenSucceededWithRotationalSymmetricFilter",
+			GivenFilter: theory.ScaleFilter{RotationalSymmetric: &boolValue},
+			ExpectedCountQuery: `
+				SELECT
+					COUNT(s.id)
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+				WHERE
+					kpc.chord_id           = $1 AND
+					s.rotational_symmetric = $2;`,
+			ExpectedListQuery: `
+				SELECT
+					s.id,
+					s.name
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+					JOIN pitches p ON k.tonic_id = p.id
+				WHERE
+					kpc.chord_id           = $1 AND
+					s.rotational_symmetric = $2
+				ORDER BY
+					k.id
+				OFFSET $3
+				LIMIT  $4;`,
+			ExpectedCountArgs: []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg()},
+			ExpectedListArgs:  []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()},
+		},
+		{
+			Title:       "ReturnsChordKeysWhenSucceededWithRotationalSymmetryLevelFilter",
+			GivenFilter: theory.ScaleFilter{RotationalSymmetryLevel: 1},
+			ExpectedCountQuery: `
+				SELECT
+					COUNT(s.id)
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+				WHERE
+					kpc.chord_id                = $1 AND
+					s.rotational_symmetry_level = $2;`,
+			ExpectedListQuery: `
+				SELECT
+					s.id,
+					s.name
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+					JOIN pitches p ON k.tonic_id = p.id
+				WHERE
+					kpc.chord_id                = $1 AND
+					s.rotational_symmetry_level = $2
+				ORDER BY
+					k.id
+				OFFSET $3
+				LIMIT  $4;`,
+			ExpectedCountArgs: []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg()},
+			ExpectedListArgs:  []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()},
+		},
+		{
+			Title:       "ReturnsChordKeysWhenSucceededWithReflectionalSymmetricFilter",
+			GivenFilter: theory.ScaleFilter{ReflectionalSymmetric: &boolValue},
+			ExpectedCountQuery: `
+				SELECT
+					COUNT(s.id)
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+				WHERE
+					kpc.chord_id           = $1 AND
+					s.reflectional_symmetric = $2;`,
+			ExpectedListQuery: `
+				SELECT
+					s.id,
+					s.name
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+					JOIN pitches p ON k.tonic_id = p.id
+				WHERE
+					kpc.chord_id             = $1 AND
+					s.reflectional_symmetric = $2
+				ORDER BY
+					k.id
+				OFFSET $3
+				LIMIT  $4;`,
+			ExpectedCountArgs: []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg()},
+			ExpectedListArgs:  []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()},
+		},
+		{
+			Title:       "ReturnsChordKeysWhenSucceededWithPalindromicFilter",
+			GivenFilter: theory.ScaleFilter{Palindromic: &boolValue},
+			ExpectedCountQuery: `
+				SELECT
+					COUNT(s.id)
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+				WHERE
+					kpc.chord_id = $1 AND
+					s.palindromic = $2;`,
+			ExpectedListQuery: `
+				SELECT
+					s.id,
+					s.name
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+					JOIN pitches p ON k.tonic_id = p.id
+				WHERE
+					kpc.chord_id  = $1 AND
+					s.palindromic = $2
+				ORDER BY
+					k.id
+				OFFSET $3
+				LIMIT  $4;`,
+			ExpectedCountArgs: []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg()},
+			ExpectedListArgs:  []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()},
+		},
+		{
+			Title:       "ReturnsChordKeysWhenSucceededWithCardinalityFilter",
+			GivenFilter: theory.ScaleFilter{Cardinality: 1},
+			ExpectedCountQuery: `
+				SELECT
+					COUNT(s.id)
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+				WHERE
+					kpc.chord_id = $1 AND
+					s.cardinality = $2;`,
+			ExpectedListQuery: `
+				SELECT
+					s.id,
+					s.name
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+					JOIN pitches p ON k.tonic_id = p.id
+				WHERE
+					kpc.chord_id  = $1 AND
+					s.cardinality = $2
+				ORDER BY
+					k.id
+				OFFSET $3
+				LIMIT  $4;`,
+			ExpectedCountArgs: []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg()},
+			ExpectedListArgs:  []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()},
+		},
+		{
+			Title: "ReturnsErrorWhenCountChordKeysFailed",
+			ExpectedCountQuery: `
+				SELECT
+					COUNT(s.id)
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+				WHERE kpc.chord_id = $1;`,
+			ExpectedListQuery: `
+				SELECT
+					s.id,
+					s.name
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+					JOIN pitches p ON k.tonic_id = p.id
+				WHERE
+					kpc.chord_id = $1
+				ORDER BY
+					k.id
+				OFFSET $2
+				LIMIT  $3;`,
+			ExpectedCountArgs:   []driver.Value{sqlmock.AnyArg()},
+			ExpectedListArgs:    []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()},
+			CountChordKeysError: sql.ErrConnDone,
+		},
+		{
+			Title: "ReturnsErrorWhenListChordKeysFailed",
+			ExpectedCountQuery: `
+				SELECT
+					COUNT(s.id)
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+				WHERE kpc.chord_id = $1;`,
+			ExpectedListQuery: `
+				SELECT
+					s.id,
+					s.name
+				FROM key_pitch_chords kpc
+					JOIN keys k ON kpc.key_id = k.id
+					JOIN scales s ON k.scale_id = s.id
+					JOIN pitches p ON k.tonic_id = p.id
+				WHERE
+					kpc.chord_id = $1
+				ORDER BY
+					k.id
+				OFFSET $2
+				LIMIT  $3;`,
+			ExpectedCountArgs:  []driver.Value{sqlmock.AnyArg()},
+			ExpectedListArgs:   []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()},
+			ListChordKeysError: sql.ErrConnDone,
+		},
+	}
+
+	countChordKeysColumns := []string{"count"}
+
+	listChordKeysColumns := []string{
+		"id",
+		"name",
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.Title, func(t *testing.T) {
+			logger := mock.Logger()
+
+			db, sqlMock, err := mockDatabase()
+			require.NoError(t, err)
+
+			if tc.CountChordKeysError != nil {
+				sqlMock.ExpectQuery(tc.ExpectedCountQuery).
+					WithArgs(tc.ExpectedCountArgs...).
+					WillReturnError(tc.CountChordKeysError)
+			} else {
+				sqlMock.ExpectQuery(tc.ExpectedCountQuery).
+					WithArgs(tc.ExpectedCountArgs...).
+					WillReturnRows(sqlmock.NewRows(countChordKeysColumns).
+						AddRow(1))
+
+				if tc.ListChordKeysError != nil {
+					sqlMock.ExpectQuery(tc.ExpectedListQuery).
+						WithArgs(tc.ExpectedListArgs...).
+						WillReturnError(tc.ListChordKeysError)
+				} else {
+					sqlMock.ExpectQuery(tc.ExpectedListQuery).
+						WithArgs(tc.ExpectedListArgs...).
+						WillReturnRows(sqlmock.NewRows(listChordKeysColumns).
+							AddRow(1, "name"))
+				}
+			}
+
+			var pagination api.Pagination
+			repository := theory.NewRepository(logger, db)
+			keys, _, err := repository.ListChordScales(context.Background(), 1, tc.GivenFilter, pagination)
 			if strings.HasPrefix(tc.Title, "ReturnsError") {
 				require.Error(t, err)
 				require.Empty(t, keys)
@@ -1088,12 +1335,10 @@ func TestTheoryRepository_ListChordPitches(t *testing.T) {
 		},
 	}
 
-	listChordPitchesQuery := `
-		SELECT
+	listQuery := `
+		SELECT DISTINCT 
 			p.id,
-			p.name,
-			p.number,
-			p.frequency
+			p.name
 		FROM music.public.chord_pitches cp
 			JOIN pitches p ON cp.pitch_id = p.id
 		WHERE
@@ -1101,30 +1346,27 @@ func TestTheoryRepository_ListChordPitches(t *testing.T) {
 		ORDER BY
 			p.id;`
 
-	listChordPitchesColumns := []string{
+	listColumns := []string{
 		"id",
 		"name",
-		"number",
-		"frequency",
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
+			logger := mock.Logger()
 
 			db, sqlMock, err := mockDatabase()
 			require.NoError(t, err)
 
 			if tc.ListChordPitchesError != nil {
-				sqlMock.ExpectQuery(listChordPitchesQuery).
+				sqlMock.ExpectQuery(listQuery).
 					WithArgs(sqlmock.AnyArg()).
 					WillReturnError(tc.ListChordPitchesError)
 			} else {
-				sqlMock.ExpectQuery(listChordPitchesQuery).
+				sqlMock.ExpectQuery(listQuery).
 					WithArgs(sqlmock.AnyArg()).
-					WillReturnRows(sqlmock.NewRows(listChordPitchesColumns).
-						AddRow(1, "name", 2, 3.0))
+					WillReturnRows(sqlmock.NewRows(listColumns).
+						AddRow(1, "name"))
 			}
 
 			repository := theory.NewRepository(logger, db)

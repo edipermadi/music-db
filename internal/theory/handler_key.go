@@ -18,6 +18,14 @@ type keyHandlers interface {
 	GetKey(writer http.ResponseWriter, request *http.Request)
 }
 
+func (h theoryHandler) installKeyEndpoints(router *mux.Router) {
+	router.HandleFunc("/keys", h.ListKeys).Methods(http.MethodGet).Name("LIST_KEYS")
+	router.HandleFunc("/keys/{id:[0-9]+}", h.GetKey).Methods(http.MethodGet).Name("GET_KEY")
+	router.HandleFunc("/keys/{id:[0-9]+}/chords", h.ListKeyChords).Methods(http.MethodGet).Name("LIST_KEY_CHORDS")
+	router.HandleFunc("/keys/{id:[0-9]+}/modes", h.ListKeyModes).Methods(http.MethodGet).Name("LIST_KEY_MODES")
+	router.HandleFunc("/keys/{id:[0-9]+}/pitches", h.ListKeyPitches).Methods(http.MethodGet).Name("LIST_KEY_PITCHES")
+}
+
 func (h theoryHandler) ListKeys(writer http.ResponseWriter, request *http.Request) {
 	ctx := request.Context()
 
@@ -48,7 +56,7 @@ func (h theoryHandler) ListKeyModes(writer http.ResponseWriter, request *http.Re
 
 	var data KeyFilter
 	if err := h.decoder.Decode(&data, request.URL.Query()); err != nil {
-		h.Logger().With(zap.Error(err)).Error("failed to list modes")
+		h.Logger().With(zap.Error(err)).Error("failed to list key modes")
 		h.ReplyJSON(writer, http.StatusBadRequest, api.ErrBadQueryParameter)
 		return
 	}
@@ -73,7 +81,7 @@ func (h theoryHandler) ListKeyChords(writer http.ResponseWriter, request *http.R
 
 	var data params
 	if err := h.decoder.Decode(&data, request.URL.Query()); err != nil {
-		h.Logger().With(zap.Error(err)).Error("failed to list keys")
+		h.Logger().With(zap.Error(err)).Error("failed to list key chords")
 		h.ReplyJSON(writer, http.StatusBadRequest, api.ErrBadQueryParameter)
 		return
 	}

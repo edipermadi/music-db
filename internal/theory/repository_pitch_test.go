@@ -9,8 +9,8 @@ import (
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/edipermadi/music-db/internal/platform/api"
 	"github.com/edipermadi/music-db/internal/theory"
+	"github.com/edipermadi/music-db/mock"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 )
 
 func TestTheoryRepository_ListPitches(t *testing.T) {
@@ -32,23 +32,18 @@ func TestTheoryRepository_ListPitches(t *testing.T) {
 	listPitchesQuery := `
 		SELECT
 			id,
-			name,
-			number,
-			frequency
+			name
 		FROM pitches
 		ORDER BY id;`
 
 	listPitchesColumns := []string{
 		"id",
 		"name",
-		"number",
-		"frequency",
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
+			logger := mock.Logger()
 
 			db, sqlMock, err := mockDatabase()
 			require.NoError(t, err)
@@ -59,7 +54,7 @@ func TestTheoryRepository_ListPitches(t *testing.T) {
 			} else {
 				sqlMock.ExpectQuery(listPitchesQuery).
 					WillReturnRows(sqlmock.NewRows(listPitchesColumns).
-						AddRow(1, "name", 2, 3.0))
+						AddRow(1, "name"))
 			}
 
 			repository := theory.NewRepository(logger, db)
@@ -123,8 +118,7 @@ func TestTheoryRepository_ListPitchChords(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
+			logger := mock.Logger()
 
 			db, sqlMock, err := mockDatabase()
 			require.NoError(t, err)
@@ -215,8 +209,7 @@ func TestTheoryRepository_ListPitchKeys(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
+			logger := mock.Logger()
 
 			db, sqlMock, err := mockDatabase()
 			require.NoError(t, err)
@@ -244,6 +237,97 @@ func TestTheoryRepository_ListPitchKeys(t *testing.T) {
 
 			repository := theory.NewRepository(logger, db)
 			chords, _, err := repository.ListPitchKeys(context.Background(), 1, theory.KeyFilter{}, api.Pagination{})
+			if strings.HasPrefix(tc.Title, "ReturnsError") {
+				require.Error(t, err)
+				require.Empty(t, chords)
+			} else {
+				require.NoError(t, err)
+				require.NotEmpty(t, chords)
+			}
+		})
+	}
+}
+
+func TestTheoryRepository_ListPitchScales(t *testing.T) {
+	type testCase struct {
+		Title               string
+		CountPitchKeysError error
+		ListPitchKeysError  error
+	}
+
+	testCases := []testCase{
+		{
+			Title: "ReturnsChordsWhenSucceeded",
+		},
+		{
+			Title:               "ReturnsErrorWhenCountingFailed",
+			CountPitchKeysError: sql.ErrConnDone,
+		},
+		{
+			Title:              "ReturnsErrorWhenListingFailed",
+			ListPitchKeysError: sql.ErrConnDone,
+		},
+	}
+
+	countQuery := `
+		SELECT 
+			COUNT(DISTINCT s.id)
+		FROM key_pitches kp
+			JOIN keys k ON kp.key_id = k.id
+			JOIN scales s ON k.scale_id = s.id
+		WHERE kp.pitch_id = $1
+		GROUP BY
+		    kp.pitch_id;`
+
+	listQuery := `
+		SELECT DISTINCT
+			s.id, 
+			s.name
+		FROM key_pitches kp
+			JOIN keys k ON kp.key_id = k.id
+			JOIN scales s ON k.scale_id = s.id
+		WHERE
+		    kp.pitch_id = $1
+		ORDER
+			BY k.id
+		OFFSET $2
+		LIMIT $3;`
+
+	listPitchKeysColumns := []string{
+		"id",
+		"name",
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.Title, func(t *testing.T) {
+			logger := mock.Logger()
+
+			db, sqlMock, err := mockDatabase()
+			require.NoError(t, err)
+
+			if tc.CountPitchKeysError != nil {
+				sqlMock.ExpectQuery(countQuery).
+					WithArgs(sqlmock.AnyArg()).
+					WillReturnError(tc.CountPitchKeysError)
+			} else {
+				sqlMock.ExpectQuery(countQuery).
+					WithArgs(sqlmock.AnyArg()).
+					WillReturnRows(sqlmock.NewRows([]string{"id"}).AddRow(1))
+
+				if tc.ListPitchKeysError != nil {
+					sqlMock.ExpectQuery(listQuery).
+						WithArgs(sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()).
+						WillReturnError(tc.ListPitchKeysError)
+				} else {
+					sqlMock.ExpectQuery(listQuery).
+						WithArgs(sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()).
+						WillReturnRows(sqlmock.NewRows(listPitchKeysColumns).
+							AddRow(1, "name"))
+				}
+			}
+
+			repository := theory.NewRepository(logger, db)
+			chords, _, err := repository.ListPitchScales(context.Background(), 1, theory.ScaleFilter{}, api.Pagination{})
 			if strings.HasPrefix(tc.Title, "ReturnsError") {
 				require.Error(t, err)
 				require.Empty(t, chords)
@@ -289,8 +373,7 @@ func TestTheoryRepository_GetPitch(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			logger, err := zap.NewProduction()
-			require.NoError(t, err)
+			logger := mock.Logger()
 
 			db, sqlMock, err := mockDatabase()
 			require.NoError(t, err)
