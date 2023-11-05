@@ -18,6 +18,18 @@
     {
       "name": "pitch",
       "description": "Pitch related endpoints"
+    },
+    {
+      "name": "chord",
+      "description": "Chord related endpoints"
+    },
+    {
+      "name": "scale",
+      "description": "Scale related endpoints"
+    },
+    {
+      "name": "key",
+      "description": "Key related endpoints"
     }
   ],
   "schemes": [
@@ -48,7 +60,7 @@
         }
       }
     },
-    "/pitches/{id}": {
+    "/pitches/{pitch_id}": {
       "get": {
         "operationId": "GetPitch",
         "tags": [
@@ -64,7 +76,8 @@
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "pitch_id",
+            "description": "Pitch identifier",
             "in": "path",
             "required": true,
             "type": "integer",
@@ -77,6 +90,371 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/GetPitchResponse"
+            }
+          }
+        }
+      }
+    },
+    "/pitches/{pitch_id}/chords": {
+      "get": {
+        "operationId": "ListPitchChords",
+        "tags": [
+          "pitch",
+          "chord"
+        ],
+        "summary": "List pitch chords",
+        "description": "List chords related to the given pitch",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pitch_id",
+            "description": "Pitch identifier",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12
+          },
+          {
+            "name": "chord_quality_id",
+            "description": "Chord quality identifier",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "root_id",
+            "description": "Chord root pitch identifier",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12
+          },
+          {
+            "name": "zeitler_number",
+            "description": "William Zeitler's chord number",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "ring_number",
+            "description": "Ian Ring's chord number",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "cardinality",
+            "description": "Chord cardinality, count of pitches in the chord",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "page",
+            "description": "Page Number",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "per_page",
+            "description": "Page Size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ListPitchChordsResponse"
+            }
+          }
+        }
+      }
+    },
+    "/pitches/{pitch_id}/scales": {
+      "get": {
+        "operationId": "ListPitchScales",
+        "tags": [
+          "pitch",
+          "scale"
+        ],
+        "summary": "List pitch scales",
+        "description": "List scales related to the given pitch",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pitch_id",
+            "description": "Pitch identifier",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12
+          },
+          {
+            "name": "tonic_id",
+            "description": "Scale tonic pitch identifier",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12
+          },
+          {
+            "name": "zeitler_number",
+            "description": "William Zeitler's scale number",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "ring_number",
+            "description": "Ian Ring's scale number",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "perfection",
+            "description": "Count of perfect notes",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 0
+          },
+          {
+            "name": "imperfection",
+            "description": "Count of imperfect notes",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 0
+          },
+          {
+            "name": "balanced",
+            "description": "Whether scale is balanced",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "rotational_symmetric",
+            "description": "Whether scale is rotational symmetric",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "rotational_symmetry_level",
+            "description": "Scale rotational symmetry level",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "palindromic",
+            "description": "Whether scale is palindromic",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "cardinality",
+            "description": "Scale cardinality, count of pitches in the chord",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "page",
+            "description": "Page Number",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "per_page",
+            "description": "Page Size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ListPitchScalesResponse"
+            }
+          }
+        }
+      }
+    },
+    "/pitches/{pitch_id}/keys": {
+      "get": {
+        "operationId": "ListPitchKeys",
+        "tags": [
+          "pitch",
+          "key"
+        ],
+        "summary": "List pitch keys",
+        "description": "List keys related to the given pitch",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pitch_id",
+            "description": "Pitch identifier",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12
+          },
+          {
+            "name": "scale_id",
+            "description": "Scale identifier identifier",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12
+          },
+          {
+            "name": "tonic_id",
+            "description": "Key tonic pitch identifier",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12
+          },
+          {
+            "name": "zeitler_number",
+            "description": "William Zeitler's key number",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "ring_number",
+            "description": "Ian Ring's key number",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "perfection",
+            "description": "Count of perfect notes in the key",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 0
+          },
+          {
+            "name": "imperfection",
+            "description": "Count of imperfect notes in the key",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 0
+          },
+          {
+            "name": "balanced",
+            "description": "Whether the key is balanced",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "rotational_symmetric",
+            "description": "Whether the key is rotational symmetric",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "rotational_symmetry_level",
+            "description": "Key rotational symmetry level",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "palindromic",
+            "description": "Whether key is palindromic",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "cardinality",
+            "description": "Key cardinality, count of pitches in the chord",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "page",
+            "description": "Page Number",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "per_page",
+            "description": "Page Size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ListPitchKeysResponse"
             }
           }
         }
@@ -97,6 +475,30 @@
       "title": "Get pitch response",
       "type": "object",
       "$ref": "#/definitions/DetailedPitch"
+    },
+    "ListPitchChordsResponse": {
+      "title": "List of chords related to given pitch",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SimplifiedChord"
+      },
+      "minItems": 0
+    },
+    "ListPitchScalesResponse": {
+      "title": "List of scales related to given pitch",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SimplifiedScale"
+      },
+      "minItems": 0
+    },
+    "ListPitchKeysResponse": {
+      "title": "List of keys related to given pitch",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SimplifiedKey"
+      },
+      "minItems": 0
     },
     "SimplifiedPitch": {
       "title": "Simplified pitch information",
@@ -191,6 +593,78 @@
         1024,
         2048
       ],
+      "readOnly": true
+    },
+    "SimplifiedChord": {
+      "title": "Simplified chord information",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/ChordId"
+        },
+        "name": {
+          "$ref": "#/definitions/ChordName"
+        }
+      }
+    },
+    "ChordId": {
+      "title": "Chord identifier",
+      "type": "integer",
+      "minimum": 1,
+      "example": 1,
+      "readOnly": true
+    },
+    "ChordName": {
+      "title": "Chord name",
+      "type": "string",
+      "example": "Major",
+      "readOnly": true
+    },
+    "SimplifiedScale": {
+      "title": "Simplified scale",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/ScaleId"
+        },
+        "name": {
+          "$ref": "#/definitions/ScaleName"
+        }
+      }
+    },
+    "ScaleId": {
+      "title": "Scale identifier",
+      "type": "integer",
+      "minimum": 1,
+      "example": 1,
+      "readOnly": true
+    },
+    "ScaleName": {
+      "title": "Scale name",
+      "type": "string",
+      "example": "Minoric",
+      "readOnly": true
+    },
+    "SimplifiedKey": {
+      "title": "Simplified key",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/KeyId"
+        },
+        "name": {
+          "$ref": "#/definitions/KeyName"
+        }
+      }
+    },
+    "KeyId": {
+      "title": "Key identifier",
+      "type": "integer",
+      "minimum": 1,
+      "example": 1,
+      "readOnly": true
+    },
+    "KeyName": {
+      "title": "Key name",
+      "type": "string",
+      "example": "CNaturalMinoric",
       "readOnly": true
     }
   }

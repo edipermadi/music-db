@@ -328,7 +328,7 @@ func (r theoryRepository) ListPitchScales(ctx context.Context, pitchID int64, fi
 		WHERE
 		    %s
 		ORDER BY
-		    k.id
+		    s.id
 		OFFSET ?
 		LIMIT  ?;`, strings.Join(clauses, " AND "))
 
