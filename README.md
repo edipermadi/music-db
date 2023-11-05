@@ -7,7 +7,7 @@ This project consists of:
 - music theory data API
 
 The project is bundled as a docker cluster containing
-- postgres 15 database prefilled with music data
+- postgres 16 database prefilled with music data
 - HTTP REST API server
 
 Features:
