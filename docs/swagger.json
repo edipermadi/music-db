@@ -1,10 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "This is the documentation of Music Theory API",
+    "description": "This is the REST documentation of Music Theory API",
     "version": "1.0.0",
     "title": "Music Theory API",
-    "termsOfService": "http://swagger.io/terms/",
     "contact": {
       "email": "edipermadi@gmail.com"
     },
@@ -27,6 +26,7 @@
   "paths": {
     "/pitches": {
       "get": {
+        "operationId": "ListPitches",
         "tags": [
           "pitch"
         ],
@@ -50,6 +50,7 @@
     },
     "/pitches/{id}": {
       "get": {
+        "operationId": "GetPitch",
         "tags": [
           "pitch"
         ],
@@ -150,6 +151,7 @@
     },
     "ZeitlerPitchNumber": {
       "title": "Pitch number in William Zeitler's numbering system",
+      "description": "Value is determined by bitmap weight where CNatural is most significant bit and BNatural is the least significant bit. So CNatural number is 2048 while BNatural number is 1",
       "type": "integer",
       "minimum": 1,
       "maximum": 2048,
@@ -171,6 +173,7 @@
     },
     "RingPitchNumber": {
       "title": "Pitch number in Ian Ring's numbering system",
+      "description": "Value is determined by bitmap weight where CNatural is least significant bit and BNatural is the most significant bit. So CNatural number is 1 while BNatural number is 2048",
       "type": "integer",
       "minimum": 1,
       "maximum": 2048,
