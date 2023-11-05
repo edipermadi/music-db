@@ -1,16 +1,20 @@
 # music-db
 
-Music Database is an attempt to make an encyclopedic database of scales based on [William Zeitler](https://allthescales.org) classification.
+Music Database is an attempt to make an encyclopedic database of scales based
+on [William Zeitler](https://allthescales.org) classification.
 
 This project consists of:
+
 - postgres database seed generator
 - music theory data API
 
 The project is bundled as a docker cluster containing
+
 - postgres 16 database prefilled with music data
 - HTTP REST API server
 
 Features:
+
 - 12 semitones per octave
 - Supports 1490 scales
 - Supports 17880 keys
@@ -31,6 +35,7 @@ Features:
 ```shell
 make test
 ```
+
 ## Building
 
 To get database up and running
@@ -40,11 +45,12 @@ docker-compose up
 ```
 
 ## Example Queries
+
 ### Listing Pitches of a key
 
 ```postgresql
 SELECT k.name AS key,
-       p.name    AS pitch,
+       p.name AS pitch,
        kp.pitch_id
 FROM key_pitches kp
          JOIN keys k ON kp.key_id = k.id
@@ -69,6 +75,7 @@ WHERE k.name = 'CNaturalIonian';
 ## Query by API
 
 ### Listing Pitches
+
 ```shell
 $ curl localhost:3000/api/v1/theory/pitches
 [{"id":1,"name":"CNatural"},{"id":2,"name":"CSharp"},{"id":3,"name":"DNatural"},{"id":4,"name":"DSharp"},{"id":5,"name":"ENatural"},{"id":6,"name":"FNatural"},{"id":7,"name":"FSharp"},{"id":8,"name":"GNatural"},{"id":9,"name":"GSharp"},{"id":10,"name":"ANatural"},{"id":11,"name":"ASharp"},{"id":12,"name":"BNatural"}]
@@ -113,10 +120,10 @@ Pagination via query string `page` and `per_page`
 
 ### Keys
 
-| Method | Path                                  | Description            |
-|--------|---------------------------------------|------------------------|
-| GET    | `/api/v1/theory/keys/{:id}/chords`    | List key chords        |
-| GET    | `/api/v1/theory/keys/{:id}/modes`     | List key modes         |
-| GET    | `/api/v1/theory/keys/{:id}/pitches`   | List key pitches       |
-| GET    | `/api/v1/theory/keys/{:id}`           | Get key detail         |
-| GET    | `/api/v1/theory/keys`                 | List keys              |
+| Method | Path                                | Description      |
+|--------|-------------------------------------|------------------|
+| GET    | `/api/v1/theory/keys/{:id}/chords`  | List key chords  |
+| GET    | `/api/v1/theory/keys/{:id}/modes`   | List key modes   |
+| GET    | `/api/v1/theory/keys/{:id}/pitches` | List key pitches |
+| GET    | `/api/v1/theory/keys/{:id}`         | Get key detail   |
+| GET    | `/api/v1/theory/keys`               | List keys        |

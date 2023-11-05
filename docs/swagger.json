@@ -1,0 +1,194 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is the documentation of Music Theory API",
+    "version": "1.0.0",
+    "title": "Music Theory API",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "edipermadi@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://raw.githubusercontent.com/edipermadi/music-db/main/LICENSE"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1/theory",
+  "tags": [
+    {
+      "name": "pitch",
+      "description": "Pitch related endpoints"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/pitches": {
+      "get": {
+        "tags": [
+          "pitch"
+        ],
+        "summary": "List pitches",
+        "description": "List simplified pitches",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ListPitchesResponse"
+            }
+          }
+        }
+      }
+    },
+    "/pitches/{id}": {
+      "get": {
+        "tags": [
+          "pitch"
+        ],
+        "summary": "Get pitch",
+        "description": "Get detailed pitch information",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/GetPitchResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ListPitchesResponse": {
+      "title": "List pitches response",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SimplifiedPitch"
+      },
+      "minItems": 0,
+      "maxItems": 12
+    },
+    "GetPitchResponse": {
+      "title": "Get pitch response",
+      "type": "object",
+      "$ref": "#/definitions/DetailedPitch"
+    },
+    "SimplifiedPitch": {
+      "title": "Simplified pitch information",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/PitchId"
+        },
+        "name": {
+          "$ref": "#/definitions/PitchName"
+        }
+      }
+    },
+    "DetailedPitch": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/PitchId"
+        },
+        "name": {
+          "$ref": "#/definitions/PitchName"
+        },
+        "zeitler_number": {
+          "$ref": "#/definitions/ZeitlerPitchNumber"
+        },
+        "ring_number": {
+          "$ref": "#/definitions/RingPitchNumber"
+        },
+        "frequency": {
+          "$ref": "#/definitions/PitchFrequency"
+        }
+      }
+    },
+    "PitchId": {
+      "title": "Pitch identifier",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 12,
+      "example": 1,
+      "readOnly": true
+    },
+    "PitchName": {
+      "title": "Pitch name",
+      "type": "string",
+      "example": "CNatural",
+      "readOnly": true
+    },
+    "PitchFrequency": {
+      "title": "Pitch frequency",
+      "type": "number",
+      "example": "261.63",
+      "readOnly": true
+    },
+    "ZeitlerPitchNumber": {
+      "title": "Pitch number in William Zeitler's numbering system",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2048,
+      "enum": [
+        1,
+        2,
+        4,
+        8,
+        16,
+        32,
+        64,
+        128,
+        256,
+        512,
+        1024,
+        2048
+      ],
+      "readOnly": true
+    },
+    "RingPitchNumber": {
+      "title": "Pitch number in Ian Ring's numbering system",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2048,
+      "enum": [
+        1,
+        2,
+        4,
+        8,
+        16,
+        32,
+        64,
+        128,
+        256,
+        512,
+        1024,
+        2048
+      ],
+      "readOnly": true
+    }
+  }
+}
