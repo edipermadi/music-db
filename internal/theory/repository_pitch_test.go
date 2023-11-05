@@ -359,7 +359,8 @@ func TestTheoryRepository_GetPitch(t *testing.T) {
 		SELECT
 			id,
 			name,
-			number,
+			zeitler_number,
+			ring_number,
 			frequency
 		FROM pitches
 		WHERE id = $1;`
@@ -367,7 +368,8 @@ func TestTheoryRepository_GetPitch(t *testing.T) {
 	getPitchColumns := []string{
 		"id",
 		"name",
-		"number",
+		"zeitler_number",
+		"ring_number",
 		"frequency",
 	}
 
@@ -384,7 +386,7 @@ func TestTheoryRepository_GetPitch(t *testing.T) {
 			} else {
 				sqlMock.ExpectQuery(getPitchQuery).
 					WillReturnRows(sqlmock.NewRows(getPitchColumns).
-						AddRow(1, "name", 2, 3.0))
+						AddRow(1, "name", 2, 3, 4.0))
 			}
 
 			repository := theory.NewRepository(logger, db)

@@ -35,9 +35,14 @@ func (r theoryRepository) ListKeys(ctx context.Context, filter KeyFilter, pagina
 		clauses = append(clauses, "k.tonic_id = ?")
 	}
 
-	if filter.Number > 0 {
-		args = append(args, filter.Number)
-		clauses = append(clauses, "k.number = ?")
+	if filter.ZeitlerNumber > 0 {
+		args = append(args, filter.ZeitlerNumber)
+		clauses = append(clauses, "k.zeitler_number = ?")
+	}
+
+	if filter.RingNumber > 0 {
+		args = append(args, filter.RingNumber)
+		clauses = append(clauses, "k.ring_number = ?")
 	}
 
 	if filter.Perfection != nil && (*filter.Perfection) >= 0 {
@@ -132,7 +137,7 @@ func (r theoryRepository) ListKeys(ctx context.Context, filter KeyFilter, pagina
 
 func (r theoryRepository) ListKeyModes(ctx context.Context, keyID int64, filter KeyFilter) ([]SimplifiedKey, error) {
 	args := []interface{}{keyID}
-	clauses := []string{"k.number IN (SELECT number FROM numbers)"}
+	clauses := []string{"k.zeitler_number IN (SELECT zeitler_number FROM numbers)"}
 
 	if filter.ScaleID > 0 {
 		args = append(args, filter.ScaleID)
@@ -144,9 +149,14 @@ func (r theoryRepository) ListKeyModes(ctx context.Context, keyID int64, filter 
 		clauses = append(clauses, "k.tonic_id = ?")
 	}
 
-	if filter.Number > 0 {
-		args = append(args, filter.Number)
-		clauses = append(clauses, "k.number = ?")
+	if filter.ZeitlerNumber > 0 {
+		args = append(args, filter.ZeitlerNumber)
+		clauses = append(clauses, "k.zeitler_number = ?")
+	}
+
+	if filter.RingNumber > 0 {
+		args = append(args, filter.RingNumber)
+		clauses = append(clauses, "k.ring_number = ?")
 	}
 
 	if filter.Perfection != nil && (*filter.Perfection) >= 0 {
@@ -192,7 +202,7 @@ func (r theoryRepository) ListKeyModes(ctx context.Context, keyID int64, filter 
 	query := fmt.Sprintf(`
 		WITH numbers AS(
 			SELECT
-				number
+				zeitler_number
 			FROM keys
 			WHERE id = ?
 		)
@@ -231,9 +241,14 @@ func (r theoryRepository) ListKeyChords(ctx context.Context, keyID int64, filter
 		clauses = append(clauses, "c.root_id = ?")
 	}
 
-	if filter.Number > 0 {
-		args = append(args, filter.Number)
-		clauses = append(clauses, "c.number = ?")
+	if filter.ZeitlerNumber > 0 {
+		args = append(args, filter.ZeitlerNumber)
+		clauses = append(clauses, "c.zeitler_number = ?")
+	}
+
+	if filter.RingNumber > 0 {
+		args = append(args, filter.RingNumber)
+		clauses = append(clauses, "c.ring_number = ?")
 	}
 
 	if filter.Cardinality > 0 {
@@ -317,7 +332,8 @@ func (r theoryRepository) GetKey(ctx context.Context, keyID int64) (*DetailedKey
 			p.id   AS "tonic.id",
 			p.name AS "tonic.name",
 			k.name,
-			k.number,
+			k.zeitler_number,
+			k.ring_number,
 			k.balanced,
 			k.center_x,
 			k.center_y

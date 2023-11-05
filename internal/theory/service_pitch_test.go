@@ -48,7 +48,7 @@ func TestTheoryService_GetPitch(t *testing.T) {
 		{
 			Title: "ReturnsPitchWhenSucceeded",
 			RepositoryReturnValues: mock.TheoryRepositoryReturnValues{
-				GetPitch: []interface{}{&theory.DetailedPitch{ID: 1, Name: "name", Number: 2}, nil},
+				GetPitch: []interface{}{&theory.DetailedPitch{ID: 1, Name: "name", ZeitlerNumber: 2}, nil},
 			},
 		},
 		{

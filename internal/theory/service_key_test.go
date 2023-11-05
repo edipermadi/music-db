@@ -141,7 +141,7 @@ func TestTheoryService_GetKey(t *testing.T) {
 		{
 			Title: "ReturnsKeyWhenSucceeded",
 			RepositoryReturnValues: mock.TheoryRepositoryReturnValues{
-				GetKey: []interface{}{&theory.DetailedKey{ID: 1, Name: "name", Number: 2}, nil},
+				GetKey: []interface{}{&theory.DetailedKey{ID: 1, Name: "name", ZeitlerNumber: 2}, nil},
 			},
 		},
 		{

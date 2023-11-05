@@ -9,10 +9,11 @@ import (
 )
 
 type pitchEntry struct {
-	ID        int64
-	Name      string
-	Number    int
-	Frequency float64
+	ID            int64
+	Name          string
+	ZeitlerNumber int
+	RingNumber    int
+	Frequency     float64
 }
 
 var pitchEntries []pitchEntry
@@ -22,14 +23,14 @@ func buildPitchesTableSeed(logger *zap.Logger, writer io.Writer) error {
 	max := len(allPitches)
 
 	logger.Info("generating pitches table seed")
-	_, _ = fmt.Fprintf(writer, "INSERT INTO pitches (name, number, frequency)\nVALUES\n")
+	_, _ = fmt.Fprintf(writer, "INSERT INTO pitches (name, zeitler_number, ring_number, frequency)\nVALUES\n")
 	for i, v := range allPitches {
-		pitchEntries = append(pitchEntries, pitchEntry{ID: int64(i + 1), Name: v.String(), Number: v.Number(), Frequency: v.Frequency()})
+		pitchEntries = append(pitchEntries, pitchEntry{ID: int64(i + 1), Name: v.String(), ZeitlerNumber: v.ZeitlerNumber(), RingNumber: v.RingNumber(), Frequency: v.Frequency()})
 
 		if i < max-1 {
-			_, _ = fmt.Fprintf(writer, "\t('%s', %d, %.2f),\n", v.String(), v.Number(), v.Frequency())
+			_, _ = fmt.Fprintf(writer, "\t('%s', %d, %d, %.2f),\n", v.String(), v.ZeitlerNumber(), v.RingNumber(), v.Frequency())
 		} else {
-			_, _ = fmt.Fprintf(writer, "\t('%s', %d, %f);\n\n", v.String(), v.Number(), v.Frequency())
+			_, _ = fmt.Fprintf(writer, "\t('%s', %d, %d, %f);\n\n", v.String(), v.ZeitlerNumber(), v.RingNumber(), v.Frequency())
 		}
 	}
 
@@ -38,7 +39,7 @@ func buildPitchesTableSeed(logger *zap.Logger, writer io.Writer) error {
 
 func findPitchID(wanted pitch.Type) int64 {
 	for _, entry := range pitchEntries {
-		if entry.Number == wanted.Number() {
+		if entry.ZeitlerNumber == wanted.ZeitlerNumber() {
 			return entry.ID
 		}
 	}

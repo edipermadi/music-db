@@ -30,9 +30,14 @@ func (r theoryRepository) ListScales(ctx context.Context, filter ScaleFilter, pa
 		clauses = append(clauses, "k.tonic_id = ?")
 	}
 
-	if filter.Number > 0 {
-		args = append(args, filter.Number)
-		clauses = append(clauses, "k.number = ?")
+	if filter.ZeitlerNumber > 0 {
+		args = append(args, filter.ZeitlerNumber)
+		clauses = append(clauses, "k.zeitler_number = ?")
+	}
+
+	if filter.RingNumber > 0 {
+		args = append(args, filter.RingNumber)
+		clauses = append(clauses, "k.ring_number = ?")
 	}
 
 	if filter.Perfection != nil && (*filter.Perfection) >= 0 {
@@ -182,9 +187,14 @@ func (r theoryRepository) ListScaleChords(ctx context.Context, scaleID int64, fi
 		clauses = append(clauses, "c.root_id = ?")
 	}
 
-	if filter.Number > 0 {
-		args = append(args, filter.Number)
-		clauses = append(clauses, "c.number = ?")
+	if filter.ZeitlerNumber > 0 {
+		args = append(args, filter.ZeitlerNumber)
+		clauses = append(clauses, "c.zeitler_number = ?")
+	}
+
+	if filter.RingNumber > 0 {
+		args = append(args, filter.RingNumber)
+		clauses = append(clauses, "c.ring_number = ?")
 	}
 
 	if filter.Cardinality > 0 {
@@ -248,7 +258,8 @@ func (r theoryRepository) GetScale(ctx context.Context, scaleID int64) (*Detaile
 			id,
 			name,
 			cardinality,
-			number,
+			zeitler_number,
+			ring_number,
 			perfection,
 			imperfection,
 			pitch_class,

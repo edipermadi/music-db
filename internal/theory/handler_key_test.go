@@ -43,9 +43,19 @@ func TestTheoryHandler_ListKeyChords(t *testing.T) {
 			ExpectedStatus: http.StatusOK,
 		},
 		{
-			Title: "Returns200WhenSucceededWithNumberFilter",
+			Title: "Returns200WhenSucceededWithZeitlerNumberFilter",
 			GivenQueryStrings: url.Values{
-				"number": []string{"1"},
+				"zeitler_number": []string{"1"},
+			},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListKeyChords: []interface{}{[]theory.SimplifiedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			},
+			ExpectedStatus: http.StatusOK,
+		},
+		{
+			Title: "Returns200WhenSucceededWithRingNumberFilter",
+			GivenQueryStrings: url.Values{
+				"ring_number": []string{"1"},
 			},
 			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				ListKeyChords: []interface{}{[]theory.SimplifiedChord{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
@@ -121,9 +131,19 @@ func TestTheoryHandler_ListKeyModes(t *testing.T) {
 			ExpectedStatus: http.StatusOK,
 		},
 		{
-			Title: "Returns200WhenSucceededWithNumberFilter",
+			Title: "Returns200WhenSucceededWithZeitlerNumberFilter",
 			GivenQueryStrings: url.Values{
-				"number": []string{"1"},
+				"zeitler_number": []string{"1"},
+			},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListKeyModes: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, nil},
+			},
+			ExpectedStatus: http.StatusOK,
+		},
+		{
+			Title: "Returns200WhenSucceededWithRingNumberFilter",
+			GivenQueryStrings: url.Values{
+				"ring_number": []string{"1"},
 			},
 			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				ListKeyModes: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, nil},
@@ -307,9 +327,19 @@ func TestTheoryHandler_ListKeys(t *testing.T) {
 			ExpectedStatus: http.StatusOK,
 		},
 		{
-			Title: "Returns200WhenSucceededWithNumberFilter",
+			Title: "Returns200WhenSucceededWithZeitlerNumberFilter",
 			GivenQueryStrings: url.Values{
-				"number": []string{"1"},
+				"zeitler_number": []string{"1"},
+			},
+			ServiceReturnValues: mock.TheoryServiceReturnValues{
+				ListKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},
+			},
+			ExpectedStatus: http.StatusOK,
+		},
+		{
+			Title: "Returns200WhenSucceededWithRingNumberFilter",
+			GivenQueryStrings: url.Values{
+				"ring_number": []string{"1"},
 			},
 			ServiceReturnValues: mock.TheoryServiceReturnValues{
 				ListKeys: []interface{}{[]theory.SimplifiedKey{{ID: 1, Name: "name"}}, &api.Pagination{}, nil},

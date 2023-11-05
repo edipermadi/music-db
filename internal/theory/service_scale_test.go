@@ -141,7 +141,7 @@ func TestTheoryService_GetScale(t *testing.T) {
 		{
 			Title: "ReturnsScaleWhenSucceeded",
 			RepositoryReturnValues: mock.TheoryRepositoryReturnValues{
-				GetScale: []interface{}{&theory.DetailedScale{ID: 1, Name: "name", Number: 2}, nil},
+				GetScale: []interface{}{&theory.DetailedScale{ID: 1, Name: "name", ZeitlerNumber: 2}, nil},
 			},
 		},
 		{

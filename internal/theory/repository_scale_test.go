@@ -128,7 +128,8 @@ func TestTheoryRepository_GetScale(t *testing.T) {
 			id,
 			name,
 			cardinality,
-			number,
+			zeitler_number,
+			ring_number,
 			perfection,
 			imperfection,
 			pitch_class,
@@ -147,7 +148,8 @@ func TestTheoryRepository_GetScale(t *testing.T) {
 		"id",
 		"name",
 		"cardinality",
-		"number",
+		"zeitler_number",
+		"ring_number",
 		"perfection",
 		"imperfection",
 		"pitch_class",
@@ -175,7 +177,7 @@ func TestTheoryRepository_GetScale(t *testing.T) {
 				sqlMock.ExpectQuery(getScaleQuery).
 					WithArgs(sqlmock.AnyArg()).
 					WillReturnRows(sqlmock.NewRows(getScaleColumns).
-						AddRow(1, "name", 2, 3, 4, 5, []byte("[6,7]"), []byte("[8,9]"), true, 10, true, true, []byte("[10,11]"), true))
+						AddRow(1, "name", 2, 3, 4, 5, 6, []byte("[7,8]"), []byte("[9,10]"), true, 11, true, true, []byte("[12,13]"), true))
 			}
 
 			repository := theory.NewRepository(logger, db)

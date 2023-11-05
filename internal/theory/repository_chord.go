@@ -36,9 +36,14 @@ func (r theoryRepository) ListChords(ctx context.Context, filter ChordFilter, pa
 		clauses = append(clauses, "c.root_id = ?")
 	}
 
-	if filter.Number > 0 {
-		args = append(args, filter.Number)
-		clauses = append(clauses, "c.number = ?")
+	if filter.ZeitlerNumber > 0 {
+		args = append(args, filter.ZeitlerNumber)
+		clauses = append(clauses, "c.zeitler_number = ?")
+	}
+
+	if filter.RingNumber > 0 {
+		args = append(args, filter.RingNumber)
+		clauses = append(clauses, "c.ring_number = ?")
 	}
 
 	if filter.Cardinality > 0 {
@@ -132,9 +137,14 @@ func (r theoryRepository) ListChordKeys(ctx context.Context, chordID int64, filt
 		clauses = append(clauses, "k.tonic_id = ?")
 	}
 
-	if filter.Number > 0 {
-		args = append(args, filter.Number)
-		clauses = append(clauses, "k.number = ?")
+	if filter.ZeitlerNumber > 0 {
+		args = append(args, filter.ZeitlerNumber)
+		clauses = append(clauses, "k.zeitler_number = ?")
+	}
+
+	if filter.RingNumber > 0 {
+		args = append(args, filter.RingNumber)
+		clauses = append(clauses, "k.ring_number = ?")
 	}
 
 	if filter.Perfection != nil && (*filter.Perfection) >= 0 {
@@ -235,9 +245,14 @@ func (r theoryRepository) ListChordScales(ctx context.Context, chordID int64, fi
 		clauses = append(clauses, "k.tonic_id = ?")
 	}
 
-	if filter.Number > 0 {
-		args = append(args, filter.Number)
-		clauses = append(clauses, "k.number = ?")
+	if filter.ZeitlerNumber > 0 {
+		args = append(args, filter.ZeitlerNumber)
+		clauses = append(clauses, "k.zeitler_number = ?")
+	}
+
+	if filter.RingNumber > 0 {
+		args = append(args, filter.RingNumber)
+		clauses = append(clauses, "k.ring_number = ?")
 	}
 
 	if filter.Perfection != nil && (*filter.Perfection) >= 0 {
@@ -336,7 +351,8 @@ func (r theoryRepository) GetChord(ctx context.Context, chordID int64) (*Detaile
 			p.id    AS "root.id",
 			p.name  AS "root.name",
 			c.name,
-			c.number
+			c.zeitler_number,
+			c.ring_number
 		FROM chords c 
 			JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 			JOIN pitches p ON c.root_id = p.id
@@ -360,7 +376,8 @@ func (r theoryRepository) GetChordQuality(ctx context.Context, chordID int64) (*
 			cq.id,
 			cq.name,
 			cq.cardinality,
-			cq.number,
+			cq.zeitler_number,
+			cq.ring_number,
 			cq.pitch_class,
 			cq.interval_pattern
 		FROM chords c 

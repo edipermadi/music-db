@@ -105,15 +105,15 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			ExpectedListArgs:  []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()},
 		},
 		{
-			Title:       "ReturnsKeysWhenSucceededWithNumberFilter",
-			GivenFilter: theory.KeyFilter{Number: 1},
+			Title:       "ReturnsKeysWhenSucceededWithZeitlerNumberFilter",
+			GivenFilter: theory.KeyFilter{ZeitlerNumber: 1},
 			ExpectedCountQuery: `
 				SELECT
 					COUNT(1)
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 				WHERE
-					k.number = $1;`,
+					k.zeitler_number = $1;`,
 			ExpectedListQuery: `
 				SELECT
 					k.id,
@@ -122,7 +122,33 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
 				WHERE
-					k.number = $1
+					k.zeitler_number = $1
+				ORDER BY
+					k.id
+				OFFSET $2
+				LIMIT  $3;`,
+			ExpectedCountArgs: []driver.Value{sqlmock.AnyArg()},
+			ExpectedListArgs:  []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()},
+		},
+		{
+			Title:       "ReturnsKeysWhenSucceededWithRingNumberFilter",
+			GivenFilter: theory.KeyFilter{RingNumber: 1},
+			ExpectedCountQuery: `
+				SELECT
+					COUNT(1)
+				FROM keys k
+					JOIN scales s ON k.scale_id = s.id
+				WHERE
+					k.ring_number = $1;`,
+			ExpectedListQuery: `
+				SELECT
+					k.id,
+					k.name
+				FROM keys k
+					JOIN scales s ON k.scale_id = s.id
+					JOIN pitches p ON k.tonic_id = p.id
+				WHERE
+					k.ring_number = $1
 				ORDER BY
 					k.id
 				OFFSET $2
@@ -465,7 +491,8 @@ func TestTheoryRepository_GetKey(t *testing.T) {
 			p.id   AS "tonic.id",
 			p.name AS "tonic.name",
 			k.name,
-			k.number,
+			k.zeitler_number,
+			k.ring_number,
 			k.balanced,
 			k.center_x,
 			k.center_y
@@ -481,7 +508,8 @@ func TestTheoryRepository_GetKey(t *testing.T) {
 		"tonic.id",
 		"tonic.name",
 		"name",
-		"number",
+		"zeitler_number",
+		"ring_number",
 		"balanced",
 		"center_x",
 		"center_y",
@@ -502,7 +530,7 @@ func TestTheoryRepository_GetKey(t *testing.T) {
 				sqlMock.ExpectQuery(getKeyQuery).
 					WithArgs(sqlmock.AnyArg()).
 					WillReturnRows(sqlmock.NewRows(getKeyColumns).
-						AddRow(1, 2, "name1", 3, "name2", "name3", 4, true, 5.0, 6.0))
+						AddRow(1, 2, "name1", 3, "name2", "name3", 4, 5, true, 6.0, 7.0))
 			}
 
 			repository := theory.NewRepository(logger, db)
@@ -535,7 +563,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 			ExpectedListQuery: `
 				WITH numbers AS(
 					SELECT
-						number
+						zeitler_number
 					FROM keys
 					WHERE id = $1
 				)
@@ -546,7 +574,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
 				WHERE
-					k.number IN (SELECT number FROM numbers)
+					k.zeitler_number IN (SELECT zeitler_number FROM numbers)
 				ORDER BY
 					k.id;`,
 			ExpectedListArgs: []driver.Value{sqlmock.AnyArg()},
@@ -557,7 +585,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 			ExpectedListQuery: `
 				WITH numbers AS(
 					SELECT
-						number
+						zeitler_number
 					FROM keys
 					WHERE id = $1
 				)
@@ -568,7 +596,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
 				WHERE
-					k.number IN (SELECT number FROM numbers) AND
+					k.zeitler_number IN (SELECT zeitler_number FROM numbers) AND
 					k.scale_id = $2
 				ORDER BY
 					k.id;`,
@@ -580,7 +608,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 			ExpectedListQuery: `
 				WITH numbers AS(
 					SELECT
-						number
+						zeitler_number
 					FROM keys
 					WHERE id = $1
 				)
@@ -591,19 +619,19 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
 				WHERE
-					k.number IN (SELECT number FROM numbers) AND
+					k.zeitler_number IN (SELECT zeitler_number FROM numbers) AND
 					k.tonic_id = $2
 				ORDER BY
 					k.id;`,
 			ExpectedListArgs: []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg()},
 		},
 		{
-			Title:       "ReturnsKeysWhenSucceededWithNumberFilter",
-			GivenFilter: theory.KeyFilter{Number: 1},
+			Title:       "ReturnsKeysWhenSucceededWithZeitlerNumberFilter",
+			GivenFilter: theory.KeyFilter{ZeitlerNumber: 1},
 			ExpectedListQuery: `
 				WITH numbers AS(
 					SELECT
-						number
+						zeitler_number
 					FROM keys
 					WHERE id = $1
 				)
@@ -614,8 +642,31 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
 				WHERE
-					k.number IN (SELECT number FROM numbers) AND
-					k.number = $2
+					k.zeitler_number IN (SELECT zeitler_number FROM numbers) AND
+					k.zeitler_number = $2
+				ORDER BY
+					k.id;`,
+			ExpectedListArgs: []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg()},
+		},
+		{
+			Title:       "ReturnsKeysWhenSucceededWithRingNumberFilter",
+			GivenFilter: theory.KeyFilter{RingNumber: 1},
+			ExpectedListQuery: `
+				WITH numbers AS(
+					SELECT
+						zeitler_number
+					FROM keys
+					WHERE id = $1
+				)
+				SELECT
+					k.id,
+					k.name
+				FROM keys k
+					JOIN scales s ON k.scale_id = s.id
+					JOIN pitches p ON k.tonic_id = p.id
+				WHERE
+					k.zeitler_number IN (SELECT zeitler_number FROM numbers) AND
+					k.ring_number = $2
 				ORDER BY
 					k.id;`,
 			ExpectedListArgs: []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg()},
@@ -626,7 +677,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 			ExpectedListQuery: `
 				WITH numbers AS(
 					SELECT
-						number
+						zeitler_number
 					FROM keys
 					WHERE id = $1
 				)
@@ -637,7 +688,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
 				WHERE
-					k.number IN (SELECT number FROM numbers) AND
+					k.zeitler_number IN (SELECT zeitler_number FROM numbers) AND
 					s.perfection = $2
 				ORDER BY
 					k.id;`,
@@ -649,7 +700,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 			ExpectedListQuery: `
 				WITH numbers AS(
 					SELECT
-						number
+						zeitler_number
 					FROM keys
 					WHERE id = $1
 				)
@@ -660,7 +711,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
 				WHERE
-					k.number IN (SELECT number FROM numbers) AND
+					k.zeitler_number IN (SELECT zeitler_number FROM numbers) AND
 					s.imperfection = $2
 				ORDER BY
 					k.id;`,
@@ -672,7 +723,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 			ExpectedListQuery: `
 				WITH numbers AS(
 					SELECT
-						number
+						zeitler_number
 					FROM keys
 					WHERE id = $1
 				)
@@ -683,7 +734,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
 				WHERE
-					k.number IN (SELECT number FROM numbers) AND
+					k.zeitler_number IN (SELECT zeitler_number FROM numbers) AND
 					k.balanced = $2
 				ORDER BY
 					k.id;`,
@@ -695,7 +746,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 			ExpectedListQuery: `
 				WITH numbers AS(
 					SELECT
-						number
+						zeitler_number
 					FROM keys
 					WHERE id = $1
 				)
@@ -706,7 +757,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
 				WHERE
-					k.number IN (SELECT number FROM numbers) AND
+					k.zeitler_number IN (SELECT zeitler_number FROM numbers) AND
 					s.rotational_symmetric = $2
 				ORDER BY
 					k.id;`,
@@ -718,7 +769,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 			ExpectedListQuery: `
 				WITH numbers AS(
 					SELECT
-						number
+						zeitler_number
 					FROM keys
 					WHERE id = $1
 				)
@@ -729,7 +780,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
 				WHERE
-					k.number IN (SELECT number FROM numbers) AND
+					k.zeitler_number IN (SELECT zeitler_number FROM numbers) AND
 					s.rotational_symmetry_level = $2
 				ORDER BY
 					k.id;`,
@@ -741,7 +792,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 			ExpectedListQuery: `
 				WITH numbers AS(
 					SELECT
-						number
+						zeitler_number
 					FROM keys
 					WHERE id = $1
 				)
@@ -752,7 +803,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
 				WHERE
-					k.number IN (SELECT number FROM numbers) AND
+					k.zeitler_number IN (SELECT zeitler_number FROM numbers) AND
 					s.reflectional_symmetric = $2
 				ORDER BY
 					k.id;`,
@@ -764,7 +815,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 			ExpectedListQuery: `
 				WITH numbers AS(
 					SELECT
-						number
+						zeitler_number
 					FROM keys
 					WHERE id = $1
 				)
@@ -775,7 +826,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
 				WHERE
-					k.number IN (SELECT number FROM numbers) AND
+					k.zeitler_number IN (SELECT zeitler_number FROM numbers) AND
 					s.palindromic = $2
 				ORDER BY
 					k.id;`,
@@ -787,7 +838,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 			ExpectedListQuery: `
 				WITH numbers AS(
 					SELECT
-						number
+						zeitler_number
 					FROM keys
 					WHERE id = $1
 				)
@@ -798,7 +849,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
 				WHERE
-					k.number IN (SELECT number FROM numbers) AND
+					k.zeitler_number IN (SELECT zeitler_number FROM numbers) AND
 					s.cardinality = $2
 				ORDER BY
 					k.id;`,
@@ -809,7 +860,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 			ExpectedListQuery: `
 				WITH numbers AS(
 					SELECT
-						number
+						zeitler_number
 					FROM keys
 					WHERE id = $1
 				)
@@ -820,7 +871,7 @@ func TestTheoryRepository_ListKeyModes(t *testing.T) {
 					JOIN scales s ON k.scale_id = s.id
 					JOIN pitches p ON k.tonic_id = p.id
 				WHERE
-					k.number IN (SELECT number FROM numbers)
+					k.zeitler_number IN (SELECT zeitler_number FROM numbers)
 				ORDER BY
 					k.id;`,
 			ExpectedListArgs:  []driver.Value{sqlmock.AnyArg()},
@@ -964,8 +1015,8 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 			ExpectedListArgs:  []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()},
 		},
 		{
-			Title:       "ReturnsChordsWhenSucceededWithNumberFilter",
-			GivenFilter: theory.ChordFilter{Number: 1},
+			Title:       "ReturnsChordsWhenSucceededWithZeitlerNumberFilter",
+			GivenFilter: theory.ChordFilter{ZeitlerNumber: 1},
 			ExpectedCountQuery: `
 				SELECT
 					COUNT(1)
@@ -973,8 +1024,8 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 					JOIN chords c ON kpc.chord_id = c.id
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 				WHERE
-					kpc.key_id = $1 AND
-					c.number   = $2;`,
+					kpc.key_id       = $1 AND
+					c.zeitler_number = $2;`,
 			ExpectedListQuery: `
 				SELECT
 					c.id,
@@ -984,8 +1035,38 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 					JOIN pitches p ON c.root_id = p.id
 				WHERE
-					kpc.key_id = $1 AND
-					c.number   = $2
+					kpc.key_id       = $1 AND
+					c.zeitler_number = $2
+				ORDER BY
+					c.id
+				OFFSET $3
+				LIMIT  $4;`,
+			ExpectedCountArgs: []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg()},
+			ExpectedListArgs:  []driver.Value{sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()},
+		},
+		{
+			Title:       "ReturnsChordsWhenSucceededWithRingNumberFilter",
+			GivenFilter: theory.ChordFilter{RingNumber: 1},
+			ExpectedCountQuery: `
+				SELECT
+					COUNT(1)
+				FROM key_pitch_chords kpc
+					JOIN chords c ON kpc.chord_id = c.id
+					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
+				WHERE
+					kpc.key_id    = $1 AND
+					c.ring_number = $2;`,
+			ExpectedListQuery: `
+				SELECT
+					c.id,
+					c.name
+				FROM key_pitch_chords kpc 
+					JOIN chords c ON kpc.chord_id = c.id
+					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
+					JOIN pitches p ON c.root_id = p.id
+				WHERE
+					kpc.key_id    = $1 AND
+					c.ring_number = $2
 				ORDER BY
 					c.id
 				OFFSET $3

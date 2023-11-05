@@ -13,10 +13,11 @@ type SimplifiedPitch struct {
 
 // DetailedPitch is detailed pitch object
 type DetailedPitch struct {
-	ID        int64   `json:"id" db:"id"`
-	Name      string  `json:"name" db:"name"`
-	Number    int     `json:"number" db:"number"`
-	Frequency float64 `json:"frequency" db:"frequency"`
+	ID            int64   `json:"id" db:"id"`
+	Name          string  `json:"name" db:"name"`
+	ZeitlerNumber int     `json:"zeitler_number" db:"zeitler_number"`
+	RingNumber    int     `json:"ring_number" db:"ring_number"`
+	Frequency     float64 `json:"frequency" db:"frequency"`
 }
 
 // SimplifiedChordQuality is simplified chord quality object
@@ -29,7 +30,8 @@ type SimplifiedChordQuality struct {
 type DetailedChordQuality struct {
 	ID              int64    `json:"id" db:"id"`
 	Name            string   `json:"name" db:"name"`
-	Number          int      `json:"number" db:"number"`
+	ZeitlerNumber   int      `json:"zeitler_number" db:"zeitler_number"`
+	RingNumber      int      `json:"ring_number" db:"ring_number"`
 	Cardinality     int      `json:"cardinality" db:"cardinality"`
 	PitchClass      SliceInt `json:"pitch_class" db:"pitch_class"`
 	IntervalPattern SliceInt `json:"interval_pattern" db:"interval_pattern"`
@@ -43,18 +45,20 @@ type SimplifiedChord struct {
 
 // DetailedChord is detailed chord object
 type DetailedChord struct {
-	ID      int64                  `json:"id" db:"id"`
-	Quality SimplifiedChordQuality `json:"quality" db:"quality"`
-	Root    SimplifiedPitch        `json:"root" db:"root"`
-	Name    string                 `json:"name" db:"name"`
-	Number  int                    `json:"number" db:"number"`
+	ID            int64                  `json:"id" db:"id"`
+	Quality       SimplifiedChordQuality `json:"quality" db:"quality"`
+	Root          SimplifiedPitch        `json:"root" db:"root"`
+	Name          string                 `json:"name" db:"name"`
+	ZeitlerNumber int                    `json:"zeitler_number" db:"zeitler_number"`
+	RingNumber    int                    `json:"ring_number" db:"ring_number"`
 }
 
 // ChordFilter represents chord filter
 type ChordFilter struct {
 	ChordQualityID int64 `form:"chord_quality_id"`
 	RootID         int64 `form:"root_id"`
-	Number         int   `form:"number"`
+	ZeitlerNumber  int   `form:"zeitler_number"`
+	RingNumber     int   `form:"ring_number"`
 	Cardinality    int   `form:"cardinality"`
 }
 
@@ -63,7 +67,8 @@ type DetailedScale struct {
 	ID                       int64    `json:"id" db:"id"`
 	Name                     string   `json:"name" db:"name"`
 	Cardinality              int      `json:"cardinality" db:"cardinality"`
-	Number                   int      `json:"number" db:"number"`
+	ZeitlerNumber            int      `json:"zeitler_number" db:"zeitler_number"`
+	RingNumber               int      `json:"ring_number" db:"ring_number"`
 	Perfection               int      `json:"perfection" db:"perfection"`
 	Imperfection             int      `json:"imperfection" db:"imperfection"`
 	PitchClass               SliceInt `json:"pitch_class" db:"pitch_class"`
@@ -85,7 +90,8 @@ type SimplifiedScale struct {
 // ScaleFilter is scale filter
 type ScaleFilter struct {
 	TonicID                 int64 `form:"tonic_id"`
-	Number                  int   `form:"number"`
+	ZeitlerNumber           int   `form:"zeitler_number"`
+	RingNumber              int   `form:"ring_number"`
 	Perfection              *int  `form:"perfection"`
 	Imperfection            *int  `form:"imperfection"`
 	Balanced                *bool `form:"balanced"`
@@ -98,14 +104,15 @@ type ScaleFilter struct {
 
 // DetailedKey is detailed key object
 type DetailedKey struct {
-	ID       int             `json:"id" db:"id"`
-	Scale    SimplifiedScale `json:"scale" db:"scale"`
-	Tonic    SimplifiedPitch `json:"tonic" db:"tonic"`
-	Name     string          `json:"name" db:"name"`
-	Number   int             `json:"number" db:"number"`
-	Balanced bool            `json:"balanced" db:"balanced"`
-	CenterX  float64         `json:"center_x" db:"center_x"`
-	CenterY  float64         `json:"center_y" db:"center_y"`
+	ID            int             `json:"id" db:"id"`
+	Scale         SimplifiedScale `json:"scale" db:"scale"`
+	Tonic         SimplifiedPitch `json:"tonic" db:"tonic"`
+	Name          string          `json:"name" db:"name"`
+	ZeitlerNumber int             `json:"zeitler_number" db:"zeitler_number"`
+	RingNumber    int             `json:"ring_number" db:"ring_number"`
+	Balanced      bool            `json:"balanced" db:"balanced"`
+	CenterX       float64         `json:"center_x" db:"center_x"`
+	CenterY       float64         `json:"center_y" db:"center_y"`
 }
 
 // SimplifiedKey is simplified key object
@@ -118,7 +125,8 @@ type SimplifiedKey struct {
 type KeyFilter struct {
 	ScaleID                 int64 `form:"scale_id"`
 	TonicID                 int64 `form:"tonic_id"`
-	Number                  int   `form:"number"`
+	ZeitlerNumber           int   `form:"zeitler_number"`
+	RingNumber              int   `form:"ring_number"`
 	Perfection              *int  `form:"perfection"`
 	Imperfection            *int  `form:"imperfection"`
 	Balanced                *bool `form:"balanced"`

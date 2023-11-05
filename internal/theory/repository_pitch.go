@@ -24,7 +24,8 @@ func (r theoryRepository) GetPitch(ctx context.Context, pitchID int64) (*Detaile
 		SELECT
 			id,
 			name,
-			number,
+			zeitler_number,
+			ring_number,
 			frequency
 		FROM pitches
 		WHERE id = $1;`
@@ -56,9 +57,14 @@ func (r theoryRepository) ListPitchChords(ctx context.Context, pitchID int64, fi
 		args = append(args, filter.RootID)
 	}
 
-	if filter.Number > 0 {
-		clauses = append(clauses, "c.number = ?")
-		args = append(args, filter.Number)
+	if filter.ZeitlerNumber > 0 {
+		clauses = append(clauses, "c.zeitler_number = ?")
+		args = append(args, filter.ZeitlerNumber)
+	}
+
+	if filter.RingNumber > 0 {
+		clauses = append(clauses, "c.ring_number = ?")
+		args = append(args, filter.RingNumber)
 	}
 
 	if filter.Cardinality > 0 {
@@ -129,9 +135,14 @@ func (r theoryRepository) ListPitchKeys(ctx context.Context, pitchID int64, filt
 		clauses = append(clauses, "k.tonic_id = ?")
 	}
 
-	if filter.Number > 0 {
-		args = append(args, filter.Number)
-		clauses = append(clauses, "k.number = ?")
+	if filter.ZeitlerNumber > 0 {
+		args = append(args, filter.ZeitlerNumber)
+		clauses = append(clauses, "k.zeitler_number = ?")
+	}
+
+	if filter.RingNumber > 0 {
+		args = append(args, filter.RingNumber)
+		clauses = append(clauses, "k.ring_number = ?")
 	}
 
 	if filter.Perfection != nil && (*filter.Perfection) >= 0 {
@@ -232,9 +243,14 @@ func (r theoryRepository) ListPitchScales(ctx context.Context, pitchID int64, fi
 		clauses = append(clauses, "k.tonic_id = ?")
 	}
 
-	if filter.Number > 0 {
-		args = append(args, filter.Number)
-		clauses = append(clauses, "k.number = ?")
+	if filter.ZeitlerNumber > 0 {
+		args = append(args, filter.ZeitlerNumber)
+		clauses = append(clauses, "k.zeitler_number = ?")
+	}
+
+	if filter.RingNumber > 0 {
+		args = append(args, filter.RingNumber)
+		clauses = append(clauses, "k.ring_number = ?")
 	}
 
 	if filter.Perfection != nil && (*filter.Perfection) >= 0 {

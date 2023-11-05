@@ -20,13 +20,33 @@ func (s Slice) Unique() Slice {
 
 // Signature return pitch slice signature
 func (s Slice) Signature() int {
+	return s.ZeitlerSignature()
+}
+
+// ZeitlerSignature return pitch slice signature according to William Zeitler's system
+func (s Slice) ZeitlerSignature() int {
 	pitchMap := make(map[Type]struct{})
 
 	var amount int
 	for _, v := range s {
 		if _, found := pitchMap[v]; !found {
 			pitchMap[v] = struct{}{}
-			amount += v.Number()
+			amount += v.ZeitlerNumber()
+		}
+	}
+
+	return amount
+}
+
+// RingSignature return pitch slice signature according to Ian Ring's system
+func (s Slice) RingSignature() int {
+	pitchMap := make(map[Type]struct{})
+
+	var amount int
+	for _, v := range s {
+		if _, found := pitchMap[v]; !found {
+			pitchMap[v] = struct{}{}
+			amount += v.RingNumber()
 		}
 	}
 

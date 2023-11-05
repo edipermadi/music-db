@@ -24,6 +24,7 @@ Features:
 - Scale reflective symmetry detection
 - Scale cardinality
 - Chord cardinality
+- Ian Ring's numbering system for pitches, chords and scales
 
 ## Running test
 
@@ -70,7 +71,7 @@ WHERE k.name = 'CNaturalIonian';
 ### Listing Pitches
 ```shell
 $ curl localhost:3000/api/v1/theory/pitches
-[{"id":1,"name":"CNatural","number":"2048","frequency":261.63},{"id":2,"name":"CSharp","number":"1024","frequency":277.18},{"id":3,"name":"DNatural","number":"512","frequency":293.66},{"id":4,"name":"DSharp","number":"256","frequency":311.13},{"id":5,"name":"ENatural","number":"128","frequency":329.63},{"id":6,"name":"FNatural","number":"64","frequency":349.23},{"id":7,"name":"FSharp","number":"32","frequency":369.99},{"id":8,"name":"GNatural","number":"16","frequency":392},{"id":9,"name":"GSharp","number":"8","frequency":415.3},{"id":10,"name":"ANatural","number":"4","frequency":440},{"id":11,"name":"ASharp","number":"2","frequency":466.16},{"id":12,"name":"BNatural","number":"1","frequency":493.88}]
+[{"id":1,"name":"CNatural"},{"id":2,"name":"CSharp"},{"id":3,"name":"DNatural"},{"id":4,"name":"DSharp"},{"id":5,"name":"ENatural"},{"id":6,"name":"FNatural"},{"id":7,"name":"FSharp"},{"id":8,"name":"GNatural"},{"id":9,"name":"GSharp"},{"id":10,"name":"ANatural"},{"id":11,"name":"ASharp"},{"id":12,"name":"BNatural"}]
 ```
 
 ## Query by API

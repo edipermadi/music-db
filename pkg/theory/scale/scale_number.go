@@ -1,7 +1,14 @@
 package scale
 
+import "github.com/edipermadi/music-db/pkg/theory/pitch"
+
 // Number return scale number
 func (s Type) Number() int {
+	return s.ZeitlerNumber()
+}
+
+// ZeitlerNumber return scale number according to William Zeitler's numbering system
+func (s Type) ZeitlerNumber() int {
 	return [...]int{
 		0,
 
@@ -253,4 +260,9 @@ func (s Type) Number() int {
 		// 12 notes, reference: reference https://allthescales.org/scales.php?n=12
 		4095,
 	}[s]
+}
+
+// RingNumber return scale numbering according to Ian Ring's numbering system
+func (s Type) RingNumber() int {
+	return pitch.Slice(s.Pitches(pitch.CNatural)).RingSignature()
 }

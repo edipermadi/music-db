@@ -16,7 +16,8 @@ type chordEntry struct {
 	ChordQualityID int64
 	RootID         int64
 	Name           string
-	Number         int
+	ZeitlerNumber  int // Numbering according to Willam Zeitler's system
+	RingNumber     int // Numbering according to Ian Ring's system
 	Pitches        pitch.Slice
 }
 
@@ -37,19 +38,20 @@ func buildChordsTableSeed(logger *zap.Logger, writer io.Writer) error {
 				ChordQualityID: chordQualityID,
 				RootID:         findPitchID(w),
 				Name:           fmt.Sprintf("%s%s", w.String(), v.String()),
-				Number:         pitch.Slice(pitches).Signature(),
+				ZeitlerNumber:  pitch.Slice(pitches).ZeitlerSignature(),
+				RingNumber:     pitch.Slice(pitches).RingSignature(),
 				Pitches:        pitches,
 			})
 			id++
 		}
 	}
 
-	_, _ = fmt.Fprintf(writer, "INSERT INTO chords (chord_quality_id, root_id, name, number)\nVALUES\n")
+	_, _ = fmt.Fprintf(writer, "INSERT INTO chords (chord_quality_id, root_id, name, zeitler_number, ring_number)\nVALUES\n")
 	for i, v := range chordEntries {
 		if i < len(chordEntries)-1 {
-			_, _ = fmt.Fprintf(writer, "(%d, %d, '%s', %d),\n", v.ChordQualityID, v.RootID, v.Name, v.Number)
+			_, _ = fmt.Fprintf(writer, "(%d, %d, '%s', %d, %d),\n", v.ChordQualityID, v.RootID, v.Name, v.ZeitlerNumber, v.RingNumber)
 		} else {
-			_, _ = fmt.Fprintf(writer, "(%d, %d, '%s', %d);\n\n", v.ChordQualityID, v.RootID, v.Name, v.Number)
+			_, _ = fmt.Fprintf(writer, "(%d, %d, '%s', %d, %d);\n\n", v.ChordQualityID, v.RootID, v.Name, v.ZeitlerNumber, v.RingNumber)
 		}
 	}
 

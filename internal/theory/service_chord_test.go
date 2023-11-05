@@ -141,7 +141,7 @@ func TestTheoryService_GetChord(t *testing.T) {
 		{
 			Title: "ReturnsChordWhenSucceeded",
 			RepositoryReturnValues: mock.TheoryRepositoryReturnValues{
-				GetChord: []interface{}{&theory.DetailedChord{ID: 1, Name: "name", Number: 2}, nil},
+				GetChord: []interface{}{&theory.DetailedChord{ID: 1, Name: "name", ZeitlerNumber: 2}, nil},
 			},
 		},
 		{
@@ -172,7 +172,7 @@ func TestTheoryService_GetChordQuality(t *testing.T) {
 		{
 			Title: "ReturnsChordQualityWhenSucceeded",
 			RepositoryReturnValues: mock.TheoryRepositoryReturnValues{
-				GetChordQuality: []interface{}{&theory.DetailedChordQuality{ID: 1, Name: "name", Number: 2}, nil},
+				GetChordQuality: []interface{}{&theory.DetailedChordQuality{ID: 1, Name: "name", ZeitlerNumber: 2}, nil},
 			},
 		},
 		{

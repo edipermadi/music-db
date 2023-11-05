@@ -19,7 +19,7 @@ func buildKeyPitchChordsTableSeed(logger *zap.Logger, writer io.Writer) error {
 	entries := make([]entry, 0)
 	for _, key := range keyEntries {
 		for _, chord := range chordEntries {
-			if key.Number&chord.Number == chord.Number {
+			if key.ZeitlerNumber&chord.ZeitlerNumber == chord.ZeitlerNumber {
 				entries = append(entries, entry{KeyID: key.ID, PitchID: chord.RootID, ChordID: chord.ID})
 			}
 		}

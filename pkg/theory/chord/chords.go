@@ -173,8 +173,13 @@ func (q Quality) String() string {
 	}[q]
 }
 
-// Number returns chord number
+// Number returns chord number according to William Zeitler's system
 func (q Quality) Number() int {
+	return q.ZeitlerNumber()
+}
+
+// ZeitlerNumber returns chord number according to William Zeitler's system
+func (q Quality) ZeitlerNumber() int {
 	return [...]int{
 		0,
 		2192, 2320, 2064, 2336, 2184, 2576, 2128, 2208, 2180, 2312,
@@ -186,6 +191,11 @@ func (q Quality) Number() int {
 		2352, 2226, 2225, 2600, 2196, 2324, 2212, 2580, 2132, 2596,
 		2628, 2704, 2832, 2708, 2836, 3216, 3344, 2448,
 	}[q]
+}
+
+// RingNumber return chord quality number according to Ian Ring's numbering system
+func (q Quality) RingNumber() int {
+	return pitch.Slice(q.Pitches(pitch.CNatural)).RingSignature()
 }
 
 // Pitches returns chord pitches

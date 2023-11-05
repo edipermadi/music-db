@@ -13,7 +13,8 @@ type scaleEntry struct {
 	ID                       int64
 	Name                     string
 	Cardinality              int
-	Number                   int
+	ZeitlerNumber            int
+	RingNumber               int
 	Perfection               int
 	Imperfection             int
 	PitchClass               []int
@@ -33,7 +34,7 @@ func buildScalesTableSeed(logger *zap.Logger, writer io.Writer) error {
 	max := len(allScales)
 
 	logger.Info("generating scale seed")
-	_, _ = fmt.Fprintf(writer, "INSERT INTO scales (name, cardinality, number, perfection, imperfection, pitch_class, interval_pattern, rotational_symmetric, rotational_symmetry_level, palindromic, reflectional_symmetric, reflectional_symmetry_axes, balanced)\nVALUES\n")
+	_, _ = fmt.Fprintf(writer, "INSERT INTO scales (name, cardinality, zeitler_number, ring_number, perfection, imperfection, pitch_class, interval_pattern, rotational_symmetric, rotational_symmetry_level, palindromic, reflectional_symmetric, reflectional_symmetry_axes, balanced)\nVALUES\n")
 	for i, v := range allScales {
 		result := v.Perfection()
 		pitchClass := v.PitchClass()
@@ -51,7 +52,8 @@ func buildScalesTableSeed(logger *zap.Logger, writer io.Writer) error {
 			ID:                       int64(i + 1),
 			Name:                     v.String(),
 			Cardinality:              v.Cardinality(),
-			Number:                   v.Number(),
+			ZeitlerNumber:            v.ZeitlerNumber(),
+			RingNumber:               v.RingNumber(),
 			Perfection:               result.Perfection,
 			Imperfection:             result.Imperfection,
 			PitchClass:               pitchClass,
@@ -65,9 +67,9 @@ func buildScalesTableSeed(logger *zap.Logger, writer io.Writer) error {
 		})
 
 		if i < max-1 {
-			_, _ = fmt.Fprintf(writer, "\t('%s', %d, %d, %d, %d, '%s', '%s', %t, %d, %t, %t, '%s', %t),\n", v.String(), v.Cardinality(), v.Number(), result.Perfection, result.Imperfection, encodedPitchClass, encodedIntervalPattern, rotationalSymmetric, rotationalSymmetryLevel, palindromic, reflectiveSymmetric, encodedReflectiveSymmetryAxes, balanced)
+			_, _ = fmt.Fprintf(writer, "\t('%s', %d, %d, %d, %d, %d, '%s', '%s', %t, %d, %t, %t, '%s', %t),\n", v.String(), v.Cardinality(), v.ZeitlerNumber(), v.RingNumber(), result.Perfection, result.Imperfection, encodedPitchClass, encodedIntervalPattern, rotationalSymmetric, rotationalSymmetryLevel, palindromic, reflectiveSymmetric, encodedReflectiveSymmetryAxes, balanced)
 		} else {
-			_, _ = fmt.Fprintf(writer, "\t('%s', %d, %d, %d, %d, '%s', '%s', %t, %d, %t, %t, '%s', %t);\n\n", v.String(), v.Cardinality(), v.Number(), result.Perfection, result.Imperfection, encodedPitchClass, encodedIntervalPattern, rotationalSymmetric, rotationalSymmetryLevel, palindromic, reflectiveSymmetric, encodedReflectiveSymmetryAxes, balanced)
+			_, _ = fmt.Fprintf(writer, "\t('%s', %d, %d, %d, %d, %d, '%s', '%s', %t, %d, %t, %t, '%s', %t);\n\n", v.String(), v.Cardinality(), v.ZeitlerNumber(), v.RingNumber(), result.Perfection, result.Imperfection, encodedPitchClass, encodedIntervalPattern, rotationalSymmetric, rotationalSymmetryLevel, palindromic, reflectiveSymmetric, encodedReflectiveSymmetryAxes, balanced)
 		}
 	}
 
@@ -76,7 +78,7 @@ func buildScalesTableSeed(logger *zap.Logger, writer io.Writer) error {
 
 func findScaleID(wanted scale.Type) int64 {
 	for _, entry := range scaleEntries {
-		if entry.Number == wanted.Number() {
+		if entry.ZeitlerNumber == wanted.ZeitlerNumber() {
 			return entry.ID
 		}
 	}

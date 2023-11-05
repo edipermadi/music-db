@@ -75,12 +75,26 @@ func (p Type) Frequency() float64 {
 	}[p]
 }
 
-// Number return patch number
+// Number return patch number according to William Zeitler's numbering system
 func (p Type) Number() int {
-	if p == 0 {
+	return p.ZeitlerNumber()
+}
+
+// ZeitlerNumber return pitch numbering according to William Zeitler's system
+func (p Type) ZeitlerNumber() int {
+	if p < CNatural {
 		return 0
 	}
 	return 1 << (12 - p)
+}
+
+// RingNumber return pitch numbering according to Ian Ring's system
+func (p Type) RingNumber() int {
+	if p < CNatural {
+		return 0
+	}
+
+	return 1 << (p - 1)
 }
 
 // Transpose return transposed pitch
