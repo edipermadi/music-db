@@ -31,9 +31,12 @@ func main() {
 	}
 
 	router := mux.NewRouter()
-	apiRouter := router.PathPrefix("/api/").Subrouter()
+	apiRouter := router.PathPrefix("/api").Subrouter()
+
 	apiV1Router := apiRouter.PathPrefix("/v1").Subrouter()
-	theoryV2Router := apiV1Router.PathPrefix("/theory").Subrouter()
+	theoryRouter := apiV1Router.PathPrefix("/theory").Subrouter()
+
+	apiRouter.PathPrefix("/docs").Handler(http.StripPrefix("/api/docs/", http.FileServer(http.Dir("./docs/dist/"))))
 
 	user := vpr.GetString("db.user")
 	password := vpr.GetString("db.password")
@@ -54,7 +57,7 @@ func main() {
 	theoryRepository := theory.NewRepository(logger, db)
 	theoryService := theory.NewService(logger, theoryRepository)
 	handlerHandler := theory.NewHandler(logger, theoryService)
-	handlerHandler.InstallEndpoints(theoryV2Router)
+	handlerHandler.InstallEndpoints(theoryRouter)
 
 	srv := &http.Server{
 		Handler:           handlers.RecoveryHandler(handlers.PrintRecoveryStack(true))(router),

@@ -289,7 +289,7 @@ func TestTheoryRepository_ListPitchScales(t *testing.T) {
 		WHERE
 		    kp.pitch_id = $1
 		ORDER
-			BY k.id
+			BY s.id
 		OFFSET $2
 		LIMIT $3;`
 
