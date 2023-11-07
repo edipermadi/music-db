@@ -90,6 +90,9 @@ const (
 
 // String returns chord name
 func (q Quality) String() string {
+	if q < Major || q > MajorAddSharpNinth {
+		return "Invalid"
+	}
 	return [...]string{
 		"Invalid",
 		"Major",
@@ -180,6 +183,10 @@ func (q Quality) Number() int {
 
 // ZeitlerNumber returns chord number according to William Zeitler's system
 func (q Quality) ZeitlerNumber() int {
+	if q < Major || q > MajorAddSharpNinth {
+		return 0
+	}
+
 	return [...]int{
 		0,
 		2192, 2320, 2064, 2336, 2184, 2576, 2128, 2208, 2180, 2312,
