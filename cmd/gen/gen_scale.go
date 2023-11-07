@@ -25,6 +25,7 @@ type scaleEntry struct {
 	ReflectionalSymmetric    bool
 	ReflectionalSymmetryAxes []int
 	Balanced                 bool
+	FifthGeneratorRootDegree int
 }
 
 var scaleEntries []scaleEntry
@@ -34,7 +35,7 @@ func buildScalesTableSeed(logger *zap.Logger, writer io.Writer) error {
 	max := len(allScales)
 
 	logger.Info("generating scale seed")
-	_, _ = fmt.Fprintf(writer, "INSERT INTO scales (name, cardinality, zeitler_number, ring_number, perfection, imperfection, pitch_class, interval_pattern, rotational_symmetric, rotational_symmetry_level, palindromic, reflectional_symmetric, reflectional_symmetry_axes, balanced)\nVALUES\n")
+	_, _ = fmt.Fprintf(writer, "INSERT INTO scales (name, cardinality, zeitler_number, ring_number, perfection, imperfection, pitch_class, interval_pattern, rotational_symmetric, rotational_symmetry_level, palindromic, reflectional_symmetric, reflectional_symmetry_axes, balanced, fifth_generator_root_degree)\nVALUES\n")
 	for i, v := range allScales {
 		result := v.Perfection()
 		pitchClass := v.PitchClass()
@@ -48,6 +49,8 @@ func buildScalesTableSeed(logger *zap.Logger, writer io.Writer) error {
 		reflectiveSymmetryAxes := v.ReflectiveSymmetryAxes()
 		encodedReflectiveSymmetryAxes, _ := json.Marshal(reflectiveSymmetryAxes)
 		balanced := v.Balanced()
+		fifthGeneratorRoot := v.FifthGeneratorRoot()
+		fifthGeneratorRootDegree := int(fifthGeneratorRoot.Degree)
 		scaleEntries = append(scaleEntries, scaleEntry{
 			ID:                       int64(i + 1),
 			Name:                     v.String(),
@@ -64,12 +67,13 @@ func buildScalesTableSeed(logger *zap.Logger, writer io.Writer) error {
 			ReflectionalSymmetric:    reflectiveSymmetric,
 			ReflectionalSymmetryAxes: reflectiveSymmetryAxes,
 			Balanced:                 balanced,
+			FifthGeneratorRootDegree: fifthGeneratorRootDegree,
 		})
 
 		if i < max-1 {
-			_, _ = fmt.Fprintf(writer, "\t('%s', %d, %d, %d, %d, %d, '%s', '%s', %t, %d, %t, %t, '%s', %t),\n", v.String(), v.Cardinality(), v.ZeitlerNumber(), v.RingNumber(), result.Perfection, result.Imperfection, encodedPitchClass, encodedIntervalPattern, rotationalSymmetric, rotationalSymmetryLevel, palindromic, reflectiveSymmetric, encodedReflectiveSymmetryAxes, balanced)
+			_, _ = fmt.Fprintf(writer, "\t('%s', %d, %d, %d, %d, %d, '%s', '%s', %t, %d, %t, %t, '%s', %t, %d),\n", v.String(), v.Cardinality(), v.ZeitlerNumber(), v.RingNumber(), result.Perfection, result.Imperfection, encodedPitchClass, encodedIntervalPattern, rotationalSymmetric, rotationalSymmetryLevel, palindromic, reflectiveSymmetric, encodedReflectiveSymmetryAxes, balanced, fifthGeneratorRootDegree)
 		} else {
-			_, _ = fmt.Fprintf(writer, "\t('%s', %d, %d, %d, %d, %d, '%s', '%s', %t, %d, %t, %t, '%s', %t);\n\n", v.String(), v.Cardinality(), v.ZeitlerNumber(), v.RingNumber(), result.Perfection, result.Imperfection, encodedPitchClass, encodedIntervalPattern, rotationalSymmetric, rotationalSymmetryLevel, palindromic, reflectiveSymmetric, encodedReflectiveSymmetryAxes, balanced)
+			_, _ = fmt.Fprintf(writer, "\t('%s', %d, %d, %d, %d, %d, '%s', '%s', %t, %d, %t, %t, '%s', %t, %d);\n\n", v.String(), v.Cardinality(), v.ZeitlerNumber(), v.RingNumber(), result.Perfection, result.Imperfection, encodedPitchClass, encodedIntervalPattern, rotationalSymmetric, rotationalSymmetryLevel, palindromic, reflectiveSymmetric, encodedReflectiveSymmetryAxes, balanced, fifthGeneratorRootDegree)
 		}
 	}
 

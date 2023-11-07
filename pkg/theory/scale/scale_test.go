@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/edipermadi/music-db/pkg/theory/degree"
 	"github.com/edipermadi/music-db/pkg/theory/pitch"
 	"github.com/edipermadi/music-db/pkg/theory/scale"
 	"github.com/stretchr/testify/assert"
@@ -188,4 +189,116 @@ func TestType_Balanced(t *testing.T) {
 	assert.True(t, scale.Ionodian.Balanced())
 	assert.True(t, scale.Katogyllic.Balanced())
 	assert.True(t, scale.Chromatic.Balanced())
+}
+
+func TestType_FifthGeneratorRoot(t *testing.T) {
+	type testCase struct {
+		Title        string
+		GivenScale   scale.Type
+		ExpectedRoot pitch.WithDegree
+	}
+
+	testCases := []testCase{
+		{
+			Title:        "Lydian",
+			GivenScale:   scale.Lydian,
+			ExpectedRoot: pitch.WithDegree{Pitch: pitch.CNatural, Degree: degree.FromInt(1)},
+		},
+		{
+			Title:        "Phrygian",
+			GivenScale:   scale.Phrygian,
+			ExpectedRoot: pitch.WithDegree{Pitch: pitch.CSharp, Degree: degree.FromInt(2)},
+		},
+		{
+			Title:        "Dorian",
+			GivenScale:   scale.Dorian,
+			ExpectedRoot: pitch.WithDegree{Pitch: pitch.DSharp, Degree: degree.FromInt(3)},
+		},
+		{
+			Title:        "Ionian",
+			GivenScale:   scale.Ionian,
+			ExpectedRoot: pitch.WithDegree{Pitch: pitch.FNatural, Degree: degree.FromInt(4)},
+		},
+		{
+			Title:        "Locrian",
+			GivenScale:   scale.Locrian,
+			ExpectedRoot: pitch.WithDegree{Pitch: pitch.FSharp, Degree: degree.FromInt(5)},
+		},
+		{
+			Title:        "Aeolian",
+			GivenScale:   scale.Aeolian,
+			ExpectedRoot: pitch.WithDegree{Pitch: pitch.GSharp, Degree: degree.FromInt(6)},
+		},
+		{
+			Title:        "Mixolydian",
+			GivenScale:   scale.Mixolydian,
+			ExpectedRoot: pitch.WithDegree{Pitch: pitch.ASharp, Degree: degree.FromInt(7)},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.Title, func(t *testing.T) {
+			assert.Equal(t, tc.ExpectedRoot, tc.GivenScale.FifthGeneratorRoot())
+		})
+	}
+}
+
+func TestType_FifthGeneratorRootWithTonic(t *testing.T) {
+	type testCase struct {
+		Title        string
+		GivenScale   scale.Type
+		GivenTonic   pitch.Type
+		ExpectedRoot pitch.WithDegree
+	}
+
+	testCases := []testCase{
+		{
+			Title:        "Lydian",
+			GivenScale:   scale.Lydian,
+			GivenTonic:   pitch.FNatural,
+			ExpectedRoot: pitch.WithDegree{Pitch: pitch.FNatural, Degree: degree.FromInt(1)},
+		},
+		{
+			Title:        "Phrygian",
+			GivenScale:   scale.Phrygian,
+			GivenTonic:   pitch.ENatural,
+			ExpectedRoot: pitch.WithDegree{Pitch: pitch.FNatural, Degree: degree.FromInt(2)},
+		},
+		{
+			Title:        "Dorian",
+			GivenScale:   scale.Dorian,
+			GivenTonic:   pitch.DNatural,
+			ExpectedRoot: pitch.WithDegree{Pitch: pitch.FNatural, Degree: degree.FromInt(3)},
+		},
+		{
+			Title:        "Ionian",
+			GivenScale:   scale.Ionian,
+			GivenTonic:   pitch.CNatural,
+			ExpectedRoot: pitch.WithDegree{Pitch: pitch.FNatural, Degree: degree.FromInt(4)},
+		},
+		{
+			Title:        "Locrian",
+			GivenScale:   scale.Locrian,
+			GivenTonic:   pitch.BNatural,
+			ExpectedRoot: pitch.WithDegree{Pitch: pitch.FNatural, Degree: degree.FromInt(5)},
+		},
+		{
+			Title:        "Aeolian",
+			GivenScale:   scale.Aeolian,
+			GivenTonic:   pitch.ANatural,
+			ExpectedRoot: pitch.WithDegree{Pitch: pitch.FNatural, Degree: degree.FromInt(6)},
+		},
+		{
+			Title:        "Mixolydian",
+			GivenScale:   scale.Mixolydian,
+			GivenTonic:   pitch.GNatural,
+			ExpectedRoot: pitch.WithDegree{Pitch: pitch.FNatural, Degree: degree.FromInt(7)},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.Title, func(t *testing.T) {
+			assert.Equal(t, tc.ExpectedRoot, tc.GivenScale.FifthGeneratorRootWithTonic(tc.GivenTonic))
+		})
+	}
 }

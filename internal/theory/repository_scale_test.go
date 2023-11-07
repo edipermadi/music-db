@@ -139,7 +139,8 @@ func TestTheoryRepository_GetScale(t *testing.T) {
 			palindromic,
 			reflectional_symmetric,
 			reflectional_symmetry_axes,
-			balanced
+			balanced,
+			fifth_generator_root_degree
 		FROM scales
 		WHERE
 			id = $1;`
@@ -160,6 +161,7 @@ func TestTheoryRepository_GetScale(t *testing.T) {
 		"reflectional_symmetric",
 		"reflectional_symmetry_axes",
 		"balanced",
+		"fifth_generator_root_degree",
 	}
 
 	for _, tc := range testCases {
@@ -177,7 +179,7 @@ func TestTheoryRepository_GetScale(t *testing.T) {
 				sqlMock.ExpectQuery(getScaleQuery).
 					WithArgs(sqlmock.AnyArg()).
 					WillReturnRows(sqlmock.NewRows(getScaleColumns).
-						AddRow(1, "name", 2, 3, 4, 5, 6, []byte("[7,8]"), []byte("[9,10]"), true, 11, true, true, []byte("[12,13]"), true))
+						AddRow(1, "name", 2, 3, 4, 5, 6, []byte("[7,8]"), []byte("[9,10]"), true, 11, true, true, []byte("[12,13]"), true, 1))
 			}
 
 			repository := theory.NewRepository(logger, db)

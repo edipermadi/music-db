@@ -284,7 +284,7 @@
           },
           {
             "name": "cardinality",
-            "description": "Scale cardinality, count of pitches in the chord",
+            "description": "Scale cardinality, count of pitches in the scale",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -348,8 +348,7 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "minimum": 1,
-            "maximum": 12
+            "minimum": 1
           },
           {
             "name": "tonic_id",
@@ -423,7 +422,7 @@
           },
           {
             "name": "cardinality",
-            "description": "Key cardinality, count of pitches in the chord",
+            "description": "Key cardinality, count of pitches in the key",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -721,7 +720,7 @@
           },
           {
             "name": "cardinality",
-            "description": "Scale cardinality, count of pitches in the chord",
+            "description": "Scale cardinality, count of pitches in the scale",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -784,8 +783,7 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "minimum": 1,
-            "maximum": 12
+            "minimum": 1
           },
           {
             "name": "tonic_id",
@@ -859,7 +857,7 @@
           },
           {
             "name": "cardinality",
-            "description": "Key cardinality, count of pitches in the chord",
+            "description": "Key cardinality, count of pitches in the key",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -980,7 +978,7 @@
           },
           {
             "name": "cardinality",
-            "description": "Scale cardinality, count of pitches in the chord",
+            "description": "Scale cardinality, count of pitches in the scale",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1265,7 +1263,7 @@
           },
           {
             "name": "cardinality",
-            "description": "Scale cardinality, count of pitches in the chord",
+            "description": "Scale cardinality, count of pitches in the scale",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1320,8 +1318,7 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "minimum": 1,
-            "maximum": 12
+            "minimum": 1
           },
           {
             "name": "tonic_id",
@@ -1395,7 +1392,7 @@
           },
           {
             "name": "cardinality",
-            "description": "Key cardinality, count of pitches in the chord",
+            "description": "Key cardinality, count of pitches in the key",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1431,12 +1428,12 @@
     },
     "/keys/{key_id}": {
       "get": {
-        "operationId": "ListKeys",
+        "operationId": "GetKey",
         "tags": [
           "key"
         ],
-        "summary": "List keys",
-        "description": "List simplified keys",
+        "summary": "Get key",
+        "description": "Get detailed key information",
         "consumes": [
           "application/json"
         ],
@@ -1618,8 +1615,7 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "minimum": 1,
-            "maximum": 12
+            "minimum": 1
           },
           {
             "name": "tonic_id",
@@ -1693,7 +1689,7 @@
           },
           {
             "name": "cardinality",
-            "description": "Key cardinality, count of pitches in the chord",
+            "description": "Key cardinality, count of pitches in the key",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -2126,6 +2122,11 @@
         "balanced": {
           "type": "boolean",
           "description": "True when scale is balanced"
+        },
+        "fifth_generator_root_degree": {
+          "description": "The degree of the note in the scale that can be used to generate the whole scale using circle of fifth",
+          "type": "integer",
+          "minimum": 1
         }
       }
     },

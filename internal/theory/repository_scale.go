@@ -269,7 +269,8 @@ func (r theoryRepository) GetScale(ctx context.Context, scaleID int64) (*Detaile
 			palindromic,
 			reflectional_symmetric,
 			reflectional_symmetry_axes,
-			balanced
+			balanced,
+			fifth_generator_root_degree
 		FROM scales
 		WHERE
 			id = $1;`
