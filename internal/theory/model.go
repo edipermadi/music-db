@@ -79,6 +79,7 @@ type DetailedScale struct {
 	ReflectionalSymmetric    bool     `json:"reflectional_symmetric" db:"reflectional_symmetric"`
 	ReflectionalSymmetryAxes SliceInt `json:"reflectional_symmetry_axes" db:"reflectional_symmetry_axes"`
 	Balanced                 bool     `json:"balanced" db:"balanced"`
+	FifthGeneratorRootDegree int      `json:"fifth_generator_root_degree" db:"fifth_generator_root_degree"`
 }
 
 // SimplifiedScale is simplified scale object

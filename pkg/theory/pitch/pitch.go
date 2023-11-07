@@ -1,5 +1,7 @@
 package pitch
 
+import "github.com/edipermadi/music-db/pkg/theory/degree"
+
 // Type is a type for pitch
 type Type int
 
@@ -236,4 +238,10 @@ func (p Type) Tritone() Type {
 	default:
 		return Invalid
 	}
+}
+
+// WithDegree represents a tuple of pitch with it's correspond degree
+type WithDegree struct {
+	Pitch  Type
+	Degree degree.Type
 }
