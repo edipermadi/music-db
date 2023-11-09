@@ -5,7 +5,7 @@ services:
   db:
     build:
       context: .
-      dockerfile: db/Dockerfile
+      dockerfile: containers/db/Dockerfile
     ports:
       - "5433:5432"
     networks:
@@ -19,7 +19,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: api/Dockerfile
+      dockerfile: containers/api/Dockerfile
     ports:
       - "3000:3000"
     environment:

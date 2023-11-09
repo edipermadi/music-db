@@ -379,7 +379,7 @@ func TestAllPitches(t *testing.T) {
 	assert.NotEmpty(t, pitch.AllPitches())
 }
 
-func TestType_NextFifth(t *testing.T) {
+func TestType_PreviousFifth(t *testing.T) {
 	assert.Equal(t, pitch.FNatural, pitch.CNatural.PreviousFifth())
 	assert.Equal(t, pitch.ASharp, pitch.FNatural.PreviousFifth())
 	assert.Equal(t, pitch.DSharp, pitch.ASharp.PreviousFifth())
@@ -392,4 +392,13 @@ func TestType_NextFifth(t *testing.T) {
 	assert.Equal(t, pitch.DNatural, pitch.ANatural.PreviousFifth())
 	assert.Equal(t, pitch.GNatural, pitch.DNatural.PreviousFifth())
 	assert.Equal(t, pitch.CNatural, pitch.GNatural.PreviousFifth())
+}
+
+func TestType_NextFifth(t *testing.T) {
+	for _, v := range pitch.AllPitches() {
+		nextFifth := v.Transpose(7)
+		prevFifth := v.Transpose(-7)
+		assert.Equal(t, nextFifth, v.NextFifth())
+		assert.Equal(t, prevFifth, v.PreviousFifth())
+	}
 }

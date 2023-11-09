@@ -1,6 +1,9 @@
 package pitch
 
-import "github.com/edipermadi/music-db/pkg/theory/degree"
+import (
+	"github.com/edipermadi/music-db/pkg/theory/degree"
+	"github.com/edipermadi/music-db/pkg/theory/interval"
+)
 
 // Type is a type for pitch
 type Type int
@@ -41,6 +44,10 @@ func AllPitches() []Type {
 }
 
 func (p Type) String() string {
+	if p < CNatural || p > BNatural {
+		return "Invalid"
+	}
+
 	return [...]string{
 		"Invalid",
 		"CNatural",
@@ -60,6 +67,10 @@ func (p Type) String() string {
 
 // Frequency returns pitch frequency
 func (p Type) Frequency() float64 {
+	if p < CNatural || p > BNatural {
+		return 0
+	}
+
 	return [...]float64{
 		0,
 		261.63,
@@ -84,7 +95,7 @@ func (p Type) Number() int {
 
 // ZeitlerNumber return pitch numbering according to William Zeitler's system
 func (p Type) ZeitlerNumber() int {
-	if p < CNatural {
+	if p < CNatural || p > BNatural {
 		return 0
 	}
 	return 1 << (12 - p)
@@ -92,7 +103,7 @@ func (p Type) ZeitlerNumber() int {
 
 // RingNumber return pitch numbering according to Ian Ring's system
 func (p Type) RingNumber() int {
-	if p < CNatural {
+	if p < CNatural || p > BNatural {
 		return 0
 	}
 
@@ -101,7 +112,7 @@ func (p Type) RingNumber() int {
 
 // Transpose return transposed pitch
 func (p Type) Transpose(amount int) Type {
-	if p < CNatural {
+	if p < CNatural || p > BNatural {
 		return Invalid
 	}
 
@@ -114,130 +125,26 @@ func (p Type) Transpose(amount int) Type {
 }
 
 func fromInt(v int) Type {
-	switch v {
-	case 1:
-		return CNatural
-	case 2:
-		return CSharp
-	case 3:
-		return DNatural
-	case 4:
-		return DSharp
-	case 5:
-		return ENatural
-	case 6:
-		return FNatural
-	case 7:
-		return FSharp
-	case 8:
-		return GNatural
-	case 9:
-		return GSharp
-	case 10:
-		return ANatural
-	case 11:
-		return ASharp
-	case 12:
-		return BNatural
-	default:
+	if v < 1 || v > 12 {
 		return Invalid
 	}
+
+	return Type(v)
 }
 
 // NextFifth returns next fifth
 func (p Type) NextFifth() Type {
-	switch p {
-	case CNatural:
-		return GNatural
-	case CSharp:
-		return GSharp
-	case DNatural:
-		return ANatural
-	case DSharp:
-		return ASharp
-	case ENatural:
-		return BNatural
-	case FNatural:
-		return CNatural
-	case FSharp:
-		return CSharp
-	case GNatural:
-		return DNatural
-	case GSharp:
-		return DSharp
-	case ANatural:
-		return ENatural
-	case ASharp:
-		return FNatural
-	case BNatural:
-		return FSharp
-	default:
-		return Invalid
-	}
+	return p.Transpose(interval.PerfectFifth.Semitones())
 }
 
 // PreviousFifth returns previous fifth
 func (p Type) PreviousFifth() Type {
-	switch p {
-	case CNatural:
-		return FNatural
-	case CSharp:
-		return FSharp
-	case DNatural:
-		return GNatural
-	case DSharp:
-		return GSharp
-	case ENatural:
-		return ANatural
-	case FNatural:
-		return ASharp
-	case FSharp:
-		return BNatural
-	case GNatural:
-		return CNatural
-	case GSharp:
-		return CSharp
-	case ANatural:
-		return DNatural
-	case ASharp:
-		return DSharp
-	case BNatural:
-		return ENatural
-	default:
-		return Invalid
-	}
+	return p.Transpose(-interval.PerfectFifth.Semitones())
 }
 
 // Tritone returns a tritone away from given pitch
 func (p Type) Tritone() Type {
-	switch p {
-	case CNatural:
-		return FSharp
-	case CSharp:
-		return GNatural
-	case DNatural:
-		return GSharp
-	case DSharp:
-		return ANatural
-	case ENatural:
-		return ASharp
-	case FNatural:
-		return BNatural
-	case FSharp:
-		return CNatural
-	case GNatural:
-		return CSharp
-	case GSharp:
-		return DNatural
-	case ANatural:
-		return DSharp
-	case ASharp:
-		return ENatural
-	case BNatural:
-		return FNatural
-	default:
-		return Invalid
-	}
+	return p.Transpose(interval.Tritone.Semitones())
 }
 
 // WithDegree represents a tuple of pitch with it's correspond degree
@@ -245,3 +152,6 @@ type WithDegree struct {
 	Pitch  Type
 	Degree degree.Type
 }
+
+// Func defines a pitch function that maps a pitch from one to another
+type Func func(p Type) Type
