@@ -121,10 +121,10 @@ func (p Type) Transpose(amount int) Type {
 	}
 
 	val := (((int(p)-1)+amount)%12 + 12) % 12
-	return fromInt(val + 1)
+	return FromInt(val + 1)
 }
 
-func fromInt(v int) Type {
+func FromInt(v int) Type {
 	if v < 1 || v > 12 {
 		return Invalid
 	}
