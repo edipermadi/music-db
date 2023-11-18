@@ -87,7 +87,7 @@ func (r theoryRepository) ListScales(ctx context.Context, filter ScaleFilter, pa
 
 	queryCount := fmt.Sprintf(`
 		SELECT
-			COUNT(1)
+			COUNT(DISTINCT s.id)
 		FROM scales s
 		JOIN keys k ON s.id = k.scale_id
 		WHERE
@@ -109,7 +109,7 @@ func (r theoryRepository) ListScales(ctx context.Context, filter ScaleFilter, pa
 	pagination.NextPage = (pagination.Page + 1) % (pagination.TotalPages + 1)
 
 	queryList := fmt.Sprintf(`
-		SELECT
+		SELECT DISTINCT
 			s.id,
 			s.name
 		FROM scales s

@@ -29,6 +29,8 @@ Features:
 - Scale cardinality
 - Chord cardinality
 - Ian Ring's numbering system for pitches, chords and scales
+- Scale and key illustration as pitch class bracelet diagram
+- Scale and key illustration as circle of fifth bracelet diagram
 
 ## Running test
 
@@ -43,6 +45,8 @@ To get database up and running
 ```shell
 docker-compose up
 ```
+
+Navigate to http://localhost:3000/api/docs/ to see swagger docs
 
 ## Example Queries
 
@@ -110,20 +114,37 @@ Pagination via query string `page` and `per_page`
 
 ### Scales
 
-| Method | Path                                  | Description        |
-|--------|---------------------------------------|--------------------|
-| GET    | `/api/v1/theory/scales/{:id}/chords`  | List scale chords  |
-| GET    | `/api/v1/theory/scales/{:id}/keys`    | List scale keys    |
-| GET    | `/api/v1/theory/scales/{:id}/pitches` | List scale pitches |
-| GET    | `/api/v1/theory/scales/{:id}`         | Get scale detail   |
-| GET    | `/api/v1/theory/scales`               | List scales        |
+| Method | Path                                                                 | Description                                                |
+|--------|----------------------------------------------------------------------|------------------------------------------------------------|
+| GET    | `/api/v1/theory/scales/{:id}/chords`                                 | List scale chords                                          |
+| GET    | `/api/v1/theory/scales/{:id}/keys`                                   | List scale keys                                            |
+| GET    | `/api/v1/theory/scales/{:id}/pitches`                                | List scale pitches                                         |
+| GET    | `/api/v1/theory/scales/{:id}`                                        | Get scale detail                                           |
+| GET    | `/api/v1/theory/scales`                                              | List scales                                                |
+| GET    | `/api/v1/theory/scales/{:id}/illustrations/pitch_class_bracelet`     | Illustrate the scale as a pitch class bracelet diagram     |
+| GET    | `/api/v1/theory/scales/{:id}/illustrations/circle_of_fifth_bracelet` | Illustrate the scale as a circle of fifth bracelet diagram |
 
 ### Keys
 
-| Method | Path                                | Description      |
-|--------|-------------------------------------|------------------|
-| GET    | `/api/v1/theory/keys/{:id}/chords`  | List key chords  |
-| GET    | `/api/v1/theory/keys/{:id}/modes`   | List key modes   |
-| GET    | `/api/v1/theory/keys/{:id}/pitches` | List key pitches |
-| GET    | `/api/v1/theory/keys/{:id}`         | Get key detail   |
-| GET    | `/api/v1/theory/keys`               | List keys        |
+| Method | Path                                                               | Description                                              |
+|--------|--------------------------------------------------------------------|----------------------------------------------------------|
+| GET    | `/api/v1/theory/keys/{:id}/chords`                                 | List key chords                                          |
+| GET    | `/api/v1/theory/keys/{:id}/modes`                                  | List key modes                                           |
+| GET    | `/api/v1/theory/keys/{:id}/pitches`                                | List key pitches                                         |
+| GET    | `/api/v1/theory/keys/{:id}`                                        | Get key detail                                           |
+| GET    | `/api/v1/theory/keys`                                              | List keys                                                |
+| GET    | `/api/v1/theory/keys/{:id}/illustrations/pitch_class_bracelet`     | Illustrate the key as a pitch class bracelet diagram     |
+| GET    | `/api/v1/theory/keys/{:id}/illustrations/circle_of_fifth_bracelet` | Illustrate the key as a circle of fifth bracelet diagram |
+
+## Bracelet Diagram
+
+### Pitch Class Bracelet Diagram
+
+C Natural Ionian illustrated as pitch class bracelet diagram
+
+![CNaturalIonian](docs/images/CNaturalIonianPitchClassBracelet.png)
+
+### Circle Of Fifth Bracelet Diagram
+
+C Natural Ionian illustrated as circle of fifth bracelet diagram
+![CNaturalIonian](docs/images/CNaturalIonianCircleOfFifthBracelet.png)

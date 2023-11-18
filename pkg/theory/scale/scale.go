@@ -1984,3 +1984,11 @@ func makePitchMap(pitches []pitch.Type) map[pitch.Type]struct{} {
 
 	return pitchMap
 }
+
+// FromInt returns scale from integer
+func FromInt(num int) Type {
+	if num < int(Minoric) || num > int(Chromatic) {
+		return Invalid
+	}
+	return Type(num)
+}

@@ -33,12 +33,12 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			Title: "ReturnsKeysWhenSucceededWithoutFilter",
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT k.id)
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 				WHERE TRUE;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					k.id,
 					k.name
 				FROM keys k
@@ -57,13 +57,13 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			GivenFilter: theory.KeyFilter{ScaleID: 1},
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT k.id)
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 				WHERE
 					k.scale_id = $1;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					k.id,
 					k.name
 				FROM keys k
@@ -83,13 +83,13 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			GivenFilter: theory.KeyFilter{TonicID: 1},
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT k.id)
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 				WHERE
 					k.tonic_id = $1;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					k.id,
 					k.name
 				FROM keys k
@@ -109,13 +109,13 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			GivenFilter: theory.KeyFilter{ZeitlerNumber: 1},
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT k.id)
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 				WHERE
 					k.zeitler_number = $1;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					k.id,
 					k.name
 				FROM keys k
@@ -135,13 +135,13 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			GivenFilter: theory.KeyFilter{RingNumber: 1},
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT k.id)
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 				WHERE
 					k.ring_number = $1;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					k.id,
 					k.name
 				FROM keys k
@@ -161,13 +161,13 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			GivenFilter: theory.KeyFilter{Perfection: &valueInt},
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT k.id)
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 				WHERE
 					s.perfection = $1;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					k.id,
 					k.name
 				FROM keys k
@@ -187,13 +187,13 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			GivenFilter: theory.KeyFilter{Imperfection: &valueInt},
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT k.id)
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 				WHERE
 					s.imperfection = $1;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					k.id,
 					k.name
 				FROM keys k
@@ -213,13 +213,13 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			GivenFilter: theory.KeyFilter{Balanced: &valueBool},
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT k.id)
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 				WHERE
 					k.balanced = $1;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					k.id,
 					k.name
 				FROM keys k
@@ -239,13 +239,13 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			GivenFilter: theory.KeyFilter{RotationalSymmetric: &valueBool},
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT k.id)
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 				WHERE
 					s.rotational_symmetric = $1;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					k.id,
 					k.name
 				FROM keys k
@@ -265,13 +265,13 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			GivenFilter: theory.KeyFilter{RotationalSymmetryLevel: 1},
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT k.id)
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 				WHERE
 					s.rotational_symmetry_level = $1;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					k.id,
 					k.name
 				FROM keys k
@@ -291,13 +291,13 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			GivenFilter: theory.KeyFilter{ReflectionalSymmetric: &valueBool},
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT k.id)
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 				WHERE
 					s.reflectional_symmetric = $1;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					k.id,
 					k.name
 				FROM keys k
@@ -317,13 +317,13 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			GivenFilter: theory.KeyFilter{Palindromic: &valueBool},
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT k.id)
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 				WHERE
 					s.palindromic = $1;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					k.id,
 					k.name
 				FROM keys k
@@ -343,13 +343,13 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			GivenFilter: theory.KeyFilter{Cardinality: 1},
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT k.id)
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 				WHERE
 					s.cardinality = $1;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					k.id,
 					k.name
 				FROM keys k
@@ -368,12 +368,12 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			Title: "ReturnsErrorWhenCountKeysFailed",
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT k.id)
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 				WHERE TRUE;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					k.id,
 					k.name
 				FROM keys k
@@ -392,12 +392,12 @@ func TestTheoryRepository_ListKeys(t *testing.T) {
 			Title: "ReturnsErrorWhenListKeysFailed",
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT k.id)
 				FROM keys k
 					JOIN scales s ON k.scale_id = s.id
 				WHERE TRUE;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					k.id,
 					k.name
 				FROM keys k
@@ -932,13 +932,13 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 			Title: "ReturnsChordsWhenSucceededWithoutFilter",
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT c.id)
 				FROM key_pitch_chords kpc
 					JOIN chords c ON kpc.chord_id = c.id
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 				WHERE kpc.key_id = $1;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					c.id,
 					c.name
 				FROM key_pitch_chords kpc 
@@ -959,7 +959,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 			GivenFilter: theory.ChordFilter{ChordQualityID: 1},
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT c.id)
 				FROM key_pitch_chords kpc
 					JOIN chords c ON kpc.chord_id = c.id
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
@@ -967,7 +967,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 					kpc.key_id         = $1 AND
 					c.chord_quality_id = $2;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					c.id,
 					c.name
 				FROM key_pitch_chords kpc 
@@ -989,7 +989,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 			GivenFilter: theory.ChordFilter{RootID: 1},
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT c.id)
 				FROM key_pitch_chords kpc
 					JOIN chords c ON kpc.chord_id = c.id
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
@@ -997,7 +997,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 					kpc.key_id = $1 AND
 					c.root_id  = $2;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					c.id,
 					c.name
 				FROM key_pitch_chords kpc 
@@ -1019,7 +1019,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 			GivenFilter: theory.ChordFilter{ZeitlerNumber: 1},
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT c.id)
 				FROM key_pitch_chords kpc
 					JOIN chords c ON kpc.chord_id = c.id
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
@@ -1027,7 +1027,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 					kpc.key_id       = $1 AND
 					c.zeitler_number = $2;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					c.id,
 					c.name
 				FROM key_pitch_chords kpc 
@@ -1049,7 +1049,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 			GivenFilter: theory.ChordFilter{RingNumber: 1},
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT c.id)
 				FROM key_pitch_chords kpc
 					JOIN chords c ON kpc.chord_id = c.id
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
@@ -1057,7 +1057,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 					kpc.key_id    = $1 AND
 					c.ring_number = $2;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					c.id,
 					c.name
 				FROM key_pitch_chords kpc 
@@ -1079,7 +1079,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 			GivenFilter: theory.ChordFilter{Cardinality: 1},
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT c.id)
 				FROM key_pitch_chords kpc
 					JOIN chords c ON kpc.chord_id = c.id
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
@@ -1087,7 +1087,7 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 					kpc.key_id     = $1 AND
 					cq.cardinality = $2;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					c.id,
 					c.name
 				FROM key_pitch_chords kpc 
@@ -1108,13 +1108,13 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 			Title: "ReturnsErrorWhenCountKeyChordsFailed",
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT c.id)
 				FROM key_pitch_chords kpc
 					JOIN chords c ON kpc.chord_id = c.id
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 				WHERE kpc.key_id = $1;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					c.id,
 					c.name
 				FROM key_pitch_chords kpc 
@@ -1135,13 +1135,13 @@ func TestTheoryRepository_ListKeyChords(t *testing.T) {
 			Title: "ReturnsErrorWhenListKeyChordsFailed",
 			ExpectedCountQuery: `
 				SELECT
-					COUNT(1)
+					COUNT(DISTINCT c.id)
 				FROM key_pitch_chords kpc
 					JOIN chords c ON kpc.chord_id = c.id
 					JOIN chord_qualities cq ON c.chord_quality_id = cq.id
 				WHERE kpc.key_id = $1;`,
 			ExpectedListQuery: `
-				SELECT
+				SELECT DISTINCT
 					c.id,
 					c.name
 				FROM key_pitch_chords kpc 
