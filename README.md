@@ -147,4 +147,4 @@ C Natural Ionian illustrated as pitch class bracelet diagram
 ### Circle Of Fifth Bracelet Diagram
 
 C Natural Ionian illustrated as circle of fifth bracelet diagram
-![CNaturalIonian](docs/images/CNaturalIonianPitchClassBracelet.png)
+![CNaturalIonian](docs/images/CNaturalIonianCircleOfFifthBracelet.png)
