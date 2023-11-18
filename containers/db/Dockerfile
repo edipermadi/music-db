@@ -18,5 +18,5 @@ ENV POSTGRES_DB music
 ENV POSTGRES_USER music
 ENV POSTGRES_PASSWORD music
 
-COPY db/schema.sql /docker-entrypoint-initdb.d/00-schema.sql
+COPY containers/db/schema.sql /docker-entrypoint-initdb.d/00-schema.sql
 COPY --from=builder /build/seed.sql /docker-entrypoint-initdb.d/01-seed.sql

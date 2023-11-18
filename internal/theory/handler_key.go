@@ -2,6 +2,10 @@ package theory
 
 import (
 	"errors"
+	"fmt"
+	"github.com/edipermadi/music-db/pkg/illustations"
+	"github.com/edipermadi/music-db/pkg/theory/pitch"
+	"image/png"
 	"net/http"
 	"strconv"
 
@@ -24,6 +28,8 @@ func (h theoryHandler) installKeyEndpoints(router *mux.Router) {
 	router.HandleFunc("/keys/{id:[0-9]+}/chords", h.ListKeyChords).Methods(http.MethodGet).Name("LIST_KEY_CHORDS")
 	router.HandleFunc("/keys/{id:[0-9]+}/modes", h.ListKeyModes).Methods(http.MethodGet).Name("LIST_KEY_MODES")
 	router.HandleFunc("/keys/{id:[0-9]+}/pitches", h.ListKeyPitches).Methods(http.MethodGet).Name("LIST_KEY_PITCHES")
+	router.HandleFunc("/keys/{id:[0-9]+}/illustrations/pitch_class_bracelet", h.IllustrateKeyAsPitchClassBraceletDiagram).Methods(http.MethodGet).Name("ILLUSTRATE_KEY_AS_PITCH_CLASSES_BRACELET")
+	router.HandleFunc("/keys/{id:[0-9]+}/illustrations/circle_of_fifth_bracelet", h.IllustrateKeyAsCircleOfFifthBraceletDiagram).Methods(http.MethodGet).Name("ILLUSTRATE_KEY_AS_CIRCLE_OF_FIFTH_BRACELET")
 }
 
 func (h theoryHandler) ListKeys(writer http.ResponseWriter, request *http.Request) {
@@ -124,4 +130,68 @@ func (h theoryHandler) GetKey(writer http.ResponseWriter, request *http.Request)
 	default:
 		h.ReplyJSON(writer, http.StatusOK, key)
 	}
+}
+
+func (h theoryHandler) IllustrateKeyAsPitchClassBraceletDiagram(writer http.ResponseWriter, request *http.Request) {
+	ctx := request.Context()
+
+	// get key
+	keyID, _ := strconv.ParseInt(mux.Vars(request)["id"], 10, 64)
+	key, err := h.service.GetKey(ctx, keyID)
+	switch {
+	case errors.Is(err, ErrKeyNotFound):
+		h.ReplyJSON(writer, http.StatusNotFound, api.ErrResourceNotFound)
+	case err != nil:
+		h.Logger().With(zap.Error(err)).Error("failed to get key")
+		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
+	}
+
+	// list pitches
+	simplifiedPitches, err := h.service.ListKeyPitches(ctx, keyID)
+	if err != nil {
+		h.Logger().With(zap.Error(err)).Error("failed to list key pitches")
+		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
+	}
+
+	pitches := make([]pitch.Type, 0)
+	for _, v := range simplifiedPitches {
+		pitches = append(pitches, pitch.FromInt(int(v.ID)))
+	}
+
+	writer.WriteHeader(http.StatusOK)
+	writer.Header().Set("Content-Type", "image/png")
+	writer.Header().Set("Content-Disposition", fmt.Sprintf("inline; filename=%q", fmt.Sprintf("%sCircleOfFifthBracelet.png", key.Name)))
+	_ = png.Encode(writer, illustations.PitchClassBracelet(pitches))
+}
+
+func (h theoryHandler) IllustrateKeyAsCircleOfFifthBraceletDiagram(writer http.ResponseWriter, request *http.Request) {
+	ctx := request.Context()
+
+	// get key
+	keyID, _ := strconv.ParseInt(mux.Vars(request)["id"], 10, 64)
+	key, err := h.service.GetKey(ctx, keyID)
+	switch {
+	case errors.Is(err, ErrKeyNotFound):
+		h.ReplyJSON(writer, http.StatusNotFound, api.ErrResourceNotFound)
+	case err != nil:
+		h.Logger().With(zap.Error(err)).Error("failed to get key")
+		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
+	}
+
+	// list pitches
+	simplifiedPitches, err := h.service.ListKeyPitches(ctx, keyID)
+	if err != nil {
+		h.Logger().With(zap.Error(err)).Error("failed to list key pitches")
+		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
+	}
+
+	pitches := make([]pitch.Type, 0)
+	for _, v := range simplifiedPitches {
+		pitches = append(pitches, pitch.FromInt(int(v.ID)))
+	}
+
+	writer.WriteHeader(http.StatusOK)
+	writer.Header().Set("Content-Type", "image/png")
+	writer.Header().Set("Content-Disposition", fmt.Sprintf("inline; filename=%q", fmt.Sprintf("%sCircleOfFifthBracelet.png", key.Name)))
+	_ = png.Encode(writer, illustations.CircleOfFifthBracelet(pitches))
 }

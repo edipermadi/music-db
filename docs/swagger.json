@@ -1297,6 +1297,66 @@
         }
       }
     },
+    "/scales/{scale_id}/illustrations/pitch_class_bracelet": {
+      "get": {
+        "operationId": "IllustrateScaleAsPitchClassBracelet",
+        "tags": [
+          "scale"
+        ],
+        "summary": "Illustrate the scale as a pitch class bracelet diagram",
+        "description": "Illustrate the scale as a pitch class bracelet diagram. The Blue bead is the fifth generator root. The Orange bead is the imperfect pitch. Green beads has previous and next fifth sibling. The red bead is the orphan pitch (it does not have previous and next fifth sibling)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "image/png"
+        ],
+        "parameters": [
+          {
+            "name": "scale_id",
+            "description": "Scale identifier",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/scales/{scale_id}/illustrations/circle_of_fifth_bracelet": {
+      "get": {
+        "operationId": "IllustrateScaleAsCircleOfFifthBracelet",
+        "tags": [
+          "scale"
+        ],
+        "summary": "Illustrate the scale as a circle of fifth bracelet diagram",
+        "description": "Illustrate the scale as a circle of fifth bracelet diagram. The Blue bead is the fifth generator root. The Orange bead is the imperfect pitch. Green beads has previous and next fifth sibling. The red bead is the orphan pitch (it does not have previous and next fifth sibling)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "image/png"
+        ],
+        "parameters": [
+          {
+            "name": "scale_id",
+            "description": "Scale identifier",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
     "/keys": {
       "get": {
         "operationId": "ListKeys",
@@ -1719,6 +1779,66 @@
             "schema": {
               "$ref": "#/definitions/ListKeyModesResponse"
             }
+          }
+        }
+      }
+    },
+    "/keys/{key_id}/illustrations/pitch_class_bracelet": {
+      "get": {
+        "operationId": "IllustrateKeyAsPitchClassBracelet",
+        "tags": [
+          "key"
+        ],
+        "summary": "Illustrate the key as a pitch class bracelet diagram",
+        "description": "Illustrate the key as a pitch class bracelet diagram. The Blue bead is the fifth generator root. The Orange bead is the imperfect pitch. Green beads has previous and next fifth sibling. The red bead is the orphan pitch (it does not have previous and next fifth sibling)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "image/png"
+        ],
+        "parameters": [
+          {
+            "name": "key_id",
+            "description": "Key identifier",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/keys/{key_id}/illustrations/circle_of_fifth_bracelet": {
+      "get": {
+        "operationId": "IllustrateKeyAsCircleOfFifthBracelet",
+        "tags": [
+          "key"
+        ],
+        "summary": "Illustrate the key as a circle of fifth bracelet diagram",
+        "description": "Illustrate the key as a circle of fifth bracelet diagram. The Blue bead is the fifth generator root. The Orange bead is the imperfect pitch. Green beads has previous and next fifth sibling. The red bead is the orphan pitch (it does not have previous and next fifth sibling)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "image/png"
+        ],
+        "parameters": [
+          {
+            "name": "key_id",
+            "description": "Key identifier",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
           }
         }
       }

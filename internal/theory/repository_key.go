@@ -92,7 +92,7 @@ func (r theoryRepository) ListKeys(ctx context.Context, filter KeyFilter, pagina
 
 	queryCount := fmt.Sprintf(`
 		SELECT
-			COUNT(1)
+			COUNT(DISTINCT k.id)
 		FROM keys k
 			JOIN scales s ON k.scale_id = s.id
 		WHERE
@@ -114,7 +114,7 @@ func (r theoryRepository) ListKeys(ctx context.Context, filter KeyFilter, pagina
 	pagination.NextPage = (pagination.Page + 1) % (pagination.TotalPages + 1)
 
 	queryList := fmt.Sprintf(`
-		SELECT
+		SELECT DISTINCT
 			k.id,
 			k.name
 		FROM keys k
@@ -258,7 +258,7 @@ func (r theoryRepository) ListKeyChords(ctx context.Context, keyID int64, filter
 
 	queryCount := fmt.Sprintf(`
 		SELECT
-			COUNT(1)
+			COUNT(DISTINCT c.id)
 		FROM key_pitch_chords kpc
 			JOIN chords c ON kpc.chord_id = c.id
 			JOIN chord_qualities cq ON c.chord_quality_id = cq.id
@@ -281,7 +281,7 @@ func (r theoryRepository) ListKeyChords(ctx context.Context, keyID int64, filter
 	pagination.NextPage = (pagination.Page + 1) % (pagination.TotalPages + 1)
 
 	queryList := fmt.Sprintf(`
-		SELECT
+		SELECT DISTINCT
 			c.id,
 			c.name
 		FROM key_pitch_chords kpc

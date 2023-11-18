@@ -36,7 +36,7 @@ func TestTheoryRepository_ListScales(t *testing.T) {
 
 	countScalesQuery := `
 		SELECT
-			COUNT(1)
+			COUNT(DISTINCT s.id)
 		FROM scales s
 			JOIN keys k ON s.id = k.scale_id
 		WHERE
@@ -45,7 +45,7 @@ func TestTheoryRepository_ListScales(t *testing.T) {
 	countScalesColumns := []string{"count"}
 
 	listScalesQuery := `
-		SELECT
+		SELECT DISTINCT
 			s.id,
 			s.name
 		FROM scales s

@@ -12,7 +12,7 @@ build:  clean format lint vet sec coverage seed.sql music-api
 
 .PHONY: clean
 clean:
-	rm -f seed.sql music-api
+	rm -f seed.sql music-api music-gen
 
 .PHONY: sec-install
 sec-install:
@@ -53,5 +53,8 @@ coverage-html: test
 seed.sql:
 	$(GO) run ./cmd/gen -output=$(CURDIR)/seed.sql
 
-music-api:
-	$(GO) build -o music-api ./cmd/api
+music-api: coverage
+	$(GO) build -o $@ ./cmd/api
+
+music-gen: coverage
+	$(GO) build -o $@ ./cmd/gen
