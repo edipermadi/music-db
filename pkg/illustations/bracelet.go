@@ -124,12 +124,12 @@ func PitchClassBracelet(pitches []pitch.Type) (image.Image, error) {
 func CircleOfFifthBracelet(pitches []pitch.Type) (image.Image, error) {
 	labels := map[pitch.Type]string{
 		pitch.CNatural: "C",
-		pitch.CSharp:   "C♯",
+		pitch.CSharp:   "D♭",
 		pitch.DNatural: "D",
 		pitch.DSharp:   "E♭",
 		pitch.ENatural: "E",
 		pitch.FNatural: "F",
-		pitch.FSharp:   "F♯",
+		pitch.FSharp:   "G♭",
 		pitch.GNatural: "G",
 		pitch.GSharp:   "A♭",
 		pitch.ANatural: "A",
