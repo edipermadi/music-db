@@ -146,10 +146,18 @@ func (h theoryHandler) IllustrateScaleAsPitchClassBraceletDiagram(writer http.Re
 		pitches = append(pitches, pitch.FromInt(v+1))
 	}
 
+	// draw bracelet illustration
+	img, err := illustations.PitchClassBracelet(pitches)
+	if err != nil {
+		h.Logger().With(zap.Error(err)).Error("failed to draw bracelet diagram illustration for scale")
+		writer.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
 	writer.WriteHeader(http.StatusOK)
 	writer.Header().Set("Content-Type", "image/png")
 	writer.Header().Set("Content-Disposition", fmt.Sprintf("inline; filename=%q", fmt.Sprintf("%sCircleOfFifthBracelet.png", scale.Name)))
-	_ = png.Encode(writer, illustations.PitchClassBracelet(pitches))
+	_ = png.Encode(writer, img)
 }
 
 func (h theoryHandler) IllustrateScaleAsCircleOfFifthBraceletDiagram(writer http.ResponseWriter, request *http.Request) {
@@ -173,8 +181,16 @@ func (h theoryHandler) IllustrateScaleAsCircleOfFifthBraceletDiagram(writer http
 		pitches = append(pitches, pitch.FromInt(v+1))
 	}
 
+	// draw bracelet illustration
+	img, err := illustations.CircleOfFifthBracelet(pitches)
+	if err != nil {
+		h.Logger().With(zap.Error(err)).Error("failed to draw bracelet diagram illustration for scale")
+		writer.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
 	writer.WriteHeader(http.StatusOK)
 	writer.Header().Set("Content-Type", "image/png")
 	writer.Header().Set("Content-Disposition", fmt.Sprintf("inline; filename=%q", fmt.Sprintf("%sCircleOfFifthBracelet.png", scale.Name)))
-	_ = png.Encode(writer, illustations.CircleOfFifthBracelet(pitches))
+	_ = png.Encode(writer, img)
 }

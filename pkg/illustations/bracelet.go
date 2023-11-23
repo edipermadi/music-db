@@ -33,10 +33,14 @@ func pitchSliceToMap(pitches []pitch.Type) map[pitch.Type]struct{} {
 	return pitchMap
 }
 
-func drawBracelet(pitches []pitch.Type, circle []pitch.Type) image.Image {
+func drawBracelet(pitches []pitch.Type, circle []pitch.Type, labels map[pitch.Type]string) (image.Image, error) {
 	width := 800
 	height := 800
 	dc := gg.NewContext(width, height)
+	if err := dc.LoadFontFace("DroidSansFallback.ttf", 48); err != nil {
+		return nil, err
+	}
+
 	centerX := float64(width) / 2
 	centerY := float64(height) / 2
 
@@ -89,15 +93,48 @@ func drawBracelet(pitches []pitch.Type, circle []pitch.Type) image.Image {
 
 		// fill
 		dc.Fill()
+
+		// draw text
+		dc.SetRGB(0, 0, 0)
+		dc.DrawStringAnchored(labels[p], centerX+x, centerY-y, 0.5, 0.5)
 	}
 
-	return dc.Image()
+	return dc.Image(), nil
 }
 
-func PitchClassBracelet(pitches []pitch.Type) image.Image {
-	return drawBracelet(pitches, pitch.AllPitches())
+func PitchClassBracelet(pitches []pitch.Type) (image.Image, error) {
+	labels := map[pitch.Type]string{
+		pitch.CNatural: "C",
+		pitch.CSharp:   "C♯",
+		pitch.DNatural: "D",
+		pitch.DSharp:   "D♯",
+		pitch.ENatural: "E",
+		pitch.FNatural: "F",
+		pitch.FSharp:   "F♯",
+		pitch.GNatural: "G",
+		pitch.GSharp:   "G♯",
+		pitch.ANatural: "A",
+		pitch.ASharp:   "A♯",
+		pitch.BNatural: "B",
+	}
+
+	return drawBracelet(pitches, pitch.AllPitches(), labels)
 }
 
-func CircleOfFifthBracelet(pitches []pitch.Type) image.Image {
-	return drawBracelet(pitches, circleOfFifths())
+func CircleOfFifthBracelet(pitches []pitch.Type) (image.Image, error) {
+	labels := map[pitch.Type]string{
+		pitch.CNatural: "C",
+		pitch.CSharp:   "C♯",
+		pitch.DNatural: "D",
+		pitch.DSharp:   "E♭",
+		pitch.ENatural: "E",
+		pitch.FNatural: "F",
+		pitch.FSharp:   "F♯",
+		pitch.GNatural: "G",
+		pitch.GSharp:   "A♭",
+		pitch.ANatural: "A",
+		pitch.ASharp:   "B♭",
+		pitch.BNatural: "B",
+	}
+	return drawBracelet(pitches, circleOfFifths(), labels)
 }
