@@ -8,7 +8,7 @@ GOSEC		:= $(GOBIN)/gosec
 COVERAGE_FILE	:= coverage.out
 
 .PHONY: build
-build:  clean format lint vet sec coverage seed.sql music-api
+build:  clean format lint vet sec coverage seed.sql music-api music-gen
 
 .PHONY: clean
 clean:
@@ -38,8 +38,11 @@ sec: sec-install
 vet:
 	$(GO) vet ./...
 
+pkg/illustations/DroidSansFallback.ttf:
+	wget https://github.com/jenskutilek/free-fonts/raw/master/Droid/Droid%20Sans%20Fallback/DroidSansFallback.ttf -O $@
+
 .PHONY: test
-test:
+test: pkg/illustations/DroidSansFallback.ttf
 	$(GO) test -race -v ./... -coverprofile=$(COVERAGE_FILE)
 
 .PHONY: coverage

@@ -238,7 +238,8 @@ func TestType_FifthGeneratorRoot(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			assert.Equal(t, tc.ExpectedRoot, tc.GivenScale.FifthGeneratorRoot())
+			generator := tc.GivenScale.FifthGeneratorRoot()
+			assert.Equal(t, tc.ExpectedRoot, generator.Root())
 		})
 	}
 }
@@ -298,7 +299,8 @@ func TestType_FifthGeneratorRootWithTonic(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.Title, func(t *testing.T) {
-			assert.Equal(t, tc.ExpectedRoot, tc.GivenScale.FifthGeneratorRootWithTonic(tc.GivenTonic))
+			generator := tc.GivenScale.FifthGeneratorRootWithTonic(tc.GivenTonic)
+			assert.Equal(t, tc.ExpectedRoot, generator.Root())
 		})
 	}
 }

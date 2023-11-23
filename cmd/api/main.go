@@ -28,6 +28,7 @@ func main() {
 	vpr, err := loadConfig()
 	if err != nil {
 		logger.With(zap.Error(err)).Fatal("failed to load configuration")
+		return
 	}
 
 	router := mux.NewRouter()
@@ -50,9 +51,15 @@ func main() {
 	))
 	if err != nil {
 		logger.With(zap.Error(err)).Fatal("failed to parse database connection config")
+		return
 	}
 
+	// connect to database
 	db, err := sqlx.Open("pgx", stdlib.RegisterConnConfig(connConfig))
+	if err != nil {
+		logger.With(zap.Error(err)).Fatal("failed to connect to database")
+		return
+	}
 
 	theoryRepository := theory.NewRepository(logger, db)
 	theoryService := theory.NewService(logger, theoryRepository)

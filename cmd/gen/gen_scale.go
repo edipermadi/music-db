@@ -49,8 +49,8 @@ func buildScalesTableSeed(logger *zap.Logger, writer io.Writer) error {
 		reflectiveSymmetryAxes := v.ReflectiveSymmetryAxes()
 		encodedReflectiveSymmetryAxes, _ := json.Marshal(reflectiveSymmetryAxes)
 		balanced := v.Balanced()
-		fifthGeneratorRoot := v.FifthGeneratorRoot()
-		fifthGeneratorRootDegree := int(fifthGeneratorRoot.Degree)
+		fifthGenerator := v.FifthGeneratorRoot()
+		fifthGeneratorRootDegree := int(fifthGenerator.Root().Degree)
 		scaleEntries = append(scaleEntries, scaleEntry{
 			ID:                       int64(i + 1),
 			Name:                     v.String(),

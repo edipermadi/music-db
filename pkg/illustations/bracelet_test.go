@@ -19,8 +19,11 @@ func TestPitchClassBracelet(t *testing.T) {
 	}
 	defer func() { _ = os.Remove(file.Name()) }()
 
+	img, err := illustations.PitchClassBracelet(scale.Ionian.Pitches(pitch.CNatural))
+	require.NoError(t, err)
+
 	// draw CNaturalIonian
-	require.NoError(t, png.Encode(file, illustations.PitchClassBracelet(scale.Ionian.Pitches(pitch.CNatural))))
+	require.NoError(t, png.Encode(file, img))
 }
 
 func TestCircleOfFifthBracelet(t *testing.T) {
@@ -30,6 +33,9 @@ func TestCircleOfFifthBracelet(t *testing.T) {
 	}
 	defer func() { _ = os.Remove(file.Name()) }()
 
+	img, err := illustations.CircleOfFifthBracelet(scale.Ionian.Pitches(pitch.CNatural))
+	require.NoError(t, err)
+
 	// draw CNaturalIonian
-	require.NoError(t, png.Encode(file, illustations.CircleOfFifthBracelet(scale.Ionian.Pitches(pitch.CNatural))))
+	require.NoError(t, png.Encode(file, img))
 }

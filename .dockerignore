@@ -1,2 +1,12 @@
 seed.sql
 coverage.out
+containers/api/Dockerfile
+containers/db/Dockerfile
+mock
+docker-compose.yml
+.gitignore
+LICENSE
+Makefile
+README.md
+music-api
+music-gen
