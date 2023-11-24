@@ -104,14 +104,15 @@ Pagination via query string `page` and `per_page`
 
 ### Chords
 
-| Method | Path                                  | Description        |
-|--------|---------------------------------------|--------------------|
-| GET    | `/api/v1/theory/chords/{:id}/keys`    | List chord keys    |
-| GET    | `/api/v1/theory/chords/{:id}/pitches` | List chord pitches |
-| GET    | `/api/v1/theory/chords/{:id}/quality` | Get chord quality  |
-| GET    | `/api/v1/theory/chords/{:id}/scales`  | List chord scales  |
-| GET    | `/api/v1/theory/chords/{:id}`         | Get chord          |
-| GET    | `/api/v1/theory/chords`               | List chords        |
+| Method | Path                                                 | Description                         |
+|--------|------------------------------------------------------|-------------------------------------|
+| GET    | `/api/v1/theory/chords/{:id}/keys`                   | List chord keys                     |
+| GET    | `/api/v1/theory/chords/{:id}/pitches`                | List chord pitches                  |
+| GET    | `/api/v1/theory/chords/{:id}/quality`                | Get chord quality                   |
+| GET    | `/api/v1/theory/chords/{:id}/scales`                 | List chord scales                   |
+| GET    | `/api/v1/theory/chords/{:id}`                        | Get chord                           |
+| GET    | `/api/v1/theory/chords`                              | List chords                         |
+| GET    | `/api/v1/theory/chords/{:id}/illustrations/keyboard` | Illustrate the chord using keyboard |
 
 ### Scales
 
@@ -124,6 +125,7 @@ Pagination via query string `page` and `per_page`
 | GET    | `/api/v1/theory/scales`                                              | List scales                                                |
 | GET    | `/api/v1/theory/scales/{:id}/illustrations/pitch_class_bracelet`     | Illustrate the scale as a pitch class bracelet diagram     |
 | GET    | `/api/v1/theory/scales/{:id}/illustrations/circle_of_fifth_bracelet` | Illustrate the scale as a circle of fifth bracelet diagram |
+| GET    | `/api/v1/theory/scales/{:id}/illustrations/keyboard`                 | Illustrate the scale using keyboard                        |
 
 ### Keys
 
@@ -136,6 +138,7 @@ Pagination via query string `page` and `per_page`
 | GET    | `/api/v1/theory/keys`                                              | List keys                                                |
 | GET    | `/api/v1/theory/keys/{:id}/illustrations/pitch_class_bracelet`     | Illustrate the key as a pitch class bracelet diagram     |
 | GET    | `/api/v1/theory/keys/{:id}/illustrations/circle_of_fifth_bracelet` | Illustrate the key as a circle of fifth bracelet diagram |
+| GET    | `/api/v1/theory/keys/{:id}/illustrations/keyboard`                 | Illustrate the key using keyboard                        |
 
 ## Bracelet Diagram
 

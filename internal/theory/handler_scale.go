@@ -30,6 +30,7 @@ func (h theoryHandler) installScaleEndpoints(router *mux.Router) {
 	router.HandleFunc("/scales/{id:[0-9]+}/pitches", h.ListScalePitches).Methods(http.MethodGet).Name("LIST_SCALE_PITCHES")
 	router.HandleFunc("/scales/{id:[0-9]+}/illustrations/pitch_class_bracelet", h.IllustrateScaleAsPitchClassBraceletDiagram).Methods(http.MethodGet).Name("ILLUSTRATE_SCALE_AS_PITCH_CLASS_BRACELET")
 	router.HandleFunc("/scales/{id:[0-9]+}/illustrations/circle_of_fifth_bracelet", h.IllustrateScaleAsCircleOfFifthBraceletDiagram).Methods(http.MethodGet).Name("ILLUSTRATE_SCALE_AS_CIRCLE_OF_FIFTH_BRACELET")
+	router.HandleFunc("/scales/{id:[0-9]+}/illustrations/keyboard", h.IllustrateScaleWithKeyboard).Methods(http.MethodGet).Name("ILLUSTRATE_SCALE_WITH_KEYBOARD")
 }
 
 func (h theoryHandler) ListScales(writer http.ResponseWriter, request *http.Request) {
@@ -192,5 +193,40 @@ func (h theoryHandler) IllustrateScaleAsCircleOfFifthBraceletDiagram(writer http
 	writer.WriteHeader(http.StatusOK)
 	writer.Header().Set("Content-Type", "image/png")
 	writer.Header().Set("Content-Disposition", fmt.Sprintf("inline; filename=%q", fmt.Sprintf("%sCircleOfFifthBracelet.png", scale.Name)))
+	_ = png.Encode(writer, img)
+}
+
+func (h theoryHandler) IllustrateScaleWithKeyboard(writer http.ResponseWriter, request *http.Request) {
+	ctx := request.Context()
+
+	scaleID, _ := strconv.ParseInt(mux.Vars(request)["id"], 10, 64)
+
+	scale, err := h.service.GetScale(ctx, scaleID)
+	switch {
+	case errors.Is(err, ErrScaleNotFound):
+		h.ReplyJSON(writer, http.StatusNotFound, api.ErrResourceNotFound)
+		return
+	case err != nil:
+		h.Logger().With(zap.Error(err)).Error("failed to get scale")
+		h.ReplyJSON(writer, http.StatusInternalServerError, api.ErrInternalServer)
+		return
+	}
+
+	pitches := make([]pitch.Type, 0)
+	for _, v := range scale.PitchClass {
+		pitches = append(pitches, pitch.FromInt(v+1))
+	}
+
+	// draw keyboard illustration
+	img, err := illustations.Keyboard(pitches)
+	if err != nil {
+		h.Logger().With(zap.Error(err)).Error("failed to draw keyboard illustration for scale")
+		writer.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	writer.WriteHeader(http.StatusOK)
+	writer.Header().Set("Content-Type", "image/png")
+	writer.Header().Set("Content-Disposition", fmt.Sprintf("inline; filename=%q", fmt.Sprintf("%sKeyboard.png", scale.Name)))
 	_ = png.Encode(writer, img)
 }
