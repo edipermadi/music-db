@@ -43,6 +43,22 @@ func AllPitches() []Type {
 	}
 }
 
+func CircleOfFifths() []Type {
+	root := Invalid
+	result := make([]Type, 12)
+	for i := 0; i < 12; i++ {
+		if i == 0 {
+			root = CNatural
+		} else {
+			root = root.NextFifth()
+		}
+
+		result[i] = root
+	}
+
+	return result
+}
+
 func (p Type) String() string {
 	if p < CNatural || p > BNatural {
 		return "Invalid"

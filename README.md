@@ -31,6 +31,7 @@ Features:
 - Ian Ring's numbering system for pitches, chords and scales
 - Scale and key illustration as pitch class bracelet diagram
 - Scale and key illustration as circle of fifth bracelet diagram
+- Scale, key and chord and illustration using keyboard
 
 ## Running test
 
@@ -148,3 +149,9 @@ C Natural Ionian illustrated as pitch class bracelet diagram
 
 C Natural Ionian illustrated as circle of fifth bracelet diagram
 ![CNaturalIonian](docs/images/CNaturalIonianCircleOfFifthBracelet.png)
+
+## Keyboard
+
+FNaturalIonian illustrated using keyboard
+
+![FNaturalIonian](docs/images/FNaturalIonianKeyboard.png)
