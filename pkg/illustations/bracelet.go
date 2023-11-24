@@ -18,10 +18,10 @@ func pitchSliceToMap(pitches []pitch.Type) map[pitch.Type]struct{} {
 }
 
 func drawBracelet(pitches []pitch.Type, circle []pitch.Type, labels map[pitch.Type]string) (image.Image, error) {
-	width := 800
-	height := 800
+	width := 400
+	height := 400
 	dc := gg.NewContext(width, height)
-	if err := dc.LoadFontFace("DroidSansFallback.ttf", 48); err != nil {
+	if err := dc.LoadFontFace("DroidSansFallback.ttf", 24); err != nil {
 		return nil, err
 	}
 
@@ -29,12 +29,12 @@ func drawBracelet(pitches []pitch.Type, circle []pitch.Type, labels map[pitch.Ty
 	centerY := float64(height) / 2
 
 	// large outer circle
-	dc.DrawCircle(centerX, centerY, 300)
+	dc.DrawCircle(centerX, centerY, 150)
 	dc.SetRGB(0, 0, 0)
 	dc.Fill()
 
 	// large circle
-	dc.DrawCircle(centerX, centerY, 295)
+	dc.DrawCircle(centerX, centerY, 148)
 	dc.SetRGB(1, 1, 1)
 	dc.Fill()
 
@@ -43,11 +43,11 @@ func drawBracelet(pitches []pitch.Type, circle []pitch.Type, labels map[pitch.Ty
 
 	step := math.Pi / 6
 	for i, p := range circle {
-		x := math.Sin(step*float64(i)) * 298
-		y := math.Cos(step*float64(i)) * 298
+		x := math.Sin(step*float64(i)) * 145
+		y := math.Cos(step*float64(i)) * 145
 
 		// small outer circle
-		dc.DrawCircle(centerX+x, centerY-y, 65)
+		dc.DrawCircle(centerX+x, centerY-y, 32)
 		dc.SetRGB(0, 0, 0)
 		dc.Fill()
 
@@ -55,7 +55,7 @@ func drawBracelet(pitches []pitch.Type, circle []pitch.Type, labels map[pitch.Ty
 		_, match := pitchMap[p]
 
 		// small inner circle
-		dc.DrawCircle(centerX+x, centerY-y, 60)
+		dc.DrawCircle(centerX+x, centerY-y, 30)
 
 		// set color
 		if match {

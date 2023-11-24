@@ -41,7 +41,7 @@ func TestKeyboard_Chord(t *testing.T) {
 	require.NoError(t, err)
 	defer func() {
 		_ = file.Close()
-		//_ = os.Remove(file.Name())
+		_ = os.Remove(file.Name())
 	}()
 
 	// save image as png
