@@ -8,22 +8,6 @@ import (
 	"github.com/fogleman/gg"
 )
 
-func circleOfFifths() []pitch.Type {
-	root := pitch.Invalid
-	result := make([]pitch.Type, 12)
-	for i := 0; i < 12; i++ {
-		if i == 0 {
-			root = pitch.CNatural
-		} else {
-			root = root.NextFifth()
-		}
-
-		result[i] = root
-	}
-
-	return result
-}
-
 func pitchSliceToMap(pitches []pitch.Type) map[pitch.Type]struct{} {
 	pitchMap := make(map[pitch.Type]struct{})
 	for _, v := range pitches {
@@ -102,39 +86,40 @@ func drawBracelet(pitches []pitch.Type, circle []pitch.Type, labels map[pitch.Ty
 	return dc.Image(), nil
 }
 
-func PitchClassBracelet(pitches []pitch.Type) (image.Image, error) {
-	labels := map[pitch.Type]string{
-		pitch.CNatural: "C",
-		pitch.CSharp:   "C♯",
-		pitch.DNatural: "D",
-		pitch.DSharp:   "D♯",
-		pitch.ENatural: "E",
-		pitch.FNatural: "F",
-		pitch.FSharp:   "F♯",
-		pitch.GNatural: "G",
-		pitch.GSharp:   "G♯",
-		pitch.ANatural: "A",
-		pitch.ASharp:   "A♯",
-		pitch.BNatural: "B",
-	}
+var pitchClassLabels = map[pitch.Type]string{
+	pitch.CNatural: "C",
+	pitch.CSharp:   "C♯",
+	pitch.DNatural: "D",
+	pitch.DSharp:   "D♯",
+	pitch.ENatural: "E",
+	pitch.FNatural: "F",
+	pitch.FSharp:   "F♯",
+	pitch.GNatural: "G",
+	pitch.GSharp:   "G♯",
+	pitch.ANatural: "A",
+	pitch.ASharp:   "A♯",
+	pitch.BNatural: "B",
+}
 
-	return drawBracelet(pitches, pitch.AllPitches(), labels)
+var circleOfFifthLabels = map[pitch.Type]string{
+	pitch.CNatural: "C",
+	pitch.CSharp:   "D♭",
+	pitch.DNatural: "D",
+	pitch.DSharp:   "E♭",
+	pitch.ENatural: "E",
+	pitch.FNatural: "F",
+	pitch.FSharp:   "G♭",
+	pitch.GNatural: "G",
+	pitch.GSharp:   "A♭",
+	pitch.ANatural: "A",
+	pitch.ASharp:   "B♭",
+	pitch.BNatural: "B",
+}
+
+func PitchClassBracelet(pitches []pitch.Type) (image.Image, error) {
+	return drawBracelet(pitches, pitch.AllPitches(), pitchClassLabels)
 }
 
 func CircleOfFifthBracelet(pitches []pitch.Type) (image.Image, error) {
-	labels := map[pitch.Type]string{
-		pitch.CNatural: "C",
-		pitch.CSharp:   "D♭",
-		pitch.DNatural: "D",
-		pitch.DSharp:   "E♭",
-		pitch.ENatural: "E",
-		pitch.FNatural: "F",
-		pitch.FSharp:   "G♭",
-		pitch.GNatural: "G",
-		pitch.GSharp:   "A♭",
-		pitch.ANatural: "A",
-		pitch.ASharp:   "B♭",
-		pitch.BNatural: "B",
-	}
-	return drawBracelet(pitches, circleOfFifths(), labels)
+	return drawBracelet(pitches, pitch.CircleOfFifths(), circleOfFifthLabels)
 }

@@ -2,29 +2,25 @@ package illustations_test
 
 import (
 	"image/png"
-	"log"
 	"os"
 	"testing"
 
 	"github.com/edipermadi/music-db/pkg/illustations"
+	"github.com/edipermadi/music-db/pkg/theory/chord"
 	"github.com/edipermadi/music-db/pkg/theory/pitch"
 	"github.com/edipermadi/music-db/pkg/theory/scale"
 	"github.com/stretchr/testify/require"
 )
 
-func TestPitchClassBracelet(t *testing.T) {
+func TestKeyboard_Scale(t *testing.T) {
 	// generate image
-	pitches := scale.Ionian.Pitches(pitch.CNatural)
-	img, err := illustations.PitchClassBracelet(pitches)
+	pitches := scale.Ionian.Pitches(pitch.FNatural)
+	img, err := illustations.Keyboard(pitches)
 	require.NoError(t, err)
 
 	// create temporary file
-	file, err := os.CreateTemp(os.TempDir(), "pitch-class-bracelet.*.png")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// close and delete file later
+	file, err := os.CreateTemp(os.TempDir(), "keyboard-scale.*.png")
+	require.NoError(t, err)
 	defer func() {
 		_ = file.Close()
 		_ = os.Remove(file.Name())
@@ -34,22 +30,18 @@ func TestPitchClassBracelet(t *testing.T) {
 	require.NoError(t, png.Encode(file, img))
 }
 
-func TestCircleOfFifthBracelet(t *testing.T) {
+func TestKeyboard_Chord(t *testing.T) {
 	// generate image
-	pitches := scale.Ionian.Pitches(pitch.CNatural)
-	img, err := illustations.CircleOfFifthBracelet(pitches)
+	pitches := chord.Major.Pitches(pitch.CNatural)
+	img, err := illustations.Keyboard(pitches)
 	require.NoError(t, err)
 
 	// create temporary file
-	file, err := os.CreateTemp(os.TempDir(), "circle-of-fifth-bracelet.*.png")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// close and delete file later
+	file, err := os.CreateTemp(os.TempDir(), "keyboard-chord.*.png")
+	require.NoError(t, err)
 	defer func() {
 		_ = file.Close()
-		_ = os.Remove(file.Name())
+		//_ = os.Remove(file.Name())
 	}()
 
 	// save image as png

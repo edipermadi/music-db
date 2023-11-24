@@ -891,6 +891,36 @@
         }
       }
     },
+    "/chords/{chord_id}/illustrations/keyboard": {
+      "get": {
+        "operationId": "IllustrateChordUsingKeyboard",
+        "tags": [
+          "chord"
+        ],
+        "summary": "Illustrate the chord using keyboard",
+        "description": "Illustrate the chord using keyboard. Blue dot indicates the root",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "image/png"
+        ],
+        "parameters": [
+          {
+            "name": "chord_id",
+            "description": "Chord identifier",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
     "/scales": {
       "get": {
         "operationId": "ListScales",
@@ -1335,6 +1365,36 @@
         ],
         "summary": "Illustrate the scale as a circle of fifth bracelet diagram",
         "description": "Illustrate the scale as a circle of fifth bracelet diagram. The Blue bead is the fifth generator root. The Orange bead is the imperfect pitch. Green beads has previous and next fifth sibling. The red bead is the orphan pitch (it does not have previous and next fifth sibling)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "image/png"
+        ],
+        "parameters": [
+          {
+            "name": "scale_id",
+            "description": "Scale identifier",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/scales/{scale_id}/illustrations/keyboard": {
+      "get": {
+        "operationId": "IllustrateScaleUsingKeyboard",
+        "tags": [
+          "scale"
+        ],
+        "summary": "Illustrate the scale using keyboard",
+        "description": "Illustrate the scale using keyboard. Blue dot indicates the tonic",
         "consumes": [
           "application/json"
         ],
@@ -1821,6 +1881,36 @@
         ],
         "summary": "Illustrate the key as a circle of fifth bracelet diagram",
         "description": "Illustrate the key as a circle of fifth bracelet diagram. The Blue bead is the fifth generator root. The Orange bead is the imperfect pitch. Green beads has previous and next fifth sibling. The red bead is the orphan pitch (it does not have previous and next fifth sibling)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "image/png"
+        ],
+        "parameters": [
+          {
+            "name": "key_id",
+            "description": "Key identifier",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/keys/{key_id}/illustrations/keyboard": {
+      "get": {
+        "operationId": "IllustrateKeyUsingKeyboard",
+        "tags": [
+          "key"
+        ],
+        "summary": "Illustrate the key using keyboard",
+        "description": "Illustrate the key using keyboard. Blue dot indicates the tonic",
         "consumes": [
           "application/json"
         ],
