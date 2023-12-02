@@ -2,6 +2,7 @@ package theory
 
 import (
 	"github.com/edipermadi/music-db/internal/platform/handler"
+	"github.com/edipermadi/music-db/pkg/midi"
 	"github.com/go-playground/form/v4"
 	"github.com/gorilla/mux"
 	"go.uber.org/zap"
@@ -18,18 +19,20 @@ type Handler interface {
 }
 
 // NewHandler instantiates theory handler
-func NewHandler(logger *zap.Logger, service Service) Handler {
+func NewHandler(logger *zap.Logger, service Service, synthesizerFactory midi.SynthesizerFactory) Handler {
 	return theoryHandler{
-		Base:    handler.NewBase(logger),
-		service: service,
-		decoder: form.NewDecoder(),
+		Base:               handler.NewBase(logger),
+		service:            service,
+		decoder:            form.NewDecoder(),
+		synthesizerFactory: synthesizerFactory,
 	}
 }
 
 type theoryHandler struct {
 	handler.Base
-	service Service
-	decoder *form.Decoder
+	service            Service
+	decoder            *form.Decoder
+	synthesizerFactory midi.SynthesizerFactory
 }
 
 func (h theoryHandler) InstallEndpoints(router *mux.Router) {

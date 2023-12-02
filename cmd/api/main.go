@@ -4,15 +4,18 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
 	"github.com/edipermadi/music-db/internal/theory"
+	"github.com/edipermadi/music-db/pkg/midi"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/stdlib"
 	"github.com/jmoiron/sqlx"
+	"github.com/sinshu/go-meltysynth/meltysynth"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 )
@@ -61,9 +64,25 @@ func main() {
 		return
 	}
 
+	// open soundfont
+	sf2, err := os.Open("./soundfonts/FluidR3_GM.sf2")
+	if err != nil {
+		logger.With(zap.Error(err)).Fatal("failed to open soundfont file")
+		return
+	}
+
+	defer func() { _ = sf2.Close() }()
+
+	// load soundfont
+	soundFont, err := meltysynth.NewSoundFont(sf2)
+	if err != nil {
+		logger.With(zap.Error(err)).Fatal("failed to parse soundfont")
+		return
+	}
+
 	theoryRepository := theory.NewRepository(logger, db)
 	theoryService := theory.NewService(logger, theoryRepository)
-	handlerHandler := theory.NewHandler(logger, theoryService)
+	handlerHandler := theory.NewHandler(logger, theoryService, synthFactory{soundFont: soundFont})
 	handlerHandler.InstallEndpoints(theoryRouter)
 
 	srv := &http.Server{
@@ -96,4 +115,13 @@ func loadConfig() (*viper.Viper, error) {
 	}
 
 	return vpr, nil
+}
+
+type synthFactory struct {
+	soundFont *meltysynth.SoundFont
+}
+
+func (f synthFactory) Instantiate(sampleRate int32) (midi.Synthesizer, error) {
+	midiSynthSettings := meltysynth.NewSynthesizerSettings(sampleRate)
+	return meltysynth.NewSynthesizer(f.soundFont, midiSynthSettings)
 }

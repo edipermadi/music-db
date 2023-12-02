@@ -16,7 +16,8 @@ import (
 func TestNewHandler(t *testing.T) {
 	logger := mock.Logger()
 	service := mock.TheoryService(mock.TheoryServiceReturnValues{})
-	instance := theory.NewHandler(logger, service)
+	synthesizerFactory := &mock.SynthesizerFactory{}
+	instance := theory.NewHandler(logger, service, synthesizerFactory)
 	require.Implements(t, (*theory.Handler)(nil), instance)
 }
 
@@ -33,7 +34,8 @@ func (h *handlerTestCase) mockServer() *httptest.Server {
 	router := mux.NewRouter()
 	server := httptest.NewServer(router)
 	service := mock.TheoryService(h.ServiceReturnValues)
-	theory.NewHandler(logger, service).InstallEndpoints(router)
+	synthesizerFactory := &mock.SynthesizerFactory{}
+	theory.NewHandler(logger, service, synthesizerFactory).InstallEndpoints(router)
 	h.baseURL = server.URL
 	return server
 }

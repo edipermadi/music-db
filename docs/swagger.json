@@ -921,6 +921,36 @@
         }
       }
     },
+    "/chords/{chord_id}/illustrations/wav": {
+      "get": {
+        "operationId": "IllustrateChordUsingWavFile",
+        "tags": [
+          "chord"
+        ],
+        "summary": "Illustrate the chord wav file",
+        "description": "Illustrate the chord using wav file",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "audio/wav"
+        ],
+        "parameters": [
+          {
+            "name": "chord_id",
+            "description": "Chord identifier",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
     "/scales": {
       "get": {
         "operationId": "ListScales",
