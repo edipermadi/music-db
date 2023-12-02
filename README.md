@@ -32,6 +32,7 @@ Features:
 - Scale and key illustration as pitch class bracelet diagram
 - Scale and key illustration as circle of fifth bracelet diagram
 - Scale, key and chord and illustration using keyboard
+- Synthesize chord as WAV file (grand piano)
 
 ## Running test
 
@@ -113,6 +114,7 @@ Pagination via query string `page` and `per_page`
 | GET    | `/api/v1/theory/chords/{:id}`                        | Get chord                           |
 | GET    | `/api/v1/theory/chords`                              | List chords                         |
 | GET    | `/api/v1/theory/chords/{:id}/illustrations/keyboard` | Illustrate the chord using keyboard |
+| GET    | `/api/v1/theory/chords/{:id}/illustrations/wav`      | Synthesize the chord as WAV file    |
 
 ### Scales
 
