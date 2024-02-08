@@ -1,6 +1,6 @@
-FROM golang:1.21 AS builder
+FROM golang:1.22 AS builder
 
-ARG SWAGGER_UI_VERSION=5.10.0
+ARG SWAGGER_UI_VERSION=5.11.3
 ARG SOUNDFONT_VERSION=3.1
 
 WORKDIR /build
@@ -24,7 +24,7 @@ COPY . .
 RUN CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -a -o music-api cmd/api/main.go
 
 
-FROM alpine:3.18 AS final
+FROM alpine:3.19 AS final
 
 WORKDIR /app
 COPY --from=builder /etc/passwd /etc/passwd
